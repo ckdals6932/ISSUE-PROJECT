@@ -27,7 +27,7 @@
 	<div>
 	  <div id='ex1'>
 	  <div>
-	  	<span>Login</span>
+	  	<span>Login</span> 
 	  </div>
 	  	<input type ="text" name = "st_id">
 	  </div>

@@ -20,7 +20,7 @@ public class LoginController {
 	//LoginService loginService = new LoginService();
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {		
+	public String login(Locale locale, Model model) {		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
@@ -30,5 +30,10 @@ public class LoginController {
 		System.out.println("test");
 		return "login";
 	}
-	
+
+	@RequestMapping(value = "/userAddPopup.view", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		
+		return "userAddPopup";
+	}
 }

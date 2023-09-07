@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+body { 
+	font-family: "paybooc-Light", sans-serif;
+	font-size: 20px;
+}
+
+.w_10p {width: 10%}
+.w_15p {width: 15%}
+.w_20p {width: 20%}
+.w_25p {width: 25%}
+.w_30p {width: 30%}
+.w_35p {width: 35%}
+.w_40p {width: 40%}
+
+.h_10 {height: 10px}
+.h_15 {height: 15px}
+.h_20 {height: 20px}
+.h_25 {height: 25px}
+.h_30 {height: 30px}
+.h_35 {height: 35px}
+.h_40 {height: 40px}
+.h_45 {height: 45px}
+.h_50 {height: 50px}
+
+.m_10 {margin: 10px}
+.m_t_10 {margin-top: 10px}
+.m_t_50 {margin-top: 50px}
+.m_b_10 {margin-bottom: 10px}
+.m_r_10 {margin-right: 10px}
+.m_l_10 {margin-left: 10px}
+
+.p_10 {padding: 10px}
+
+.font_s_50 {font-size: 50px;}
+
+.center {text-align: center;}
+
+.btn {    
+	background: #000;
+    color: white;
+    border-radius: 5px;
+}
+.loginbtn {    
+	background: #000;
+    color: white;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.title {
+    display: block;
+  	text-align: center;
+}
+
+.underline {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 1;
+}

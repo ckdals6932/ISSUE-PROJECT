@@ -14,6 +14,15 @@
 	  display: table-cell;
 	  vertical-align: middle;
 	  text-align:center;
+	  background-color: #FFFFFF;
+	}
+	
+	#wrapper {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  min-height: 100dvh; /* 위 아래  */
+	  background-color: #eeeeee;
 	}
 	
 </style>
@@ -25,13 +34,16 @@
 	<h1>
 		Hello world!  
 	</h1>
-	<div>
+	<div id = 'wrapper'>
 	  	<div id='ex1'>
 		  	<div> 
-		  		<span>Login</span> 
+		  		<span style="font-size:300%">Login</span> 
 		  	</div>
 		  	<div>
 		  		<input type ="text" name = "st_id">
+	  		</div>
+	  		<div>
+		  		<input type ="text" name = "st_pw">
 	  		</div>
 	  		<div>
 		 		<input class="loginbtn w_30p h_45 m_10 p_10" id="loginBtn" name="loginBtn" type="button" value="로그인">

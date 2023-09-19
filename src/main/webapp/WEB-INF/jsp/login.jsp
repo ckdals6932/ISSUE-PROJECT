@@ -48,7 +48,7 @@
 	  		<div>
 	  			<img src="../../resources/images/free-icon-user-2657939.png" width="20" height="20" alt="비밀번호" />
 		  		<input class = "h_30" type ="text" name = "st_pw" placeholder="비밀번호를 입력해주세요" >
-	  		</div>
+	  		</div> 
 	  		<div class = "m_t_10">
 		 		<input class="loginbtn w_30p h_45 m_10 p_10" id="loginBtn" name="loginBtn" type="button" value="LOGIN" >
 	 		</div>

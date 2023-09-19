@@ -19,6 +19,7 @@
 	
 	#wrapper {
 	  display: flex;
+	  flex-direction: column;
 	  justify-content: center;
 	  align-items: center;
 	  min-height: 100dvh; /* 위 아래  */
@@ -35,24 +36,27 @@
 		Hello world!  
 	</h1>
 	<div id = 'wrapper'>
-	  	<div id='ex1'>
+	  	<div  id='ex1'>
 		  	<div> 
-		  		<span style="font-size:300%">Login</span> 
+		  		<span  style="font-size:300%">Login</span> 
 		  	</div>
-		  	<div>
-		  		<input type ="text" name = "st_id">
+		  	
+		  	<div class = "h_45 m_t_50">
+		  		<img src="../../resources/images/free-icon-user-2657939.png" width="20" height="20" alt="사용자" />
+		  		<input class = "h_30" type ="text" name = "st_id" placeholder="아이디를 입력해주세요">
 	  		</div>
 	  		<div>
-		  		<input type ="text" name = "st_pw">
+	  			<img src="../../resources/images/free-icon-user-2657939.png" width="20" height="20" alt="비밀번호" />
+		  		<input class = "h_30" type ="text" name = "st_pw" placeholder="비밀번호를 입력해주세요" >
 	  		</div>
-	  		<div>
-		 		<input class="loginbtn w_30p h_45 m_10 p_10" id="loginBtn" name="loginBtn" type="button" value="로그인">
+	  		<div class = "m_t_10">
+		 		<input class="loginbtn w_30p h_45 m_10 p_10" id="loginBtn" name="loginBtn" type="button" value="LOGIN" >
 	 		</div>
 	 		
-	  		<div>
-		 		<a class="w_20p h_30 m_10" id="userAddText" href="" onclick="openUserAddPopup();">회원가입</a>
-	 		</div>
   		</div>
+  		<div class = "m_t_50">
+		 		<a class="w_20p h_30 m_10 " style = "font-size:30px" id="userAddText" href="" onclick="openUserAddPopup();">회원가입</a>
+	 	</div>
 	</div>
 	<P>  The time on the server is ${serverTime}. </P>
 </body>

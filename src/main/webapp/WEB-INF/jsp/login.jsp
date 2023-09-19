@@ -44,7 +44,7 @@
 		  	<div class = "h_45 m_t_50">
 		  		<img src="../../resources/images/free-icon-user-2657939.png" width="20" height="20" alt="사용자" />
 		  		<input class = "h_30" type ="text" name = "st_id" placeholder="아이디를 입력해주세요">
-	  		</div>
+	  		</div> 
 	  		<div>
 	  			<img src="../../resources/images/free-icon-user-2657939.png" width="20" height="20" alt="비밀번호" />
 		  		<input class = "h_30" type ="text" name = "st_pw" placeholder="비밀번호를 입력해주세요" >

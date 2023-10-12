@@ -38,7 +38,7 @@
 	<div id = 'wrapper'>
 	  	<div  id='ex1'>
 		  	<div> 
-		  		<span  style="font-size:300%">Login</span> 
+		  		<span  style="font-size:300%">Login</span>
 		  	</div>
 		  	
 		  	<div class = "h_45 m_t_50">

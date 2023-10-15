@@ -1,4 +1,4 @@
-package login.service;
+package cmmn.login.service;
 
 import java.util.HashMap;
 
@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import common.dao.CommonDAO;
+import cmmn.common.dao.CommonDAO;
 
 
 /**
@@ -19,7 +19,7 @@ public class LoginService {
 	private CommonDAO comDao;
 	
 	public HashMap<String, Object> getUserInfo(HashMap<String, Object> reqMap) throws Exception {
-		HashMap<String, Object> userInfo = comDao.select("login.SELECT_SYS_USER", reqMap);
+		HashMap<String, Object> userInfo = comDao.select("login.select_SYS_USER", reqMap);
 		
 		return userInfo;
 	}

@@ -1,4 +1,4 @@
-package common.dao;
+package cmmn.common.dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mapper namespace="login">
-	<select id="SELECT_SYS_USER" parameterType="hashmap" resultType="hashmap">
+	<select id="select_SYS_USER" parameterType="hashmap" resultType="hashmap">
 		SELECT * FROM SYS_USER
 	</select>
 

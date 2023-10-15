@@ -1,28 +1,27 @@
 package login.service;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.HashMap;
+
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+
+import common.dao.CommonDAO;
 
 
 /**
  * Handles requests for the application home page.
  */
-@Service
+@Service("loginService")
 public class LoginService {
 	
-	public String home(Locale locale, Model model) {		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+	@Resource(name = "commonDAO")
+	private CommonDAO comDao;
+	
+	public HashMap<String, Object> getUserInfo(HashMap<String, Object> reqMap) throws Exception {
+		HashMap<String, Object> userInfo = comDao.select("login.SELECT_SYS_USER", reqMap);
 		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+		return userInfo;
 	}
 	
 }

@@ -11,20 +11,22 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	
 	<!-- MSSQL dataSource -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"> 
 	    <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" /> 
 	    <property name="url" value="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=KKH" /> 
-	    <property name="username" value="issue" /> 
+	    <property name="username" value="ISSUE" /> 
 	    <property name="password" value="1234a" />
     </bean>
-    
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="configLocation" value="classpath:/sqlmap/sql-mapper-config.xml" />
-		<property name="mapperLocations" value="classpath:/sqlmap/**/*_SQL.xml">
-		</property>
+		<property name="mapperLocations" value="classpath:/sqlmap/**/*_SQL.xml"/>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory">
+		</constructor-arg>
 	</bean>
 </beans>

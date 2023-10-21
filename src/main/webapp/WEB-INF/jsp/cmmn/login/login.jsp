@@ -28,7 +28,7 @@
 	
 </style>
 <head>
-	<jsp:include page="/WEB-INF/jsp/common.jsp"/>
+	<jsp:include page="/WEB-INF/jsp/cmmn/common.jsp"/>
 	<title>Home</title>
 </head>
 <body>

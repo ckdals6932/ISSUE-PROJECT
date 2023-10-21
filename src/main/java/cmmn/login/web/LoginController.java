@@ -1,6 +1,7 @@
 package cmmn.login.web;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 
@@ -22,13 +23,15 @@ public class LoginController {
 	@Resource(name = "loginService")
 	private LoginService loginService;
 	
-	@RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
-	public String login(@RequestParam HashMap<String, Object> reqMap, Model model) throws Exception {	
-		
-		return "login";
+	@RequestMapping(value = "/cmmn/login.view", method = {RequestMethod.GET, RequestMethod.POST})
+	public String login(Locale reqMap, Model model) throws Exception {
+	// public String login(@RequestParam HashMap<String, Object> reqMap, Model model) throws Exception {
+		model.addAttribute("userInfo", "ttt");
+		System.out.println("aaa");
+		return "cmmn/login";
 	}
 
-	@RequestMapping(value = "/userAddPopup.view", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/cmmn/userAddPopup.view", method = {RequestMethod.GET, RequestMethod.POST})
 	public String userAdd(@RequestParam HashMap<String, Object> reqMap, Model model) throws Exception {
 		model.addAttribute("userInfo", loginService.getUserInfo(reqMap));
 		return "userAddPopup";

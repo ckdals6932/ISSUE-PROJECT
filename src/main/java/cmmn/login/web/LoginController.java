@@ -23,17 +23,16 @@ public class LoginController {
 	@Resource(name = "loginService")
 	private LoginService loginService;
 	
-	@RequestMapping(value = "/cmmn/login.view", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/cmmn/login/login.view", method = RequestMethod.GET)
 	public String login(Locale reqMap, Model model) throws Exception {
 	// public String login(@RequestParam HashMap<String, Object> reqMap, Model model) throws Exception {
-		model.addAttribute("userInfo", "ttt");
-		System.out.println("aaa");
-		return "cmmn/login";
+		model.addAttribute("serverTime", "aa");
+		return "cmmn/login/login";
 	}
 
-	@RequestMapping(value = "/cmmn/userAddPopup.view", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/cmmn/login/userAddPopup.view", method = {RequestMethod.GET, RequestMethod.POST})
 	public String userAdd(@RequestParam HashMap<String, Object> reqMap, Model model) throws Exception {
 		model.addAttribute("userInfo", loginService.getUserInfo(reqMap));
-		return "userAddPopup";
+		return "cmmn/login/userAddPopup";
 	}
 }

@@ -19,7 +19,7 @@ public class LoginService {
 	private CommonDAO comDao;
 	
 	public HashMap<String, Object> getUserInfo(HashMap<String, Object> reqMap) throws Exception {
-		HashMap<String, Object> userInfo = comDao.select("login.select_SYS_USER", reqMap);
+		HashMap<String, Object> userInfo = comDao.select("cmmn_login.select_SYS_USER", reqMap);
 		
 		return userInfo;
 	}

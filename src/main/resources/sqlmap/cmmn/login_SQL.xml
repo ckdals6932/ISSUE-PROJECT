@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mapper namespace="login">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cmmn_login">
 	<select id="select_SYS_USER" parameterType="hashmap" resultType="hashmap">
 		SELECT * FROM SYS_USER
 	</select>
-
 </mapper>

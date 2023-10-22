@@ -14,23 +14,26 @@
 		  	</div>
 		  	<div>
 		  		<div class="center">
-		  			<img src="../resources/image/free-icon-user-2657939.png"/>
+		  			<img src="../../../resources/image/free-icon-user-2657939.png"/>
 		  			<input type="text" class="underline" placeholder="아이디를 입력해주세요">
 		  		</div>
 		  		<div class="center">
-		  			<img src="../resources/image/free-icon-password-7817000.png"/>
+		  			<img src="../../../resources/image/free-icon-password-7817000.png"/>
 		  			<input type="text" class="underline" placeholder="비밀번호를 입력해주세요">
+		  			<div class="help-tip">
+						<p>마우스 오버시 알림메시지창이 뜹니다.<br>CSS로만 만들어졌습니다.</p>
+					</div>
 		  		</div>
 		  		<div class="center" style="margin-top: 40px;">
-		  			<img src="../resources/image/free-icon-add-user-456249.png"/>
+		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
 		  			<input type="text" class="underline" placeholder="사용자 이름">
 		  		</div>
 		  		<div class="center">
-		  			<img src="../resources/image/free-icon-add-user-456249.png"/>
+		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
 		  			<input type="text" class="underline" placeholder="생년월일 (ex. 19990101)">
 		  		</div>
 		  		<div class="center">
-		  			<img src="../resources/image/free-icon-add-user-456249.png"/>
+		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
 		  			<input type="text" class="underline" placeholder="핸드폰 번호 (ex. 010-1111-1111)">
 		  		</div>
 	  		</div>

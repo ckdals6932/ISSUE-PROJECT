@@ -35,15 +35,15 @@
 	<div id = 'wrapper'>
 	  	<div  id='ex1'>
 		  	<div> 
-		  		<span  class="font_s_50 title font_s_80">ISSUE</span> 
+		  		<span class="font_s_50 title font_s_80 t_s">ISSUE</span> 
 		  	</div>
 		  	
 		  	<div class = "h_45 m_t_50">
-		  		<img src="../resources/image/free-icon-user-2657939.png"/>
+		  		<img src="../../../resources/image/free-icon-user-2657939.png"/>
 		  		<input class = "h_30" type ="text" name = "st_id" placeholder="아이디를 입력해주세요">
 	  		</div> 
 	  		<div>
-	  			<img src="../resources/image/free-icon-password-7817000.png"/>
+	  			<img src="../../../resources/image/free-icon-password-7817000.png"/>
 		  		<input class = "h_30" type ="text" name = "st_pw" placeholder="비밀번호를 입력해주세요" >
 	  		</div>  
 	  		<div class = "m_t_10">
@@ -59,8 +59,20 @@
 
 <script>
 	function openUserAddPopup() {
-		window.open("/userAddPopup.view", '_blank', 'width=800, height=600');
+		window.open("/cmmn/login/userAddPopup.view", '_blank', 'width=800, height=600');
 		return false;
+	}
+	
+	const btn = document.querySelector(".loginBtn");
+
+	btn.addEventListener("click", clickHandler);
+
+	function clickHandler(){
+	  // ... 작업 로직 ...  //
+	  
+	  if(true){
+	    window.location.href = "/cmmn/login/main.view";
+	  }
 	}
 </script>
 </html>

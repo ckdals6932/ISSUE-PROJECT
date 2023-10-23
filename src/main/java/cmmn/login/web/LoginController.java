@@ -24,7 +24,6 @@ public class LoginController {
 	private LoginService loginService;
 	
 	@RequestMapping(value = "/cmmn/login/login.view", method = RequestMethod.GET)
-	// public String login(Locale reqMap, Model model) throws Exception {
 	public String login(@RequestParam HashMap<String, Object> reqMap, Model model) throws Exception {
 		model.addAttribute("page","WEB-INF/jsp/cmmn/login/login.jsp");
 		return "cmmn/login/login";

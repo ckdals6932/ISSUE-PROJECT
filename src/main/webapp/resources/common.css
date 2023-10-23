@@ -112,6 +112,10 @@ input[type=text] {
 
 .center {text-align: center;}
 
+.f_right {float: right;}
+
+.t_s { text-shadow: 4px 2px 2px gray; }
+
 .btn {    
 	background: #000;
     color: white;
@@ -141,5 +145,29 @@ input[type=text] {
     border-top-width: 0;
     border-bottom-width: 1;
 }
+.mainIcon {
+	color: black;
+}
 
-.t_s { text-shadow: 4px 2px 2px gray; }
+#toolbar {
+	width: 100%;
+    height: 30px;
+}
+#toolbar > button {
+    background: #ffffff00;
+    border: 0px;
+    float: right;
+}
+#toolbar > button > img {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+
+
+/* Grid 관련 */
+.ui-widget-content {
+    border: 1px solid #E2E2E2 !important;
+}

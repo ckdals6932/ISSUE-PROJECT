@@ -26,15 +26,12 @@ public class LoginController {
 	@RequestMapping(value = "/cmmn/login/login.view", method = RequestMethod.GET)
 	// public String login(Locale reqMap, Model model) throws Exception {
 	public String login(@RequestParam HashMap<String, Object> reqMap, Model model) throws Exception {
-		
 		model.addAttribute("page","WEB-INF/jsp/cmmn/login/login.jsp");
 		return "cmmn/login/login";
 	}
 
 	@RequestMapping(value = "/cmmn/login/userAddPopup.view", method = {RequestMethod.GET, RequestMethod.POST})
 	public String userAdd(@RequestParam HashMap<String, Object> reqMap, Model model) throws Exception {
-		model.addAttribute("userInfo", loginService.getUserInfo(reqMap));
-		
 		model.addAttribute("page","WEB-INF/jsp/cmmn/login/login.jsp");
 		return "cmmn/login/userAddPopup";
 	}

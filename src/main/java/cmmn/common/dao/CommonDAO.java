@@ -1,8 +1,10 @@
 package cmmn.common.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -20,12 +22,25 @@ public class CommonDAO {
 	private SqlSessionTemplate sqlSession;
 
 	public HashMap<String, Object> select(String sqlKey, HashMap<String, Object> reqMap) throws SQLException {
-		HashMap<String, Object> result = sqlSession.selectOne(sqlKey);
+		HashMap<String, Object> result = sqlSession.selectOne(sqlKey, reqMap);
 		if (result != null) {
 			result = toLowerKeyAll(result);
 		}
 		
 		return result;
+	}
+	
+	public List<HashMap<String, Object>> list(String sqlKey, HashMap<String, Object> reqMap) {
+		List<HashMap<String, Object>> resultList = sqlSession.selectList(sqlKey, reqMap);
+		
+		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
+		for (HashMap<String, Object> result : resultList) {
+			if (result != null ) {
+				result = toLowerKeyAll(result);
+			}
+			rtnList.add(result);
+		}
+		return rtnList;
 	}
 	
 	private HashMap<String, Object> toLowerKeyAll(HashMap<String, Object> result) {
@@ -38,10 +53,10 @@ public class CommonDAO {
 		while (iter.hasNext()) {
 			hashKey = (String) iter.next();
 			
-			// Key ¼Ò¹®ÀÚÈ­
+			// Key ï¿½Ò¹ï¿½ï¿½ï¿½È­
 			lowKey = StringUtils.lowerCase(hashKey);
 			
-			// DB ³»¿ëÀÌ nullÀÏ °æ¿ì¸¦ ´ëºñÇØ¼­ °ø¹é ¹®ÀÚ·Î ´ëÃ¼
+			// DB ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ nullï¿½ï¿½ ï¿½ï¿½ì¸¦ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½Ã¼
 			val = result.get(hashKey);
 			if (val == null) {
 				val = "";

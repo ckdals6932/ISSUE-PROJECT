@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="sys_user">
+	<select id="select_SYS_USER" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			CONVERT(DATE, BIRTH_DT, 105) AS BIRTH_DT
+			, USER_ID, USER_NM, PASSWORD, PHONE, STATUS_CD
+		FROM SYS_USER
+
+	</select>
+	
+	<update id="update_SYS_USER" parameterType="hashmap">
+		UPDATE SYS_USER
+			SET
+				MODI_USER_SEQ = #{req_user_seq}
+				,MODI_DT = GETDATE()
+				<if test='loginFailCnt != "" and loginFailCnt != null'>
+				,LOGIN_FAIL_CNT = #{loginFailCnt}
+				</if>
+		WHERE 1=1
+			<if test='userSeq != "" and userSeq != null'>
+			AND USER_SEQ = #{userSeq}
+			</if>
+			<if test='userId != "" and userId != null'>
+			AND USER_ID = #{userId}
+			</if>
+	</update>
+</mapper>

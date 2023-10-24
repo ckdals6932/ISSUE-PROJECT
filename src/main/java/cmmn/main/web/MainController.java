@@ -27,4 +27,6 @@ public class MainController {
 		model.addAttribute("page","WEB-INF/jsp/cmmn/main/main.jsp");
 		return "cmmn/main/main";
 	}
+	
+	
 }

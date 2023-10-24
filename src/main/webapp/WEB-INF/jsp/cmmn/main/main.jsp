@@ -7,7 +7,8 @@
 <body>
 	<div id="app">
 		<div id="layoutObj">
-			<div id="toolbar">
+			<div id="toolbar">	
+				<input type= button id="userBtn" name="userBtn" value="로그인 페이지" onclick="OpenUserPage()">
 				<button id="saveBtn" name="saveBtn">
 		  			<img src="/resources/image/free-icon-save-file-376218.png"/>
 		  		</button>
@@ -18,6 +19,11 @@
 	</div>
 	
 	<script>
+		//로그인 상세정보 버튼 이벤트
+		function OpenUserPage(){
+			window.location.href = "/sys/user/user.view";
+		}
+		
 		$(document).ready(function() {
 			settingGrid();
 			

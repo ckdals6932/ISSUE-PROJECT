@@ -4,6 +4,29 @@
 <mapper namespace="cmmn_login">
 	<select id="select_SYS_USER" parameterType="hashmap" resultType="hashmap">
 		SELECT * FROM SYS_USER
-		WHERE USER_SEQ = #{userSeq}
+		WHERE 1=1
+		<if test='userSeq != "" and userSeq != null'>
+		AND USER_SEQ = #{userSeq}
+		</if>
+		<if test='userId != "" and userId != null'>
+		AND USER_ID = #{userId}
+		</if>
 	</select>
+	
+	<update id="update_SYS_USER" parameterType="hashmap">
+		UPDATE SYS_USER
+			SET
+				MODI_USER_SEQ = #{req_user_seq}
+				,MODI_DT = GETDATE()
+				<if test='loginFailCnt != "" and loginFailCnt != null'>
+				,LOGIN_FAIL_CNT = #{loginFailCnt}
+				</if>
+		WHERE 1=1
+			<if test='userSeq != "" and userSeq != null'>
+			AND USER_SEQ = #{userSeq}
+			</if>
+			<if test='userId != "" and userId != null'>
+			AND USER_ID = #{userId}
+			</if>
+	</update>
 </mapper>

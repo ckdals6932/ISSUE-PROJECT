@@ -30,7 +30,7 @@ public class CommonDAO {
 		return result;
 	}
 	
-	public List<HashMap<String, Object>> list(String sqlKey, HashMap<String, Object> reqMap) {
+	public List<HashMap<String, Object>> list(String sqlKey, HashMap<String, Object> reqMap) throws SQLException {
 		List<HashMap<String, Object>> resultList = sqlSession.selectList(sqlKey, reqMap);
 		
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
@@ -43,6 +43,21 @@ public class CommonDAO {
 		return rtnList;
 	}
 	
+	public int insert(String sqlKey, HashMap<String, Object> reqMap) throws SQLException {
+		int result = sqlSession.insert(sqlKey, reqMap);
+		return result;
+	}
+	
+	public int update(String sqlKey, HashMap<String, Object> reqMap) throws SQLException {
+		int result = sqlSession.update(sqlKey, reqMap);
+		return result;
+	}
+	
+	public int delete(String sqlKey, HashMap<String, Object> reqMap) throws SQLException {
+		int result = sqlSession.delete(sqlKey, reqMap);
+		return result;
+	}
+	
 	private HashMap<String, Object> toLowerKeyAll(HashMap<String, Object> result) {
 		Iterator<?> iter = result.keySet().iterator();
 		String hashKey = "";
@@ -53,10 +68,10 @@ public class CommonDAO {
 		while (iter.hasNext()) {
 			hashKey = (String) iter.next();
 			
-			// Key �ҹ���ȭ
+			// Key 占쌀뱄옙占쏙옙화
 			lowKey = StringUtils.lowerCase(hashKey);
 			
-			// DB ������ null�� ��츦 ����ؼ� ���� ���ڷ� ��ü
+			// DB 占쏙옙占쏙옙占쏙옙 null占쏙옙 占쏙옙痢� 占쏙옙占쏙옙漫占� 占쏙옙占쏙옙 占쏙옙占쌘뤄옙 占쏙옙체
 			val = result.get(hashKey);
 			if (val == null) {
 				val = "";

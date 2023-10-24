@@ -38,11 +38,11 @@
 		  	
 		  	<div class = "h_45 m_t_50">
 		  		<img src="../../../resources/image/free-icon-user-2657939.png"/>
-		  		<input class = "h_30" type ="text" name = "st_id" placeholder="아이디를 입력해주세요">
+		  		<input class = "h_30" type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요">
 	  		</div> 
 	  		<div>
 	  			<img src="../../../resources/image/free-icon-password-7817000.png"/>
-		  		<input class = "h_30" type ="text" name = "st_pw" placeholder="비밀번호를 입력해주세요" >
+		  		<input class = "h_30" type ="text" id="userPw" name="userPw" placeholder="비밀번호를 입력해주세요" >
 	  		</div>  
 	  		<div class = "m_t_10">
 		 		<input class="loginbtn w_30p h_45 m_10 p_10" id="loginBtn" name="loginBtn" type="button" value="LOGIN" >
@@ -56,21 +56,48 @@
 </body>
 
 <script>
-	function openUserAddPopup() {
-		window.open("/cmmn/login/userAddPopup.view", '_blank', 'width=800, height=600');
-		return false;
+	$(document).ready(function() {
+		$("#loginBtn").click(function(){
+			loginUser();
+	    });
+	});
+	
+	// 로그인
+	function loginUser() {
+		// 필수 값 체크
+		if ($("#userId").val() == "") {
+			alert("사용자 아이디를 입력해주세요.");
+			$("#userId").focus();
+			return;
+		}
+		if ($("#userPw").val() == "") {
+			alert("사용자 비밀번호를 입력해주세요.");
+			$("#userPw").focus();
+			return;
+		}
+		
+		$.ajax({
+            type: 'POST'
+            ,async: true
+            ,url: '/cmmn/login/loginUser.json'
+            ,dataType: 'json'
+            ,data: {
+            	userId: $("#userId").val()
+            	,userPw: $("#userPw").val()
+            }
+	        ,error:function (data, textStatus) {
+				alert("시스템 에러입니다.");
+	        }
+            ,success: function(data, textStatus) {
+            	console.log(data);
+            }
+        });
+	    // window.location.href = "/cmmn/main/main.view";
 	}
 	
-	const btn = document.querySelector(".loginBtn");
-
-	btn.addEventListener("click", clickHandler);
-
-	function clickHandler(){
-	  // ... 작업 로직 ...  //
-	  
-	  if(true){
-	    window.location.href = "/cmmn/main/main.view";
-	  }
+	// 회원가입 팝업 호출
+	function openUserAddPopup() {
+		window.open("/cmmn/login/userAddPopup.view", '_blank', 'width=800, height=600');
 	}
 </script>
 </html>

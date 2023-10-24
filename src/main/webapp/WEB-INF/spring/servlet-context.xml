@@ -21,6 +21,17 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- Controller에서 데이터 받기 -->
+	<beans:bean id="jsonMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+	<beans:bean id="jsonTemplate" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		<beans:property name="objectMapper" ref="jsonMapper"/>
+	</beans:bean>
+	<beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"/>
+	</beans:bean>
+	
+	
 	<context:component-scan base-package="cmmn,sys" />
 	
 	

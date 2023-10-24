@@ -42,5 +42,4 @@ public class LoginController {
 		model.addAttribute("loginInfo", result);
 		return "jsonTemplate";
 	}
-	
 }

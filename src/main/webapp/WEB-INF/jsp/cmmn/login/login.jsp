@@ -89,10 +89,17 @@
 				alert("시스템 에러입니다.");
 	        }
             ,success: function(data, textStatus) {
-            	console.log(data);
+            	let res = data.loginInfo;
+            	console.log(res);
+            	if (res.failCntError == "Y") {
+    				alert("비밀번호를 5회 이상 틀렸습니다. 관리자에게 문의해주세요.");
+            	} else if (res.idError == "Y" || res.pwError == "Y") {
+    				alert("다시 입력해주세요.");
+            	} else {
+            	    window.location.href = "/cmmn/main/main.view";
+            	}
             }
         });
-	    // window.location.href = "/cmmn/main/main.view";
 	}
 	
 	// 회원가입 팝업 호출

@@ -19,8 +19,6 @@ public class LoginService {
 	private CommonDAO comDao;
 	
 	public HashMap<String, Object> getUserInfo(HashMap<String, Object> reqMap) throws Exception {
-		reqMap.put("userSeq", "70");
-		
 		HashMap<String, Object> userInfo = comDao.select("cmmn_login.select_SYS_USER", reqMap);
 		
 		return userInfo;
@@ -62,7 +60,7 @@ public class LoginService {
 		}
 		// 로그인 성공 (login_fail_cnt 초기화)
 		if (returnMap.get("idError").equals("N") && returnMap.get("pwError").equals("N")) {
-			mapSQL.put("loginFailCnt", 0);
+			mapSQL.put("loginFailCnt", "0");
 			comDao.update("cmmn_login.update_SYS_USER", mapSQL);
 		}
 		

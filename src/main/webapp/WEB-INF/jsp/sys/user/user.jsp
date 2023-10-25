@@ -12,8 +12,40 @@
 		  			<img src="/resources/image/free-icon-save-file-376218.png"/>
 		  		</button>
 			</div>
-			<table id="gridObj"></table>
-			<div id="pager"></div>
+			<div>
+				<div style="display: inline-block; width: 53%;">
+					<table id="gridObj"></table>
+					<div id="pager"></div>
+				</div>
+				<div style="display: inline-block; width: 41%; height: 80%;">
+					<table id="selectObj" name="selectObj" >
+						<tbody>
+							<tr>
+								<td>이름</td>
+								<td><input type="text"></td>
+								<td>아이디</td>
+								<td><input type="text"></td>
+							</tr>
+							<tr>
+								<td>비밀번호</td>
+								<td><input type="text"></td>
+								<td>생년월일</td>
+								<td><input type="text"></td>
+							</tr>
+							<tr>
+								<td>핸드폰번호</td>
+								<td><input type="text"></td>
+								<td>생년월일</td>
+								<td><input type="text"></td>
+							</tr>
+							<tr>
+								<td>권한 명</td>
+								<td><input type="text"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
@@ -46,36 +78,29 @@
 	}
 	function settingGrid() {
 		var mydata = [
-			   {name:"강창민",id:"Changmin",data:"2023-05-11",phoneNB:"01086186932",type:"신규"},
-			   {name:"꼬까알콘",id:"KKoKKaalKon",data:"2023-07-26",phoneNB:"01097362306",type:"투입"},
-			   {name:"고가희",id:"KoKaHee",data:"2023-07-26",phoneNB:"01023069736",type:"투입"},
-			   {name:"김병재",id:"Kimbj",data:"2023-07-26",phoneNB:"01012345678",type:"신규"},
-			   {name:"안성수",id:"AhnSungSu",data:"2023-10-24",phoneNB:"01012345678",type:"신규"},
-			   {name:"서현민",id:"SeoHyunMin",data:"2023-04-02",phoneNB:"01012345678",type:"신규"},
 			];
-	
 		$("#gridObj").jqGrid({
 			datatype: "local",
 			data: userData,
 			colNames:['이름', '아이디', '생년원일','핸드폰','상태'],
 			colModel:[
-				{name:'user_nm', index:0, width:90, align: "center"},
-				{name:'user_id', index:1, width:100 , align: "center" },
-				{name:'birth_dt', index:2, width:150, align: "center" ,sortable:false },
-				{name:'phone', index:3, width:80, align: "center"},
+				{name:'user_nm', index:0, width:100, align: "center"},
+				{name:'user_id', index:1, width:200 , align: "center"},
+				{name:'birth_dt', index:2, width:200, align: "center", sortable:false},
+				{name:'phone', index:3, width:150, align: "center"},
 				{name:'status_cd', index:4, width:80, align: "center"}, 
 			],
-			autowidth: true,
+			//autowidth: true,
 			rownumbers : true,
-			multiselect:true,
+			multiselect:false,
 			pager:'#pager',
 			rowNum: 10,
 			rowList: [10, 20, 50],
 			sortname: 'id',
 			sortorder: 'asc',
-			height: 250,
+			height: 500,
 			
-			cellEdit:true, //그리드 수정 가능 기능
+			cellEdit:false, //그리드 수정 가능 기능
 			
 				/* 더블클릭시 수정 가능*/
 	        ondblClickRow : function (rowid, iRow, iCol){
@@ -123,5 +148,4 @@
 		}
 	}
 </script>
-
 </html>

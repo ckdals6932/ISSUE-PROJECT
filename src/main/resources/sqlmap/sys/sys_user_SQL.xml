@@ -5,9 +5,9 @@
 	<select id="select_SYS_USER" parameterType="hashmap" resultType="hashmap">
 		SELECT 
 			CONVERT(DATE, BIRTH_DT, 105) AS BIRTH_DT
-			, USER_ID, USER_NM, PASSWORD, PHONE, STATUS_CD
+			,SUBSTRING(PHONE,0,4) + '-' + SUBSTRING(PHONE,4,4) + '-' + SUBSTRING(PHONE,8,4) AS PHONE
+			, USER_ID, USER_NM, PASSWORD, STATUS_CD
 		FROM SYS_USER
-
 	</select>
 	
 	<update id="update_SYS_USER" parameterType="hashmap">

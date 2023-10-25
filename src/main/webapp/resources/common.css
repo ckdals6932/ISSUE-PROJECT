@@ -10,10 +10,14 @@ img {
 	 height:30px;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
 	height: 40px;
 	margin: 10px 0px 0px 0px;
 	width: 270px;
+}
+
+table > tr > td {
+	border:0;
 }
 
 .help-tip{
@@ -27,6 +31,7 @@ input[type=text] {
 	font-size: 14px;
 	line-height: 26px;
 	cursor: default;
+	display: inline-block;
 }
 
 .help-tip:before{
@@ -46,8 +51,8 @@ input[type=text] {
 	text-align: left;
 	background-color: #1E2021;
 	padding: 20px;
-	width: 300px;
-	/*position: absolute;*/
+	width: 200px;
+	position: absolute;
 	border-radius: 3px;
 	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 	right: -4px;
@@ -62,7 +67,7 @@ input[type=text] {
 	width:0;
 	height: 0;
 	border:6px solid transparent;
-	border-bottom-color:#1E2021;
+	/* border-bottom-color:#1E2021; */
 	right:10px;
 	top:-12px;
 }
@@ -163,7 +168,14 @@ input[type=text] {
     height: 20px;
 }
 
-
+#selectObj{
+	cellpadding:10;
+	cellsapcing:0;
+	width:600;
+	height:200;
+	border: 1px solid; 
+	border-collapse: collapse;
+}
 
 /* Grid 관련 */
 .ui-widget-content {

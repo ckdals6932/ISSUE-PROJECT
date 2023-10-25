@@ -17,7 +17,13 @@ input[type=text], input[type=password] {
 }
 
 table > tr > td {
-	border:0;
+	width:100%;
+	border: 0;
+}
+
+.input_hide{
+	width:100%;
+	border: 0;
 }
 
 .help-tip{

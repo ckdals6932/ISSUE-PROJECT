@@ -19,9 +19,9 @@
 		  			<img src="../../../resources/image/free-icon-password-7817000.png" style="margin-left: 30px;"/>
 		  			<input id="userPw" name="userPw" type="password" class="underline" placeholder="비밀번호를 입력해주세요">
 		  			<div class="help-tip">
-						<p>마우스 오버시 알림메시지창이 뜹니다.<br>CSS로만 만들어졌습니다.</p>
+						<p>비밀번호 양식할 부분 입니다.<br>아직 설정 하지 않았습니다.</p>
 					</div>
-		  		</div>
+		  		</div> 
 		  		<div class="center" style="margin-top: 40px;">
 		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
 		  			<input id="userNm" name="userNm" type="text" class="underline" placeholder="사용자 이름">
@@ -78,7 +78,7 @@
 				var indexCount = [4, 2, 2];
 				
 				for(var i=0; i<indexCount.length; i++){
-					if(brithData[i].length != indexCount[i]){
+					if(brithData[i].length != indexCount[i] || brithData.length != 3){ 
 						alert("생년월일 양식을 확인해주세요.");
 						$("#brithDt").focus();
 						return;
@@ -92,7 +92,16 @@
 			return;
 		}
 		else{
-			var phoneData = $("#phone").val().split('.');
+			var phoneData = $("#phone").val().split('-');
+			var indexCount = [3, 4, 4];
+			
+			for(var i=0; i<indexCount.length; i++){
+				if(phoneData[i].length != indexCount[i] || phoneData.length != 3){
+					alert("전화번호 양식을 확인해주세요.");
+					$("#phone").focus();
+					return;
+				}
+			}
 			return;
 		}
 	}

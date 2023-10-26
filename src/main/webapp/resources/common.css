@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body { 
-	font-family: "paybooc-Light", sans-serif;
+	font-family: "맑은 고딕", sans-serif;
 	font-size: 20px;
 }
 
@@ -10,21 +10,102 @@ img {
 	 height:30px;
 }
 
-input[type=text], input[type=password] {
+.login_input {
 	height: 40px;
 	margin: 10px 0px 0px 0px;
 	width: 270px;
+	border-radius: 0px;
 }
 
-table > tr > td {
-	width:100%;
-	border: 0;
+/* input 관련*/
+input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: #FFFFFF;
+	background-image: none !important;
+	border: 1px solid #c8c8c8;
+	border-radius: 0;
+	box-shadow: none !important;
+	resize: none;
+}
+input[type="text"]:hover, input[type="password"]:hover {
+	border-color: #111111;
+	background-color: #ffffff;
+}
+input[type='text']:focus, input[type="password"]:focus {
+	box-shadow: none !important;
+	border-color: #000000;
+	background-color: #ffffff;
+	line-height: 25px;
+	border: 1px solid;
+	border-radius: 0px;
+}
+input[disabled] {
+	background: #F8F8F8 !important;
+	border-color: #c8c8c8 !important;
+}
+select:hover {
+	border-color: #111111 !important;
+}
+select.focus {
+	box-shadow: none !important;
+	border-color: #111111 !important;
+	background-color: #ffffff !important;
 }
 
-.input_hide{
-	width:100%;
-	border: 0;
+/* 폼 관련 */
+table > tbody > tr > td {
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(226,226,228);
+	border-image: initial;
 }
+.form-control {
+	float: right;
+	font-weight: normal;
+	border-radius: 0px;
+	width: 90%;
+}
+.form-control[disabled], .form-control[readonly] {
+	background-color: #F8F8F8;
+	opacity: 1;
+	border-color: #c8c8c8;
+}
+input.form-control {
+	background-color: #FFFFFF;
+	border: 1px solid #c8c8c8;
+	border-radius: 0 0 0 0;
+	color: #333333;
+	height: 25px;
+	border-radius: 0px;
+	font-size: 12px;
+	margin-top: 0px;
+	box-shadow: none;
+	float: none;
+}
+select.form-control {
+	background-color: #FFFFFF;
+	border: 1px solid #c8c8c8;
+	color: #5b5b60 !important;
+	height: 25px !important;
+	border-radius: 0px;
+	font-size: 12px;
+	margin-top: 0px;
+	box-shadow: none;
+	float: none;
+}
+.table {
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 0px !important;
+	border-collapse: collapse;
+}
+.table therd > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+	vertical-align: middle;
+}
+
+
 
 .help-tip{
 	top: 18px;
@@ -100,6 +181,7 @@ table > tr > td {
 .h_20 {height: 20px}
 .h_25 {height: 25px}
 .h_30 {height: 30px}
+.h_33 {height: 33px}
 .h_35 {height: 35px}
 .h_40 {height: 40px}
 .h_45 {height: 45px}
@@ -127,6 +209,12 @@ table > tr > td {
 
 .t_s { text-shadow: 4px 2px 2px gray; }
 
+.table_t {
+	text-align: left;
+	background-color: #f8f8f8;
+	border-collapse: collapse;
+	color: #333333;
+}
 .btn {    
 	background: #000;
     color: white;

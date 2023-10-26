@@ -8,7 +8,7 @@
 	<div id="app">
 		<div id="layoutObj">
 			<div id="toolbar">	
-				<input type= button id="userBtn" name="userBtn" value="로그인 페이지" onclick="OpenUserPage()">
+				<input type= button id="userBtn" name="userBtn" value="사용자 관리" onclick="OpenUserPage()">
 				<button id="saveBtn" name="saveBtn">
 		  			<img src="/resources/image/free-icon-save-file-376218.png"/>
 		  		</button>
@@ -35,7 +35,7 @@
 		function settingGrid() {
 			$("#gridObj").jqGrid({
 				datatype: "local",
-				data: mydata,
+				data: [],
 				colNames:['날짜', '아이디', '이름','상품','가격','합계'],
 				colModel:[
 					{name:'date', index:'date', width:90, align: "center"},

@@ -38,4 +38,11 @@ public class UserController {
 		model.addAttribute("userInfo", result);
 		return "jsonTemplate";
 	}
+	
+	@RequestMapping(value = "/sys/user/userSave.json", method = {RequestMethod.POST, RequestMethod.GET})
+	public String userSave(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+		HashMap<String, Object> result = userService.userSave(reqMap);
+		model.addAttribute("userInfo", result);
+		return "jsonTemplate";
+	}
 }

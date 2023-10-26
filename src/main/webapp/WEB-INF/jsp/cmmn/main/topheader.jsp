@@ -34,7 +34,9 @@
 	
 	<script>
 		$("#backBtn").click(function() {
-			window.history.back();
+			if (confirm("로그아웃 하겠습니까?")) {
+	    	    window.location.href = "/cmmn/login/login.view";
+			}
 		});
 	</script>
 </body>

@@ -13,26 +13,26 @@
 		  	<div>
 		  		<div class="center">
 		  			<img src="../../../resources/image/free-icon-user-2657939.png"/>
-		  			<input id="userId" name="userId" type="text" class="underline" placeholder="아이디를 입력해주세요">
+		  			<input id="user_id" name="user_id" type="text" class="underline h_33 w_30p" placeholder="아이디를 입력해주세요" autocomplete="off">
 		  		</div>
 		  		<div class="center">
 		  			<img src="../../../resources/image/free-icon-password-7817000.png" style="margin-left: 30px;"/>
-		  			<input id="userPw" name="userPw" type="password" class="underline" placeholder="비밀번호를 입력해주세요">
+		  			<input id="user_pw" name="user_pw" type="password" class="underline h_33 w_30p" placeholder="비밀번호를 입력해주세요" autocomplete="off">
 		  			<div class="help-tip">
 						<p>비밀번호 양식할 부분 입니다.<br>아직 설정 하지 않았습니다.</p>
 					</div>
 		  		</div> 
+		  		<div class="center">
+		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
+		  			<input id="user_nm" name="user_nm" type="text" class="underline h_33 w_30p" placeholder="사용자 이름" autocomplete="off">
+		  		</div>
 		  		<div class="center" style="margin-top: 40px;">
 		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
-		  			<input id="userNm" name="userNm" type="text" class="underline" placeholder="사용자 이름">
+		  			<input id="birth_dt" name="birth_dt" type="text" class="underline h_33 w_30p" maxlength='10' placeholder="생년월일 (ex. 19990101)" autocomplete="off">
 		  		</div>
 		  		<div class="center">
 		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
-		  			<input id="brithDt" name="brithDt" type="text" class="underline" maxlength='10' placeholder="생년월일 (ex. 1999.01.01)">
-		  		</div>
-		  		<div class="center">
-		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
-		  			<input id="phone" name="phone" type="text" class="underline" maxlength='13' placeholder="핸드폰 번호 (ex. 010-1111-1111)">
+		  			<input id="phone" name="phone" type="text" class="underline h_33 w_30p" maxlength='13' placeholder="핸드폰 번호 (ex. 010-1111-1111)" autocomplete="off">
 		  		</div>
 	  		</div>
 	  		<div class="center m_t_20">
@@ -52,46 +52,28 @@
 	});
 	
 	function validationUser() {
-		
 		// 필수 값 체크
-		if ($("#userId").val() == "") {
+		if ($("#user_id").val() == "") {
 			alert("사용자 아이디를 입력해주세요.");
-			$("#userId").focus();
-			return;
+			$("#user_id").focus();
+			return false;
 		}
-		if ($("#userPw").val() == "") {
+		if ($("#user_pw").val() == "") {
 			alert("사용자 비밀번호를 입력해주세요.");
-			$("#userPw").focus();
-			return;
+			$("#user_pw").focus();
+			return false;
 		}
-		if ($("#userNm").val() == "") {
+		if ($("#user_nm").val() == "") {
 			alert("이름을 입력해주세요.");
-			$("#userNm").focus();
-			return;
+			$("#user_nm").focus();
+			return false;
 		}
-		if ($("#brithDt").val() == "") {
-			alert("생년월일을 입력해주세요.");
-			$("#brithDt").focus();
-			return;
-		} else {
-				var brithData = document.getElementById('brithDt').value.split('.');
-				var indexCount = [4, 2, 2];
-				
-				for(var i=0; i<indexCount.length; i++){
-					if(brithData[i].length != indexCount[i] || brithData.length != 3){ 
-						alert("생년월일 양식을 확인해주세요.");
-						$("#brithDt").focus();
-						return;
-					}
-				}
-				return;
+		if ($("#birth_dt").val() != "" && $("#birth_dt").val().length != 8) {
+			alert("생년월일 양식을 확인해주세요.");
+			$("#brith_dt").focus();
+			return false;
 		}
-		if ($("#phone").val() == "") { 
-			alert("전화번호를 입력해주세요.");
-			$("#phone").focus();
-			return;
-		}
-		else{
+		if ($("#phone").val() != "") { 
 			var phoneData = $("#phone").val().split('-');
 			var indexCount = [3, 4, 4];
 			
@@ -99,13 +81,43 @@
 				if(phoneData[i].length != indexCount[i] || phoneData.length != 3){
 					alert("전화번호 양식을 확인해주세요.");
 					$("#phone").focus();
-					return;
+					return false;
 				}
 			}
-			return;
 		}
-		
-		
+
+		return true;
+	}
+	
+	function saveUser() {
+		let params = $("#dataForm").serialize();
+		$.ajax({
+            type: 'POST'
+            ,async: true
+            ,url: '/sys/user/userSave.json'
+            ,dataType: 'json'
+            ,data: {
+            	user_seq: ""
+            	,user_id: $("#user_id").val()
+            	,user_pw: $("#user_pw").val()
+            	,user_nm: $("#user_nm").val()
+            	,birth_dt: $("#birth_dt").val()
+            	,phone: $("#phone").val()
+            	,status_cd: "DF"
+            }
+	        ,error:function (data, textStatus) {
+				alert("시스템 에러입니다.");
+	        }
+            ,success: function(data, textStatus) {
+            	let res = data.userInfo;
+            	if (res.user_id_error == "Y") {
+            		alert("중복된 ID 입니다.");
+            	} else {
+            		alert("요청되었습니다.");
+   					window.close();
+            	}
+            }
+        });
 	}
 </script>
 </html>

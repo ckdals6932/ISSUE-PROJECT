@@ -38,11 +38,11 @@
 		  	
 		  	<div class = "h_45 m_t_50">
 		  		<img src="../../../resources/image/free-icon-user-2657939.png"/>
-		  		<input class = "h_30" type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요">
+		  		<input class="login_input" type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요" autocomplete="off">
 	  		</div> 
 	  		<div>
 	  			<img src="../../../resources/image/free-icon-password-7817000.png"/>
-		  		<input class = "h_30" type ="text" id="userPw" name="userPw" placeholder="비밀번호를 입력해주세요" >
+		  		<input class="login_input" type ="password" id="user_pw" name="user_pw" placeholder="비밀번호를 입력해주세요">
 	  		</div>  
 	  		<div class = "m_t_10">
 		 		<input class="loginbtn w_30p h_45 m_10 p_10" id="loginBtn" name="loginBtn" type="button" value="LOGIN" >
@@ -65,14 +65,14 @@
 	// 로그인
 	function loginUser() {
 		// 필수 값 체크
-		if ($("#userId").val() == "") {
+		if ($("#user_id").val() == "") {
 			alert("사용자 아이디를 입력해주세요.");
-			$("#userId").focus();
+			$("#user_id").focus();
 			return;
 		}
-		if ($("#userPw").val() == "") {
+		if ($("#user_pw").val() == "") {
 			alert("사용자 비밀번호를 입력해주세요.");
-			$("#userPw").focus();
+			$("#user_pw").focus();
 			return;
 		}
 		
@@ -82,8 +82,8 @@
             ,url: '/cmmn/login/loginUser.json'
             ,dataType: 'json'
             ,data: {
-            	userId: $("#userId").val()
-            	,userPw: $("#userPw").val()
+            	user_id: $("#user_id").val()
+            	,user_pw: $("#user_pw").val()
             }
 	        ,error:function (data, textStatus) {
 				alert("시스템 에러입니다.");
@@ -91,10 +91,12 @@
             ,success: function(data, textStatus) {
             	let res = data.loginInfo;
             	console.log(res);
-            	if (res.failCntError == "Y") {
+            	if (res.fail_cnt_error == "Y") {
     				alert("비밀번호를 5회 이상 틀렸습니다. 관리자에게 문의해주세요.");
-            	} else if (res.idError == "Y" || res.pwError == "Y") {
+            	} else if (res.id_error == "Y" || res.pw_error == "Y") {
     				alert("다시 입력해주세요.");
+            	} else if (res.status_error == "Y") {
+    				alert("투입되지 않은 사용자입니다.");
             	} else {
             	    window.location.href = "/cmmn/main/main.view";
             	}

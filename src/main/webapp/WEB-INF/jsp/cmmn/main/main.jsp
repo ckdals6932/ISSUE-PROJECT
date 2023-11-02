@@ -9,6 +9,7 @@
 		<div id="layoutObj">
 			<div id="toolbar">	
 				<input type= button id="userBtn" name="userBtn" value="사용자 관리" onclick="OpenUserPage()">
+				<input type= button id="codeBtn" name="codeBtn" value="코드 관리" onclick="OpenCodePage()">
 				<button id="saveBtn" name="saveBtn">
 		  			<img src="/resources/image/free-icon-save-file-376218.png"/>
 		  		</button>
@@ -23,6 +24,10 @@
 		function OpenUserPage(){
 			window.location.href = "/sys/user/user.view";
 		}
+		
+		$("#codeBtn").click(function(){
+			window.location.href = "/sys/code/code.view";
+	    });
 		
 		$(document).ready(function() {
 			settingGrid();

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="sys_auth">
+	<select id="select_SYS_AUTH" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			CONVERT(DATE, BIRTH_DT, 105) AS BIRTH_DT
+			,SUBSTRING(PHONE,0,4) + '-' + SUBSTRING(PHONE,4,4) + '-' + SUBSTRING(PHONE,8,4) AS PHONE
+			,USER_SEQ, USER_ID, USER_NM, PASSWORD, STATUS_CD
+		FROM SYS_USER
+	</select>
+	
+	<insert id="insert_SYS_USER" parameterType="hashmap">
+		INSERT INTO SYS_USER (
+			USER_SEQ, AUTH_SEQ, USER_ID, USER_NM, PASSWORD
+			, PHONE, STATUS_CD, LOGIN_FAIL_CNT, REG_USER_SEQ, REG_DT
+			
+			<if test='birth_dt != "" and birth_dt != null'>
+			, BIRTH_DT
+			</if>
+		)
+		SELECT NEXT VALUE FOR SYS_USER_SEQ, NULL, #{user_id}, #{user_nm}, #{user_pw}
+			, #{phone}, #{status_cd}, 0, #{reg_user_seq}, GETDATE()
+			
+			<if test='birth_dt != "" and birth_dt != null'>
+			, #{birth_dt}
+			</if>
+	</insert>
+	
+	<update id="update_SYS_USER" parameterType="hashmap">
+		UPDATE SYS_USER
+		SET
+			AUTH_SEQ = #{auth_seq}
+			,USER_ID = #{user_id}
+			,USER_NM = #{user_nm}
+			,PASSWORD = #{user_pw}
+			<if test='birth_dt != "" and birth_dt != null'>
+			,BIRTH_DT = #{birth_dt}
+			</if>
+			,PHONE = #{phone}
+			, STATUS_CD = #{status_cd}
+			,LOGIN_FAIL_CNT = 0
+			,MODI_USER_SEQ = #{req_user_seq}
+			,MODI_DT = GETDATE()
+		WHERE 1=1
+			AND USER_SEQ = #{user_seq}
+	</update>
+</mapper>

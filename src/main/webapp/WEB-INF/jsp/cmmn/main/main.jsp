@@ -28,6 +28,12 @@
 	    });
 		
 		$(document).ready(function() {
+			if (selectMenu != 'dash') {
+				$("#"+selectMenu).removeClass('menu-hover');
+				$("#dash").addClass('menu menu-hover');
+				selectMenu = 'dash';
+			}
+			
 			settingGrid();
 			
 			$("#saveBtn").click(function(){

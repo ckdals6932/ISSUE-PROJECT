@@ -69,6 +69,7 @@
 				selectMenu = type;
 			}
 			
+			let pageUrl = ""
 			if (type == 'dash') {
 				window.location.href = "/cmmn/main/main.view";
 			} else if (type == 'issue') {

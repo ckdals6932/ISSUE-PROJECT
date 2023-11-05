@@ -20,8 +20,6 @@ public class UserService {
 	private CommonDAO comDao;
 	
 	public HashMap<String, Object> getUserInfo(HashMap<String, Object> reqMap) throws Exception {
-		reqMap.put("user_seq", "70");
-		
 		HashMap<String, Object> userInfo = comDao.select("cmmn_login.select_SYS_USER", reqMap);
 		
 		return userInfo;

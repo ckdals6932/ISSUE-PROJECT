@@ -2,7 +2,6 @@ package sys.code.web;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import javax.annotation.Resource;
 
@@ -22,28 +21,28 @@ import sys.code.service.CodeService;
 @Controller("CodeController")
 public class CodeController {
 
-	@Resource(name = "CodeService")
-	private CodeService CodeService;
-	
+   @Resource(name = "CodeService")
+   private CodeService CodeService;
+   
 
-	@RequestMapping(value = "/sys/code/code.view", method = RequestMethod.GET)
-	public String userInfo(@RequestParam HashMap<String, Object> reqMap, Model model) throws Exception {
-		model.addAttribute("page","WEB-INF/jsp/sys/code/code.jsp");
-		return "/sys/code/code";
-	}
-	
-	@RequestMapping(value = "/sys/code/codeGroupSearch.json", method = {RequestMethod.POST, RequestMethod.GET})
-	public String codeGroupSearch(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
-		List<HashMap<String, Object>> result = CodeService.codeGroupSearch(reqMap);
-		model.addAttribute("codeInfo", result);
-		return "jsonTemplate";
-	}
-	
-	@RequestMapping(value = "/sys/code/codeSearch.json", method = {RequestMethod.POST, RequestMethod.GET})
-	public String codeSearch(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
-		List<HashMap<String, Object>> result = CodeService.codeSearch(reqMap);
-		model.addAttribute("codeInfo", result);
-		return "jsonTemplate";
-	}
-	
+   @RequestMapping(value = "/sys/code/code.view", method = RequestMethod.GET)
+   public String userInfo(@RequestParam HashMap<String, Object> reqMap, Model model) throws Exception {
+      model.addAttribute("page","WEB-INF/jsp/sys/code/code.jsp");
+      return "/sys/code/code";
+   }
+   
+   @RequestMapping(value = "/sys/code/codeGroupSearch.json", method = {RequestMethod.POST, RequestMethod.GET})
+   public String codeGroupSearch(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+      List<HashMap<String, Object>> result = CodeService.codeGroupSearch(reqMap);
+      model.addAttribute("codeGroupInfo", result);
+      return "jsonTemplate";
+   }
+   
+   @RequestMapping(value = "/sys/code/codeSearch.json", method = {RequestMethod.POST, RequestMethod.GET})
+   public String codeSearch(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+      List<HashMap<String, Object>> result = CodeService.codeSearch(reqMap);
+      model.addAttribute("codeInfo", result);
+      return "jsonTemplate";
+   }
+   
 }

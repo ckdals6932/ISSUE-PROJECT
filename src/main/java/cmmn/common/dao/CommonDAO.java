@@ -7,10 +7,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import cmmn.common.vo.LoginUserVO;
 
 /**
  * Handles requests for the application home page.
@@ -27,6 +28,11 @@ public class CommonDAO {
 			result = toLowerKeyAll(result);
 		}
 		
+		return result;
+	}
+
+	public LoginUserVO selectLogin(String sqlKey, HashMap<String, Object> reqMap) throws SQLException {
+		LoginUserVO result = sqlSession.selectOne(sqlKey, reqMap);
 		return result;
 	}
 	
@@ -68,10 +74,8 @@ public class CommonDAO {
 		while (iter.hasNext()) {
 			hashKey = (String) iter.next();
 			
-			// Key 占쌀뱄옙占쏙옙화
 			lowKey = StringUtils.lowerCase(hashKey);
 			
-			// DB 占쏙옙占쏙옙占쏙옙 null占쏙옙 占쏙옙痢� 占쏙옙占쏙옙漫占� 占쏙옙占쏙옙 占쏙옙占쌘뤄옙 占쏙옙체
 			val = result.get(hashKey);
 			if (val == null) {
 				val = "";

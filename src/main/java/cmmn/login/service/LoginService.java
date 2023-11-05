@@ -3,10 +3,13 @@ package cmmn.login.service;
 import java.util.HashMap;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
 import cmmn.common.dao.CommonDAO;
+import cmmn.common.vo.LoginUserVO;
 
 
 /**
@@ -24,6 +27,13 @@ public class LoginService {
 		return userInfo;
 	}
 	
+	public LoginUserVO getUserData(HashMap<String, Object> reqMap) throws Exception {
+		LoginUserVO userInfo = comDao.selectLogin("cmmn_login.select_SYS_USER_userVo", reqMap);
+		
+		return userInfo;
+	}
+	
+	@SuppressWarnings("unused")
 	public HashMap<String, Object> loginUser(HashMap<String, Object> reqMap) throws Exception {
 		HashMap<String, Object> mapSQL = new HashMap<String, Object>();
 		mapSQL.put("user_id", reqMap.get("user_id"));
@@ -54,10 +64,13 @@ public class LoginService {
 		// 로그인 실패
 		if (returnMap == null && !userInfo.get("status_cd").equals("IN")) {
 			mapSQL.put("login_fail_cnt", Integer.valueOf(userInfo.get("login_fail_cnt").toString()) + 1);
+			returnMap.put("login", "N");
 			comDao.update("cmmn_login.update_SYS_USER", mapSQL);
 		} else {
 			// 로그인 성공 (login_fail_cnt 초기화)
 			mapSQL.put("login_fail_cnt", "0");
+			returnMap.put("login", "Y");
+			returnMap.put("userInfo", userInfo);
 			comDao.update("cmmn_login.update_SYS_USER", mapSQL);
 		}
 		

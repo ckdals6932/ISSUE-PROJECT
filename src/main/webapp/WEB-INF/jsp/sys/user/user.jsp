@@ -79,6 +79,12 @@
 	let userData = "";
 	let selectUser = "";
 	$(document).ready(function() {
+		if (selectMenu != 'user') {
+			$("#"+selectMenu).removeClass('menu-hover');
+			$("#user").addClass('menu menu-hover');
+			selectMenu = 'user';
+		}
+		
 		userSearch();
 		settingGrid();
 		

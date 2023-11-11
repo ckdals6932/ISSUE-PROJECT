@@ -64,8 +64,6 @@
 		
 		function changeView(type) {
 			if (selectMenu != type) {
-				$("#"+selectMenu).removeClass('menu-hover');
-				$("#"+type).addClass('menu menu-hover');
 				selectMenu = type;
 			}
 			

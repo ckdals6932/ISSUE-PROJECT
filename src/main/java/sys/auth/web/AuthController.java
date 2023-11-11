@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,13 +40,14 @@ public class AuthController {
 	@RequestMapping(value = "/sys/auth/authSearch.json", method = {RequestMethod.POST, RequestMethod.GET})
 	public String 권한리스트(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
 		List<HashMap<String, Object>> result = authService.authSearch(reqMap);
-		model.addAttribute("authInfo", result);
+		model.addAttribute("data", result);
 		return "jsonTemplate";
 	}
 	
 	@RequestMapping(value = "/sys/auth/authSave.json", method = {RequestMethod.POST, RequestMethod.GET})
-	public String 권한저장(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
-		HashMap<String, Object> result = authService.authSave(reqMap);
+	public String 권한저장(@RequestParam HashMap<String, Object> reqMap, ModelMap model, @RequestParam MultiValueMap<String, Object> reqList) throws Exception {
+		HashMap<String, Object> result = authService.authSave(reqMap, reqList);
+		model.addAttribute("authInfo", result);
 		return "jsonTemplate";
 	}
 }

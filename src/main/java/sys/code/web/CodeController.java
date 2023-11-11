@@ -18,10 +18,10 @@ import sys.code.service.CodeService;
 /**
  * Handles requests for the application home page.
  */
-@Controller("CodeController")
+@Controller("codeController")
 public class CodeController {
 
-   @Resource(name = "CodeService")
+   @Resource(name = "codeService")
    private CodeService CodeService;
    
 
@@ -42,6 +42,13 @@ public class CodeController {
    public String codeSearch(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
       List<HashMap<String, Object>> result = CodeService.codeSearch(reqMap);
       model.addAttribute("codeInfo", result);
+      return "jsonTemplate";
+   }
+   
+   @RequestMapping(value = "/sys/code/codeGroupSave.json", method = {RequestMethod.POST, RequestMethod.GET})
+   public String codeGroupSave(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+      HashMap<String, Object> result = CodeService.codeGroupSave(reqMap);
+      model.addAttribute("codeGroupInfo", result);
       return "jsonTemplate";
    }
    

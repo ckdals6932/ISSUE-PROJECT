@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="sys_board">
+   <select id="select_SYS_BOARD" parameterType="hashmap" resultType="hashmap">
+      SELECT * FROM SYS_BOARD 
+   </select>
+   <select id="select_SYS_CODE" parameterType="hashmap" resultType="hashmap">
+      SELECT * FROM SYS_CODE WHERE CD_GRP_SEQ = #{cd_grp_seq}
+   </select>
+   
+   <insert id="insert_SYS_CODE_GROUP" parameterType="hashmap">
+      INSERT INTO SYS_CODE_GROUP (
+      	 CD_GRP_SEQ, CD_GRP_CD, CD_GRP_NM 
+      	 <if test='desc != "" and desc != null'>
+			, [DESC]
+	      </if>
+      	 ,REG_USER_SEQ , REG_DT
+      	 ) 
+      SELECT NEXT VALUE FOR SYS_CODE_GROUP_SEQ, #{cd_grp_cd},#{cd_grp_nm}
+      <if test='desc != "" and desc != null'>
+			, #{desc}
+	  </if>
+		, 2, GETDATE()
+   </insert>
+   
+   <update id="update_SYS_CODE_GROUP" parameterType="hashmap">
+      UPDATE SYS_CODE_GROUP
+      SET
+         CD_GRP_CD = #{cd_grp_cd}
+         ,CD_GRP_NM = #{cd_grp_nm}
+         ,[DESC] = #{desc}
+         ,MODI_USER_SEQ = #{req_user_seq}
+         ,MODI_DT = GETDATE()
+         ,DB_TYPE = NULL
+      WHERE 1=1
+         AND CD_GRP_SEQ = #{cd_grp_seq}
+   </update>
+</mapper>

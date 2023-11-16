@@ -36,6 +36,9 @@
 					<li id='dash' class="menu menu-hover" title="DashBoard" onclick="changeView('dash')">
 						<span>DashBoard</span>
 					</li>
+					<li id='notice' class="notice" title="공지사항" onclick="changeView('notice')">
+						<span>공지사항</span>
+					</li>
 					<li id='issue' class="menu" title="조치사항" onclick="changeView('issue')">
 						<span>조치사항</span>
 					</li>
@@ -70,6 +73,8 @@
 			let pageUrl = ""
 			if (type == 'dash') {
 				window.location.href = "/cmmn/main/main.view";
+			} else if (type == 'notice') {
+				window.location.href = "/sys/notice/notice.view";
 			} else if (type == 'issue') {
 				window.location.href = "/sys/gem/issue.view";
 			} else if (type == 'code') {

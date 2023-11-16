@@ -62,13 +62,8 @@ public class LoginController {
 			if (session != null) {
 				if (session.getAttribute("loginUser") != null) {
 					LoginUserVO loginUser = (LoginUserVO)session.getAttribute("loginUser");
-					HashMap<String, Object> mapSQL = new HashMap<String, Object>();
-					mapSQL.put("user_id", loginUser.getUserId());
-					mapSQL.put("login_user_seq", loginUser.getUserSeq());
-					loginUser = loginService.getUserData(mapSQL);
-					if (loginUser != null) {
-						session.setAttribute("loginUser", loginUser);
-					}
+					session.setAttribute("user_id", loginUser.getUserId());
+					session.setAttribute("login_user_seq", loginUser.getUserSeq());
 				}
 				
 				forwardURL = "redirect:/cmmn/main/main.view";

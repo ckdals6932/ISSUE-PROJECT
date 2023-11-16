@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
 import cmmn.common.dao.CommonDAO;
 import cmmn.common.service.CommonService;
+import cmmn.common.vo.LoginUserVO;
 
 
 /**
@@ -30,15 +34,38 @@ public class AuthService {
 		return authInfo;
 	}
 	
-	public HashMap<String, Object> authSave(HashMap<String, Object> reqMap, MultiValueMap<String, Object> reqList) throws Exception {
+	public HashMap<String, Object> authSave(HashMap<String, Object> reqMap) throws Exception {
 		HashMap<String, Object> returnMap = new HashMap<String, Object>();
+		HashMap<String, Object> sqlMap = new HashMap<String, Object>();
 		
-		List<HashMap<String, Object>> dataList = commonService.getGridColDatas(reqList);
-		reqMap.put("data_list", dataList);
+		String saveType = "U";
 		
-		comDao.delete("sys_auth.delete_SYS_AUTH", reqMap);
-		comDao.insert("sys_auth.insert_SYS_AUTH", reqMap);
-		returnMap.put("save", "Y");
+		// Insert인지 Update인지 확인
+		if (reqMap.get("auth_seq").equals("")) {
+			saveType = "I";
+		}
+		if (reqMap.get("delYn").equals("Y")) {
+			saveType = "D";
+		}
+		
+		// Validation
+		sqlMap.put("auth_cd", reqMap.get("auth_cd"));
+		HashMap<String, Object> authInfo = comDao.select("sys_auth.select_SYS_AUTH", sqlMap);
+		if (saveType == "I" && authInfo != null) {
+			returnMap.put("auth_cd_error", "Y");
+			return returnMap;
+		}
+		
+		if (saveType == "I") {
+			comDao.insert("sys_auth.insert_SYS_AUTH", reqMap);
+			returnMap.put("save", "Y");
+		} else if (saveType == "U") {
+			comDao.insert("sys_auth.update_SYS_AUTH", reqMap);
+			returnMap.put("save", "Y");
+		} else if (saveType == "D") {
+			comDao.insert("sys_auth.delete_SYS_AUTH", reqMap);
+			returnMap.put("save", "Y");
+		}
 		
 		return returnMap;
 	}

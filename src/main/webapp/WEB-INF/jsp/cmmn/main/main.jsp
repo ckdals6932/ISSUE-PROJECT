@@ -33,7 +33,6 @@
 				$("#dash").addClass('menu menu-hover');
 				selectMenu = 'dash';
 			}
-			
 			settingGrid();
 			
 			$("#saveBtn").click(function(){

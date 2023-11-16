@@ -3,31 +3,46 @@
 
 <mapper namespace="sys_auth">
 	<select id="select_SYS_AUTH" parameterType="hashmap" resultType="hashmap">
-		SELECT *
-		FROM SYS_AUTH
+		SELECT 
+			AUTH_SEQ
+			,AUTH_CD
+			,AUTH_NM
+			,(SELECT USER_NM FROM SYS_USER WHERE USER_SEQ = AUTH.REG_USER_SEQ) REG_USER_NM
+			,CONVERT(VARCHAR(16), REG_DT, 120) 	AS REG_DT
+		FROM SYS_AUTH AUTH
+		<if test='auth_cd != "" and auth_cd != null'>
+		WHERE AUTH_CD = #{auth_cd}
+		</if>
 	</select>
 	
 	<insert id="insert_SYS_AUTH" parameterType="hashmap">
-		BEGIN
-		<foreach collection="data_list" item="data" index="index" separator=";">
-			INSERT INTO SYS_AUTH (
-				AUTH_SEQ
-				, AUTH_CD
-				, AUTH_NM
-				, REG_USER_SEQ
-				, REG_DT
-			)
-			SELECT 
-				NEXT VALUE FOR SYS_AUTH_SEQ
-				, #{data.auth_cd}
-				, #{data.auth_nm}
-				, #{login_user_seq}
-				, GETDATE()
-		</foreach>
-		END;
+		INSERT INTO SYS_AUTH (
+			AUTH_SEQ
+			, AUTH_CD
+			, AUTH_NM
+			, REG_USER_SEQ
+			, REG_DT
+		)
+		SELECT 
+			NEXT VALUE FOR SYS_AUTH_SEQ
+			, #{auth_cd}
+			, #{auth_nm}
+			, #{login_user_seq}
+			, GETDATE()
 	</insert>
+	
+	<update id="update_SYS_AUTH" parameterType="hashmap">
+		UPDATE SYS_AUTH 
+			SET
+				AUTH_CD = #{auth_cd}
+				,AUTH_NM = #{auth_nm}
+				,MODI_USER_SEQ = #{login_user_seq}
+				,MODI_DT = GETDATE()
+		WHERE AUTH_SEQ = #{auth_seq}
+	</update>
 	
 	<delete id="delete_SYS_AUTH" parameterType="hashmap">
 		DELETE SYS_AUTH
+		WHERE AUTH_SEQ = #{auth_seq}
 	</delete>
 </mapper>

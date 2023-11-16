@@ -45,8 +45,8 @@ public class AuthController {
 	}
 	
 	@RequestMapping(value = "/sys/auth/authSave.json", method = {RequestMethod.POST, RequestMethod.GET})
-	public String 권한저장(@RequestParam HashMap<String, Object> reqMap, ModelMap model, @RequestParam MultiValueMap<String, Object> reqList) throws Exception {
-		HashMap<String, Object> result = authService.authSave(reqMap, reqList);
+	public String 권한저장(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+		HashMap<String, Object> result = authService.authSave(reqMap);
 		model.addAttribute("authInfo", result);
 		return "jsonTemplate";
 	}

@@ -105,7 +105,10 @@ select.form-control {
 	vertical-align: middle;
 }
 
-
+/* ck 에디터 높이 조절*/
+.ck-editor__editable {
+	min-height : 500px;
+}
 
 .help-tip{
 	top: 18px;
@@ -168,6 +171,8 @@ select.form-control {
 	left:0;
 }
 
+.w_1p {width: 1%}
+.w_5p {width: 5%}
 .w_10p {width: 10%}
 .w_15p {width: 15%}
 .w_20p {width: 20%}
@@ -176,6 +181,8 @@ select.form-control {
 .w_35p {width: 35%}
 .w_40p {width: 40%}
 .w_50p {width: 50%}
+.w_60p {width: 60%}
+
 
 .h_10 {height: 10px}
 .h_15 {height: 15px}

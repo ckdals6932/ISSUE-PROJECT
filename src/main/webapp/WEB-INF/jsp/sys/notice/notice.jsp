@@ -31,7 +31,48 @@
             <div style="display: inline-block; width: 41%; height: 80%;">
                <form role="form" id="dataForm" method="POST">
                   <input type="hidden" id="user_seq" name="user_seq" class="form-control">
-                  <table id="gridCode"></table>
+                  <table style="width: 800px;">
+							<tr class="h_33">
+								<td class="w_50p table_t center">제목</td>
+								<td class="w_20p table_t center">작성자</td>
+								<td class="w_20p table_t center">날짜</td>
+								<td class="w_5p table_t center">정렬</td>
+								<td class="w_5p table_t center">사용여부</td> 
+								<td class="w_10p table_t center">조회수</td>
+							</tr>
+							<tr class="h_33">
+								<td class="w_50p center">
+									<input type="text" id="notice_title" name="notice_title" class="form-control" autocomplete="off">
+								</td>
+								<td class="w_20p center">
+									<input type="text" id="reg_user_nm" name="reg_user_nm" class="form-control" autocomplete="off">
+								</td>
+								<td class="w_20p center">
+									<input type="text" id="reg_dt" name="auth_nm" class="form-control" autocomplete="off">
+								</td>
+								<td class="w_5p center">
+									<input type="text" id="reg_dt" name="auth_nm" class="form-control" autocomplete="off">
+								</td>
+								<td class="w_5p center">
+									<input type="text" id="sort" name="auth_nm" class="form-control" autocomplete="off">
+								</td>
+								<td class="w_10p center">
+									<input type="text" id="view_cnt" name="auth_nm" class="form-control" autocomplete="off">
+								</td>
+							</tr>
+							<tr>
+								<td colspan='5' align = "center">
+								<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+		    					<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/translations/ko.js"></script>
+								<textarea name="content" id="editor"></textarea>
+		    					<script>
+		      						ClassicEditor.create( document.querySelector( '#editor' ), {
+		      							language: "ko",
+		      						});
+		    					</script>
+		    					</td>
+							</tr>	
+						</table>	
                   <div id="pager"></div> 
                </form>
             </div>

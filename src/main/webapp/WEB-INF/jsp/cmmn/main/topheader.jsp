@@ -76,7 +76,7 @@
 			} else if (type == 'notice') {
 				window.location.href = "/sys/notice/notice.view";
 			} else if (type == 'issue') {
-				window.location.href = "/sys/gem/issue.view";
+				window.location.href = "/gem/issue/issue.view";
 			} else if (type == 'code') {
 				window.location.href = "/sys/code/code.view";
 			} else if (type == 'user') {

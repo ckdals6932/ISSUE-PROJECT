@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="gem_issue">
+	<select id="select_GEM_ITEM" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			*
+		FROM GEM_ITEM
+	</select>
+	
+	<insert id="insert_GEM_ITEM" parameterType="hashmap">
+		INSERT INTO SYS_AUTH (
+			AUTH_SEQ
+			, AUTH_CD
+			, AUTH_NM
+			, REG_USER_SEQ
+			, REG_DT
+		)
+		SELECT 
+			NEXT VALUE FOR SYS_AUTH_SEQ
+			, #{auth_cd}
+			, #{auth_nm}
+			, #{login_user_seq}
+			, GETDATE()
+	</insert>
+	
+	<update id="update_GEM_ITEM" parameterType="hashmap">
+		UPDATE SYS_AUTH 
+			SET
+				AUTH_CD = #{auth_cd}
+				,AUTH_NM = #{auth_nm}
+				,MODI_USER_SEQ = #{login_user_seq}
+				,MODI_DT = GETDATE()
+		WHERE AUTH_SEQ = #{auth_seq}
+	</update>
+	
+	<delete id="delete_GEM_ISSUE" parameterType="hashmap">
+		DELETE SYS_AUTH
+		WHERE AUTH_SEQ = #{auth_seq}
+	</delete>
+</mapper>

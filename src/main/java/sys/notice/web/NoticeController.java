@@ -37,4 +37,11 @@ public class NoticeController {
       model.addAttribute("noticeInfo", result);
       return "jsonTemplate";
    }
+   
+   @RequestMapping(value = "/sys/notice/noticeSave.json", method = {RequestMethod.POST, RequestMethod.GET})
+   public String noticeSave(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+	   HashMap<String, Object> result = noticeService.noticeSave(reqMap);
+	   model.addAttribute("noticeInfo", result);
+	   return "jsonTemplate";
+   }
 }

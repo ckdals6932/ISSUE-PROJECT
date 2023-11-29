@@ -106,7 +106,7 @@ select.form-control {
 }
 
 /* ck 에디터 높이 조절*/
-.ck-editor__editable {
+.ck-context_txt__editable {
 	min-height : 500px;
 }
 

@@ -2,26 +2,90 @@
 
 <html>
 <head>
-	<jsp:include page="/WEB-INF/jsp/cmmn/main/topheader.jsp"/>
+	<jsp:include page="/WEB-INF/jsp/cmmn/common.jsp"/>
 </head>
 <body>
-	<div id="app">
-		<div id="layout">
-			<div id="toolbar">
-				<button id="saveBtn" name="saveBtn">
-		  			<img src="/resources/image/free-icon-save-file-376218.png"/>
-		  		</button>
-				<button id="delBtn" name="delBtn">
-		  			<img src="/resources/image/free-icon-delete-button-5680126.png"/>
-		  		</button>
-				<button id="addBtn" name="addBtn">
-		  			<img src="/resources/image/free-icon-add-image-7780327.png"/>
-		  		</button>
-			</div>
-			<div style="display: flex; justify-content: space-around;">
-				<div>
-					<table id="gridObj"></table>
-					<div id="pager"></div>
+	<div id="app" class="lyt-2 window-popup">
+		<div id="app-content">
+			<div class="wrap-content" id="container">
+				<div class="row window-popup-panel-body window-popup-body">
+
+					<div id="toolbar">
+						<button id="saveBtn" name="saveBtn">
+				  			<img src="/resources/image/free-icon-save-file-376218.png"/>
+				  		</button>
+						<button id="delBtn" name="delBtn">
+				  			<img src="/resources/image/free-icon-delete-button-5680126.png"/>
+				  		</button>
+						<button id="addBtn" name="addBtn">
+				  			<img src="/resources/image/free-icon-add-image-7780327.png"/>
+				  		</button>
+					</div>
+					
+					<form role="form" id="dataForm" method="POST">
+						<div class="col-md-12">
+							<div style="margin-bottom: 0px">
+								<label class="popup_subtitle2">요청자</label>
+								<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+									<tr class="h_33">
+										<td class="w_10p table_t">Item Code</td>
+										<td class="w_23p center">
+											<input type="text" id="title" name="title" class="form-control customInput" disabled>
+										</td>
+										<td class="w_10p table_t">상태</td>
+										<td class="w_23p center">
+											<input type="text" id="title" name="title" class="form-control customInput" disabled>
+										</td>
+										<td class="w_10p table_t">Type</td>
+										<td class="w_24p center">
+											<select id="issue_type" name="issue_type" class="form-control">
+												<option value="ER" selected>오류</option>
+												<option value="FU">기능수정</option>
+												<option value="FI">기능추가</option>
+												<option value="QA">질문</option>
+											</select>
+										</td>
+									</tr>
+									<tr class="h_33">
+										<td class="w_10p table_t">제목</td>
+										<td class="w_23p center" colspan="3">
+											<input type="text" id="title" name="title" class="form-control customInput" style="width: 97.5%">
+										</td>
+										<td class="w_10p table_t">메뉴</td>
+										<td class="w_23p center">
+											<select id="issue_menu" name="issue_menu" class="form-control">
+												<option value="DASH" selected>DashBoard</option>
+												<option value="NOTICE">공지사항</option>
+												<option value="ISSUE">조치사항</option>
+												<option value="USER">사용자관리</option>
+												<option value="AUTH">권한관리</option>
+											</select>
+										</td>
+									</tr>
+									<tr class="h_33">
+										<td class="w_10p table_t">내용</td>
+										<td class="w_23p center" colspan="5">
+											<textarea rows="3" id="centent" name="centent" class="form-control customInput" style="width: 98.5%;"></textarea>
+										</td>
+									</tr>
+									<tr class="h_33">
+										<td class="w_10p table_t">요청자</td>
+										<td class="w_23p center">
+											<input type="text" id="title" name="title" class="form-control customInput" disabled>
+										</td>
+										<td class="w_10p table_t">처리자</td>
+										<td class="w_23p center">
+											<input type="text" id="title" name="title" class="form-control customInput">
+										</td>
+										<td class="w_10p table_t">작성일자</td>
+										<td class="w_24p center">
+											<input type="text" id="title" name="title" class="form-control customInput" disabled>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -158,16 +222,17 @@
 			rowData = $("#gridCodeObj").getRowData(rowId);
 		}
 		
-		var url = "/gem/issue/issueRegistrationPopup.view";
-		var windowTargetName = (rowId == '' ? 'Issue' : rowData.issue_cd);
+		var url = "";
+		var windowTargetName = "targetName";
 		var features = "scrollbars=yes,width=1000,height=800,location=no, resizable=yes";
 		window.open(url, windowTargetName, features);
 
 		// 2.POST로 데이터 전달
-		myForm.action=url; // 이동
+		myForm.action="url.do"; // 이동
 		myForm.method="post";
 		myForm.target=windowTargetName;
 		myForm.submit();
+		출처: https://baekyle.com/14 [지나간 것들 - 배카일:티스토리]
 	}
 	
 </script>

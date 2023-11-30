@@ -29,7 +29,7 @@ public class IssueService {
 	private CommonService commonService;
 	
 	public List<HashMap<String, Object>> issueSearch(HashMap<String, Object> reqMap) throws Exception {
-		List<HashMap<String, Object>> issueInfo = comDao.list("gem_issue.select_GEM_ISSUE", reqMap);
+		List<HashMap<String, Object>> issueInfo = comDao.list("gem_issue.select_GEM_ITEM", reqMap);
 		
 		return issueInfo;
 	}

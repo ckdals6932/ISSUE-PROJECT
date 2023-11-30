@@ -35,6 +35,12 @@ public class IssueController {
 		model.addAttribute("page","WEB-INF/jsp/gem/issue/issue.view");
 		return "gem/issue/issue";
 	}
+
+	@RequestMapping(value = "/gem/issue/issueRegistrationPopup.view", method = RequestMethod.GET)
+	public String 조치사항_생성_팝업(@RequestParam HashMap<String, Object> reqMap, HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("page","WEB-INF/jsp/gem/issue/issueRegistrationPopup.view");
+		return "gem/issue/issueRegistrationPopup";
+	}
 	
 	@RequestMapping(value = "/gem/issue/issueSearch.json", method = {RequestMethod.POST, RequestMethod.GET})
 	public String 조치사항리스트(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {

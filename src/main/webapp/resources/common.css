@@ -53,6 +53,26 @@ select.focus {
 	border-color: #111111 !important;
 	background-color: #ffffff !important;
 }
+textarea {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: #FFFFFF;
+	background-image: none !important;
+	border: 1px solid #c8c8c8;
+	border-radius: 0;
+	box-shadow: none !important;
+	resize: none;
+	font-family: "맑은 고딕", sans-serif, Roboto, Arial, Helvetica !important;
+}
+textarea:hover {
+	border-color: #111111 !important;
+}
+textarea.focus {
+	box-shadow: none !important;
+	border-color: #111111 !important;
+	background-color: #ffffff !important;
+}
 
 /* 폼 관련 */
 table > tbody > tr > td {
@@ -65,7 +85,7 @@ table > tbody > tr > td {
 	float: right;
 	font-weight: normal;
 	border-radius: 0px;
-	width: 90%;
+	width: 95%;
 }
 .form-control[disabled], .form-control[readonly] {
 	background-color: #F8F8F8;
@@ -94,6 +114,18 @@ select.form-control {
 	margin-top: 0px;
 	box-shadow: none;
 	float: none;
+}
+textarea.form-control {
+	background-color: #FFFFFF;
+	border: 1px solid #c8c8c8;
+	border-radius: 0 0 0 0;
+	color: #333333;
+	border-radius: 0px;
+	font-size: 12px;
+	margin-top: 0px;
+	box-shadow: none;
+	float: none;
+	margin: 3px 0px 3px 0px;
 }
 .table {
 	width: 100%;
@@ -176,6 +208,8 @@ select.form-control {
 .w_10p {width: 10%}
 .w_15p {width: 15%}
 .w_20p {width: 20%}
+.w_23p {width: 23%}
+.w_24p {width: 24%}
 .w_25p {width: 25%}
 .w_30p {width: 30%}
 .w_35p {width: 35%}
@@ -222,6 +256,7 @@ select.form-control {
 	background-color: #f8f8f8;
 	border-collapse: collapse;
 	color: #333333;
+	padding: 0px 0px 0px 10px;
 }
 .btn {    
 	background: #000;
@@ -381,4 +416,45 @@ select.form-control {
 }
 .menu ul>li>ul>li:hover {
 	background-color: #EAC442;
+}
+
+
+
+/* 팝업 관련 */
+.lyt-2 .main-content {
+	margin-left: 0px;
+	margin-top: 0;
+}
+.window-popup {
+	background-color: #ffffff;
+}
+@media (max-width: 991px) {
+	.app-content {
+		background: #ffffff;
+	}
+}
+.row {
+	margin-right: 0px !important;
+	margin-left: 0px !important;
+}
+.window-popup-panel-body {
+	padding: 0px 24px 0px 24px;
+}
+.window-popup-body {
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-bottom: 20px;
+	padding-top: 10px;
+}
+.popup_subtitle2 {
+	font-weight: bold !important;
+	font-size: 14px !important;
+	color: #333333;
+	border: none;
+	width: 100%;
+	padding: 3px 0px 0px 0px;
+	height: 43px;
+	margin: 0px;
+	font-family: "맑은 고딕", sans-serif, Roboto, Arial, Helvetica !important;
+	line-height: 43px;
 }

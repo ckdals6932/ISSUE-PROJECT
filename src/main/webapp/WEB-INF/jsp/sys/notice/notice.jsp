@@ -70,18 +70,25 @@
 <script>
 	let noticeData = "";
 	let selectNotice = "";
+	let editData = "";
+	let editTxtData = "";
+	let editHtmlData = "";
 	
 	/* ck에디터를 id가 context_txt랑 연결  */
-	ClassicEditor.create( document.querySelector( '#context_txt' ), {
-			language: "ko",
-		/* })
-			.then( contents => {
-				theEditor = contents; // #contents에 있는 값을 theEditor에 넣어놓는다.
-			}) */
-	});
+	ClassicEditor
+	.create( document.querySelector( '#context_txt' ), {
+		language: "ko",
+	})
+	.then( contents => {
+		editData = contents; // #contents에 있는 값을 theEditor에 넣어놓는다.
+	})
+	.catch( error => {
+		consloe.error( error );
+	}); 
+
 	$(document).ready(function() { 
 		if (selectMenu != 'notice') {
-			$("#"+selectMenu).removeClass('menu-hover');
+			$("#"+selectMenu).removeClass('menu-hover'); 
 			$("#notice").addClass('menu menu-hover');
 			selectMenu = 'notice';
 		}
@@ -90,8 +97,10 @@
 		settingGrid();
 		
 		$("#saveBtn").click(function(){
-			/* saveData(); */
-			console.log(CKEDITOR.instances.example.getData());
+			editHtmlData = editData.getData();
+			editTxtData = editHtmlData.replace("<p>", "").replace("</p>", "");
+			console.log(editHtmlData + " " + editTxtData);
+			saveData();
 			
 	    });
 		
@@ -114,14 +123,19 @@
 			params += '&delYn=Y';
 		} else {
 			params += '&delYn=';
+
 		}
 		
 		$.ajax({
             type: 'POST'
             ,async: true
-            ,url: '/sys/auth/authSave.json'
+            ,url: '/sys/notice/noticeSave.json?'+params
             ,dataType: 'json'
-            ,data: params
+            ,data: {
+            	board_seq: $("#board_seq").val()
+            	,content_txt : editTxtData
+            	,content_html : editHtmlData
+            }
 	        ,error:function (data, textStatus) {
 				alert("시스템 에러입니다.");
 	        }
@@ -132,10 +146,10 @@
             	} else if (res.save == "Y") {
             		alert("저장되었습니다.");
             		clear();
-            		authSearch();
+            		noticeSearch();
             	}
             }
-        });
+        }); 
 	}
 
 	function clear(){

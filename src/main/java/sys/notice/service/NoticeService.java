@@ -42,15 +42,7 @@ public class NoticeService {
 		if (reqMap.get("delYn").equals("Y")) {
 			saveType = "D";
 		}
-		
-		// Validation
-		sqlMap.put("auth_cd", reqMap.get("auth_cd"));
-		HashMap<String, Object> boardInfo = comDao.select("sys_board.select_SYS_BOARD", sqlMap);
-		if (saveType == "I" && boardInfo != null) {
-			returnMap.put("auth_cd_error", "Y");
-			return returnMap;
-		}
-		
+				
 		if (saveType == "I") {
 			comDao.insert("sys_board.insert_SYS_BOARD", reqMap);
 			returnMap.put("save", "Y");

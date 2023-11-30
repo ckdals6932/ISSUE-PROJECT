@@ -13,27 +13,31 @@
 			, REG_USER_SEQ
 			, REG_DT
 			, SORT
+			, CONTENT_TXT
+			, CONTENT_HTML
 		)
 		SELECT 
 			NEXT VALUE FOR SYS_BOARD_SEQ
-			, #{title}
+			, #{notice_title}
 			, #{login_user_seq}
 			, GETDATE()
 			, #{sort}
+			, #{content_txt}
+			, #{content_html}
 	</insert>
    
    <update id="update_SYS_BOARD" parameterType="hashmap">
 		UPDATE SYS_BOARD 
 			SET
-				AUTH_CD = #{auth_cd}
-				,AUTH_NM = #{auth_nm}
+				TITLE = #{title}
+				,SORT = #{sort}
 				,MODI_USER_SEQ = #{login_user_seq}
 				,MODI_DT = GETDATE()
-		WHERE AUTH_SEQ = #{auth_seq}
+		WHERE BOARD_SEQ = #{board_seq}
 	</update>
 	
 	<delete id="delete_SYS_BOARD" parameterType="hashmap">
 		DELETE SYS_BOARD
-		WHERE AUTH_SEQ = #{auth_seq}
+		WHERE BOARD_SEQ = #{board_seq}
 	</delete>
 </mapper>

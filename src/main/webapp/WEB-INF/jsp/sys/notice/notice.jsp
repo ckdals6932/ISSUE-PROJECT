@@ -35,20 +35,21 @@
 								<td class="w_10p table_t center">사용여부</td> 
 							</tr>
 							<tr class="h_33">
-								<td class="w_50p center">
+								<td class="w_45p center">
 									<input type="text" id="notice_title" name="notice_title" class="form-control" autocomplete="off">
 								</td>
-								<td class="w_15p center">
-									<input type="text" id="reg_user_nm" name="reg_user_nm" class="form-control" autocomplete="off">
+								<td class="w_10p center">
+									<input type="text" id="reg_user_nm" name="reg_user_nm" class="form-control" autocomplete="off" disabled>
 								</td>
 								<td class="w_20p center">
-									<input type="text" id="reg_dt" name="reg_dt" class="form-control" autocomplete="off">
-								</td>
-								<td class="w_5p center">
-									<input type="text" id="sort" name="sort" class="form-control" autocomplete="off">
+									<input type="text" id="reg_dt" name="reg_dt" class="form-control" autocomplete="off" disabled>
 								</td>
 								<td class="w_10p center">
-									<input type="text" id="view_yn" name="view_yn" class="form-control" autocomplete="off">
+									<input type="text" id="sort" name="sort" class="form-control" autocomplete="off">
+								</td>
+								<td class="w_15p center">
+									<input type="checkbox" value="Y" id="view_yn" name="view_yn" checked>
+									<label for="horns">Horns</label>
 								</td>
 							</tr>
 							<tr>
@@ -98,10 +99,10 @@
 		
 		$("#saveBtn").click(function(){
 			editHtmlData = editData.getData();
-			editTxtData = editHtmlData.replace("<p>", "").replace("</p>", "");
-			console.log(editHtmlData + " " + editTxtData);
+			editTxtData = editHtmlData.replace(/(<([^>]+)>)/ig,"");
+			console.log("editHtmlData : " + editHtmlData);
+			console.log("editTxtData : " +  editTxtData);
 			saveData();
-			
 	    });
 		
 		$("#delBtn").click(function() {
@@ -132,33 +133,34 @@
             ,url: '/sys/notice/noticeSave.json?'+params
             ,dataType: 'json'
             ,data: {
-            	board_seq: $("#board_seq").val()
-            	,content_txt : editTxtData
+            	/* board_seq: $("#board_seq").val() */
+            	content_txt : editTxtData
             	,content_html : editHtmlData
             }
 	        ,error:function (data, textStatus) {
 				alert("시스템 에러입니다.");
 	        }
             ,success: function(data, textStatus) {
-            	let res = data.authInfo;
-            	if (res.auth_cd_error == 'Y') {
-            		alert("코드가 중복되었습니다.");
-            	} else if (res.save == "Y") {
+            	let res = data.noticeInfo;
+            	if (res.save == "Y") {
             		alert("저장되었습니다.");
             		clear();
             		noticeSearch();
+            	} else {
+            		alert("에러입니다");
             	}
             }
         }); 
 	}
 
 	function clear(){
+		$("#board_seq").val("");
 		$("#notice_title").val("");
 		$("#reg_user_nm").val("");
         $("#reg_dt").val("");
         $("#sort").val("");
         $("#view_yn").val("");
-        
+        editData.setData("");
         /* $("#auth_cd").removeAttr("disabled"); */
 	}
 	
@@ -188,13 +190,15 @@
       $("#gridNoticeObj").jqGrid({
          datatype: "local",
          data: noticeData,
-         colNames:['No.', '제목', '작성자','날짜','정렬'],
+         colNames:['board_seq','내용', '제목', '작성자','날짜','정렬', 'html'],
          colModel:[
             {name:'board_seq', index:0, width:0, align: "center", hidden: true},
-            {name:'title', index:1, width:100, align: "center"},
-            {name:'reg_user_seq', index:2, width:200 , align: "center"},
-            {name:'reg_dt', index:3, width:200, align: "center"},
-            {name:'sort', index:4, width:200, align: "center"},
+            {name:'title', index:1, width:200, align: "center"},
+            {name:'content_txt', index:2, width:0, align: "center"},
+            {name:'reg_user_nm', index:3, width:70 , align: "center"}, 
+            {name:'reg_dt', index:4, width:100, align: "center"},
+            {name:'sort', index:5, width:50, align: "center"},
+            {name:'content_html', index:6, width:0, align: "center", hidden: true},
          ],
          //autowidth: true,
          rownumbers : true,
@@ -206,6 +210,7 @@
          sortname: 'id',
          sortorder: 'asc',
          height: 500,
+         width: 900, 
          
          cellEdit:false, //그리드 수정 가능 기능  
          cellsubmit : 'clientArray',
@@ -215,11 +220,11 @@
 	    	 if(status){
 	    		 let rowData = $(this).jqGrid('getRowData', rowid);
 	             $("#board_seq").val(rowData.board_seq);
-	    		 $("#title").val(rowData.title);
-		         $("#reg_user_seq").val(rowData.reg_user_seq);
+	    		 $("#notice_title").val(rowData.title);
+		         $("#reg_user_nm").val(rowData.reg_user_nm);
 	             $("#reg_dt").val(rowData.reg_dt);
 	             $("#sort").val(rowData.sort);
-	            
+	             editData.setData(rowData.content_html);
 	             $("#board_seq").attr("disabled", "disabled");
 	    		
 	             selectNotice = rowData.board_seq;

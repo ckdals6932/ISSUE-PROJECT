@@ -3,7 +3,20 @@
 
 <mapper namespace="sys_board">
    <select id="select_SYS_BOARD" parameterType="hashmap" resultType="hashmap">
-      SELECT * FROM SYS_BOARD 
+      SELECT 
+			BOARD_SEQ
+			,TITLE
+			,SORT
+			,(SELECT USER_NM FROM SYS_USER WHERE USER_SEQ = SYS_BOARD.REG_USER_SEQ) REG_USER_NM
+			,CONTENT_TXT
+			,CONTENT_HTML
+			,VIEW_YN
+			,VIEW_CNT
+			,CONVERT(VARCHAR(16), REG_DT, 120) 	AS REG_DT
+		FROM SYS_BOARD
+		<if test='auth_cd != "" and auth_cd != null'>
+		WHERE AUTH_CD = #{auth_cd}
+		</if>
    </select>
    
    <insert id="insert_SYS_BOARD" parameterType="hashmap">
@@ -29,10 +42,12 @@
    <update id="update_SYS_BOARD" parameterType="hashmap">
 		UPDATE SYS_BOARD 
 			SET
-				TITLE = #{title}
-				,SORT = #{sort}
+				TITLE = #{notice_title}
+				,SORT = #{sort} 
 				,MODI_USER_SEQ = #{login_user_seq}
 				,MODI_DT = GETDATE()
+				,CONTENT_TXT = #{content_txt}
+				,CONTENT_HTML = #{content_html}
 		WHERE BOARD_SEQ = #{board_seq}
 	</update>
 	

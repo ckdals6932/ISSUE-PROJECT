@@ -2,7 +2,10 @@
 
 <html>
 <head>
-   <jsp:include page="/WEB-INF/jsp/cmmn/main/topheader.jsp"/>
+   	<jsp:include page="/WEB-INF/jsp/cmmn/main/topheader.jsp"/>
+   	<style>
+		input {-webkit-appearance: auto;}
+   	</style>
 </head>
 <body>
    <div id="app">

@@ -32,13 +32,15 @@ public class IssueController {
 
 	@RequestMapping(value = "/gem/issue/issue.view", method = RequestMethod.GET)
 	public String 조치사항화면(@RequestParam HashMap<String, Object> reqMap, HttpServletRequest request, Model model) throws Exception {
-		model.addAttribute("page","WEB-INF/jsp/gem/issue/issue.view");
+		model.addAttribute("page", "WEB-INF/jsp/gem/issue/issue.view");
 		return "gem/issue/issue";
 	}
 
 	@RequestMapping(value = "/gem/issue/issueRegistrationPopup.view", method = RequestMethod.GET)
 	public String 조치사항_생성_팝업(@RequestParam HashMap<String, Object> reqMap, HttpServletRequest request, Model model) throws Exception {
-		model.addAttribute("page","WEB-INF/jsp/gem/issue/issueRegistrationPopup.view");
+		model.addAttribute("page", "WEB-INF/jsp/gem/issue/issueRegistrationPopup.view");
+		
+		model.addAttribute("item_seq", reqMap.get("item_seq"));
 		return "gem/issue/issueRegistrationPopup";
 	}
 	

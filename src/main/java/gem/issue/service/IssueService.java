@@ -35,39 +35,39 @@ public class IssueService {
 	}
 	
 	public HashMap<String, Object> issueSave(HashMap<String, Object> reqMap) throws Exception {
-		HashMap<String, Object> returnMap = new HashMap<String, Object>();
-		HashMap<String, Object> sqlMap = new HashMap<String, Object>();
-		
 		String saveType = "U";
 		
 		// Insert인지 Update인지 확인
-		if (reqMap.get("auth_seq").equals("")) {
+		if (reqMap.get("item_seq").equals("")) {
 			saveType = "I";
-		}
-		if (reqMap.get("delYn").equals("Y")) {
-			saveType = "D";
-		}
-		
-		// Validation
-		sqlMap.put("auth_cd", reqMap.get("auth_cd"));
-		HashMap<String, Object> authInfo = comDao.select("sys_auth.select_SYS_AUTH", sqlMap);
-		if (saveType == "I" && authInfo != null) {
-			returnMap.put("auth_cd_error", "Y");
-			return returnMap;
 		}
 		
 		if (saveType == "I") {
-			comDao.insert("sys_auth.insert_SYS_AUTH", reqMap);
-			returnMap.put("save", "Y");
-		} else if (saveType == "U") {
-			comDao.insert("sys_auth.update_SYS_AUTH", reqMap);
-			returnMap.put("save", "Y");
-		} else if (saveType == "D") {
-			comDao.insert("sys_auth.delete_SYS_AUTH", reqMap);
-			returnMap.put("save", "Y");
+			// SEQ 부여
+			reqMap.put("item_seq", this.getItemSeq(reqMap));
+			// Code 부여
+			reqMap.put("item_cd", this.getItemCd(reqMap));
 		}
 		
-		return returnMap;
+		if (saveType == "I") {
+			comDao.insert("gem_issue.insert_GEM_ITEM", reqMap);
+		} else if (saveType == "U") {
+			comDao.insert("gem_issue.update_GEM_ITEM", reqMap);
+		}
+		
+		return reqMap;
+	}
+	
+
+	// 시퀀스 부여
+	public String getItemSeq(HashMap<String, Object> reqMap) throws Exception {
+		HashMap<String, Object> returnMap = comDao.select("gem_issue.getItemSeq", reqMap);
+		return (String) returnMap.get("item_seq");
+	}
+	// 코드 부여
+	public String getItemCd(HashMap<String, Object> reqMap) throws Exception {
+		HashMap<String, Object> returnMap = comDao.select("gem_issue.getItemCd", reqMap);
+		return (String) returnMap.get("item_cd");
 	}
 }
  

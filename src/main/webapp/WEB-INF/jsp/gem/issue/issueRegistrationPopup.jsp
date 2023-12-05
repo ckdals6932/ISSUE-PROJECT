@@ -3,6 +3,9 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/jsp/cmmn/common.jsp"/>
+	<style>
+		#toolbar {margin-top: 20px;}
+	</style>
 </head>
 <body>
 	<div id="app" class="lyt-2 window-popup">
@@ -14,30 +17,32 @@
 						<button id="saveBtn" name="saveBtn">
 				  			<img src="/resources/image/free-icon-save-file-376218.png"/>
 				  		</button>
-						<button id="delBtn" name="delBtn">
-				  			<img src="/resources/image/free-icon-delete-button-5680126.png"/>
-				  		</button>
-						<button id="addBtn" name="addBtn">
-				  			<img src="/resources/image/free-icon-add-image-7780327.png"/>
+				  		
+						<button id="sendBtn" name="sendBtn">
+				  			전송
 				  		</button>
 					</div>
 					
 					<form role="form" id="dataForm" method="POST">
 						<div class="col-md-12">
 							<div style="margin-bottom: 0px">
+								<label id="item_seq" name="item_seq" hidden="true"></label>
+							
 								<label class="popup_subtitle2">요청자</label>
 								<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
 									<tr class="h_33">
-										<td class="w_10p table_t">Item Code</td>
-										<td class="w_23p center">
-											<input type="text" id="title" name="title" class="form-control customInput" disabled>
+										<td class="w_20p table_t">Item Code</td>
+										<td class="w_30p center">
+											<input id="item_cd" name="item_cd" type="text" class="form-control customInput" disabled>
 										</td>
-										<td class="w_10p table_t">상태</td>
-										<td class="w_23p center">
-											<input type="text" id="title" name="title" class="form-control customInput" disabled>
+										<td class="w_20p table_t">상태</td>
+										<td class="w_30p center">
+											<input id="status_cd" name="status_cd" type="text" class="form-control customInput" disabled>
 										</td>
-										<td class="w_10p table_t">Type</td>
-										<td class="w_24p center">
+									</tr>
+									<tr class="h_33">
+										<td class="w_20p table_t"><span style="color: red;">*</span> Type</td>
+										<td class="w_30p center">
 											<select id="issue_type" name="issue_type" class="form-control">
 												<option value="ER" selected>오류</option>
 												<option value="FU">기능수정</option>
@@ -45,15 +50,9 @@
 												<option value="QA">질문</option>
 											</select>
 										</td>
-									</tr>
-									<tr class="h_33">
-										<td class="w_10p table_t">제목</td>
-										<td class="w_23p center" colspan="3">
-											<input type="text" id="title" name="title" class="form-control customInput" style="width: 97.5%">
-										</td>
-										<td class="w_10p table_t">메뉴</td>
-										<td class="w_23p center">
-											<select id="issue_menu" name="issue_menu" class="form-control">
+										<td class="w_20p table_t"><span style="color: red;">*</span> 메뉴</td>
+										<td class="w_30p center">
+											<select id="item_menu" name="item_menu" class="form-control">
 												<option value="DASH" selected>DashBoard</option>
 												<option value="NOTICE">공지사항</option>
 												<option value="ISSUE">조치사항</option>
@@ -63,23 +62,66 @@
 										</td>
 									</tr>
 									<tr class="h_33">
-										<td class="w_10p table_t">내용</td>
-										<td class="w_23p center" colspan="5">
-											<textarea rows="3" id="centent" name="centent" class="form-control customInput" style="width: 98.5%;"></textarea>
+										<td class="w_20p table_t"><span style="color: red;">*</span> 제목</td>
+										<td class="w_80p center" colspan="3">
+											<input id="item_title" name="item_title" type="text" class="form-control customInput" style="width: 98%">
 										</td>
 									</tr>
 									<tr class="h_33">
-										<td class="w_10p table_t">요청자</td>
-										<td class="w_23p center">
-											<input type="text" id="title" name="title" class="form-control customInput" disabled>
+										<td class="w_10p table_t">내용</td>
+										<td class="w_23p center" colspan="3">
+											<textarea id="item_content" name="item_content" rows="3" class="form-control customInput" style="width: 98%;"></textarea>
 										</td>
-										<td class="w_10p table_t">처리자</td>
-										<td class="w_23p center">
-											<input type="text" id="title" name="title" class="form-control customInput">
+									</tr>
+									<tr class="h_33">
+										<td class="w_20p table_t">처리자</td>
+										<td class="w_30p center">
+											<input id="owner_user_nm" name="owner_user_nm" type="text" class="form-control customInput">
 										</td>
-										<td class="w_10p table_t">작성일자</td>
-										<td class="w_24p center">
-											<input type="text" id="title" name="title" class="form-control customInput" disabled>
+										<td class="w_20p table_t"><span style="color: red;">*</span> 처리 기한</td>
+										<td class="w_30p center">
+											<input id="item_liml_dt" name="item_liml_dt" type="text" class="form-control customInput">
+										</td>
+									</tr>
+									<tr class="h_33">
+										<td class="w_20p table_t">요청자</td>
+										<td class="w_30p center">
+											<input id="review_user_nm" name="review_user_nm" type="text" class="form-control customInput" disabled>
+										</td>
+										<td class="w_20p table_t">작성일자</td>
+										<td class="w_30p center">
+											<input id="reg_dt" name="reg_dt" type="text" class="form-control customInput" disabled>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						
+						
+						<div class="col-md-12" style="margin-top: 30px;">
+							<div style="margin-bottom: 0px">
+								<label class="popup_subtitle2">처리자</label>
+								<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+									<tr class="h_33">
+										<td class="w_20p table_t">처리 상태</td>
+										<td class="w_30p center">
+											<input id="req_status_cd" name="req_status_cd" type="text" class="form-control customInput" disabled>
+										</td>
+										<td class="w_20p table_t">완료일자</td>
+										<td class="w_30p center">
+											<input id="end_dt" name="end_dt" type="text" class="form-control customInput" disabled>
+										</td>
+									</tr>
+									<tr class="h_33">
+										<td class="w_20p table_t">처리 내용</td>
+										<td class="w_80p center" colspan="3">
+											<textarea id="req_content" name="req_content" rows="3" class="form-control customInput" style="width: 97.5%"></textarea>
+										</td>
+									</tr>
+									<tr class="h_33">
+										<td class="w_20p table_t">요청자 Review</td>
+										<td class="w_80p center" colspan="3">
+											<textarea id="review_content" name="review_content" rows="3" class="form-control customInput" style="width: 98.5%;"></textarea>
 										</td>
 									</tr>
 								</table>
@@ -95,28 +137,26 @@
 <script>
 	let issueData = "";
 	let selectIssue = "";
+	let item_seq = "${item_seq}";
 	
 	$(document).ready(function() {
-		if (selectMenu != 'issue') {
-			$("#"+selectMenu).removeClass('menu-hover');
-			$("#issue").addClass('menu menu-hover');
-			selectMenu = 'issue';
+		issueSearch();
+		
+		if (item_seq == '') {
+			$("#review_user_nm").val("${login_user_nm}");
 		}
 		
-		issueSearch();
-		settingGrid();
-		
 		$("#saveBtn").click(function(){
+			// Validation 
+			// (1/1) 필수 값 체크
+			if ($("#item_title").val() == "") {
+				alert("제목을 입력해주세요.");
+				$("#item_title").focus();
+				return;
+			}
+			
 			saveData();
 	    });
-		
-		$("#delBtn").click(function() {
-			saveData('D');
-		});
-		
-		$("#addBtn").click(function() {
-			openIssueRegistrationPopup('');
-		});
 	});
 	
 	function issueSearch() {
@@ -125,6 +165,9 @@
 	        ,async: false
 	        ,url: '/gem/issue/issueSearch.json'
 	        ,dataType: 'json'
+	        ,data: {
+	        	item_seq: item_seq
+	        }
 	        ,error:function (data, textStatus) {
 				alert("시스템 에러입니다.");
 	        }
@@ -137,68 +180,11 @@
 	    });
 	}
 	
-	function settingGrid() {
-		$("#gridObj").jqGrid({
-			datatype: "local",
-			data: issueData,
-			colNames:['Issue Code', '메뉴', '제목', '내용', '요청자', '처리자', '상태', '처리 내용', 'seq'],
-			colModel:[
-				{name:'issue_cd', index:0, width:100, align: "center"},
-				{name:'menu_nm', index:1, width:200, align: "center"},
-				{name:'issue_title', index:2, width:200 , align: "center"},
-				{name:'issue_content', index:3, width:200, align: "center"},
-				{name:'reg_user_nm', index:2, width:200 , align: "center"},
-				{name:'owner_user_nm', index:2, width:200 , align: "center"},
-				{name:'status_nm', index:2, width:200 , align: "center"},
-				{name:'req_content', index:2, width:200 , align: "center"},
-				
-				{name:'issue_seq', index:4, width:0, align: "center", hidden: true}
-			],
-			rownumbers : true,
-			multiselect:false,
-			pager:'#pager',
-			rowNum: 10,
-			colNum: 5,
-			rowList: [10, 20, 50],
-			sortname: 'issue_cd',
-			sortorder: 'asc',
-			height: 400,
-			
-			cellEdit:false, //그리드 수정 가능 기능
-			
-			 /* row 클릭 한 직후 발생 	*/
-			onSelectRow : function (rowid, status, e){
-		    	if(status){
-		    		let rowData = $(this).jqGrid('getRowData', rowid);
-		            $("#auth_seq").val(rowData.auth_seq);
-		    		$("#auth_cd").val(rowData.auth_cd);
-			        $("#auth_nm").val(rowData.auth_nm);
-		            $("#reg_user_nm").val(rowData.reg_user_nm);
-		            $("#reg_dt").val(rowData.reg_dt);
-		            
-		            $("#auth_cd").attr("disabled", "disabled");
-		    		
-		            selectAuth = rowData.auth_seq;
-		        }
-	        },
-		});
-
-		$(window).on('resize.jqGrid', function() {
-			$("#gridObj").jqGrid('setGridWidth', $("#gridObj").parent().parent().parent().parent().parent().width());
-		})
-		
-		$(".jarviswidget-fullscreen-btn").click(function(){
-			setTimeout(function() {
-				$("#gridObj").jqGrid('setGridWidth', $("#gridObj").parent().parent().parent().parent().parent().width());
-			}, 100);
-		});
-	}
-	
-	function saveData(type) {
+	function saveData() {
 		$.ajax({
             type: 'POST'
             ,async: true
-            ,url: '/sys/auth/authSave.json'
+            ,url: '/gem/issue/issueSave.json'
             ,dataType: 'json'
             ,data: params
 	        ,error:function (data, textStatus) {
@@ -214,25 +200,6 @@
             	}
             }
         });
-	}
-	
-	function openIssueRegistrationPopup(rowId) {
-		let rowData;
-		if (rowId != '') {
-			rowData = $("#gridCodeObj").getRowData(rowId);
-		}
-		
-		var url = "";
-		var windowTargetName = "targetName";
-		var features = "scrollbars=yes,width=1000,height=800,location=no, resizable=yes";
-		window.open(url, windowTargetName, features);
-
-		// 2.POST로 데이터 전달
-		myForm.action="url.do"; // 이동
-		myForm.method="post";
-		myForm.target=windowTargetName;
-		myForm.submit();
-		출처: https://baekyle.com/14 [지나간 것들 - 배카일:티스토리]
 	}
 	
 </script>

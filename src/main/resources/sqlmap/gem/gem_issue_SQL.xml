@@ -6,20 +6,39 @@
 		SELECT 
 			*
 		FROM GEM_ITEM
+		
+		<if test='item_seq != 0 and item_seq != "" and item_seq != null'>
+		WHERE ITEM_SEQ = #{item_seq}
+		</if>
 	</select>
 	
 	<insert id="insert_GEM_ITEM" parameterType="hashmap">
-		INSERT INTO SYS_AUTH (
-			AUTH_SEQ
-			, AUTH_CD
-			, AUTH_NM
+		INSERT INTO GEM_ITEM (
+			ITEM_SEQ
+			, ITEM_CD
+			, ITEM_TITLE
+			, ITEM_CONTENT
+			, ITEM_TYPE
+			, ITEM_MENU
+			, ITEM_STATUS_CD
+			<if test='item_liml_dt != "" and item_liml_dt != null'>
+			, ITEM_LIML_DT
+			</if>
+			, STEP
 			, REG_USER_SEQ
 			, REG_DT
 		)
 		SELECT 
-			NEXT VALUE FOR SYS_AUTH_SEQ
-			, #{auth_cd}
-			, #{auth_nm}
+			NEXT VALUE FOR GEM_ITEM_SEQ
+			, #{item_cd}
+			, #{item_title}
+			, #{item_content}
+			, #{item_type}
+			, #{item_menu}
+			, #{item_status_cd}
+			<if test='item_liml_dt != "" and item_liml_dt != null'>
+			, #{item_liml_dt}
+			</if>
 			, #{login_user_seq}
 			, GETDATE()
 	</insert>
@@ -38,4 +57,15 @@
 		DELETE SYS_AUTH
 		WHERE AUTH_SEQ = #{auth_seq}
 	</delete>
+	
+	
+	<select id="getItemSeq" parameterType="hashmap" resultType="hashmap">
+		SELECT NEXT VALUE FOR GEM_ITEM_SEQ AS ITEM_SEQ
+	</select>
+	
+	<select id="getItemCd" parameterType="hashmap" resultType="hashmap">
+		SELECT CONVERT(VARCHAR(10), GETDATE(), 112)+'_'+ CONVERT(VARCHAR, COUNT(1) + 1, 1) ITEM_CD
+		FROM GEM_ITEM
+		WHERE CONVERT(VARCHAR(10), REG_DT, 112) = CONVERT(VARCHAR(10), GETDATE(), 112)
+	</select>
 </mapper>

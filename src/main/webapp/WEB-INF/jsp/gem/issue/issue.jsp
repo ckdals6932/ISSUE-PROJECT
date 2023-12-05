@@ -153,21 +153,20 @@
 	}
 	
 	function openIssueRegistrationPopup(rowId) {
-		let rowData;
-		if (rowId != '') {
+		let rowData = '';
+		let params = '';
+		
+		if (rowId == '') {
+			params = 'item_seq=';
+		} else {
 			rowData = $("#gridCodeObj").getRowData(rowId);
+			params = 'item_seq='+rowData.item_seq;
 		}
 		
-		var url = "/gem/issue/issueRegistrationPopup.view";
+		var url = "/gem/issue/issueRegistrationPopup.view?"+params;
 		var windowTargetName = (rowId == '' ? 'Issue' : rowData.issue_cd);
-		var features = "scrollbars=yes,width=1000,height=800,location=no, resizable=yes";
+		var features = "scrollbars=yes,width=800,height=560,location=no, resizable=yes";
 		window.open(url, windowTargetName, features);
-
-		// 2.POST로 데이터 전달
-		myForm.action=url; // 이동
-		myForm.method="post";
-		myForm.target=windowTargetName;
-		myForm.submit();
 	}
 	
 </script>

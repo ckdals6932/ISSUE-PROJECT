@@ -51,8 +51,8 @@
 									<input type="text" id="sort" name="sort" class="form-control" autocomplete="off">
 								</td>
 								<td class="w_15p center">
-									<input type="checkbox" value="Y" id="view_yn" name="view_yn" checked>
-									<label for="horns">Horns</label>
+									<input type="checkbox" value="1" id="view_yn" name="view_yn" checked>
+									<label>USE</label>
 								</td>
 							</tr>
 							<tr>
@@ -123,6 +123,13 @@
 		let params = target.serialize() + "&login_user_seq=${login_user_seq}";
 		disabled.attr('disabled', 'disabled');
 		
+		let checkValue = "0";
+		if($("#view_yn").is(":checked")){
+		    // 체크되었을때 실행
+		    checkValue = "1";
+		}
+		
+		console.log(checkValue);
 		if (type == 'D') {
 			params += '&delYn=Y';
 		} else {
@@ -139,6 +146,7 @@
             	/* board_seq: $("#board_seq").val() */
             	content_txt : editTxtData
             	,content_html : editHtmlData
+            	,view_yn : checkValue
             }
 	        ,error:function (data, textStatus) {
 				alert("시스템 에러입니다.");
@@ -162,7 +170,7 @@
 		$("#reg_user_nm").val("");
         $("#reg_dt").val("");
         $("#sort").val("");
-        $("#view_yn").val("");
+        $("#view_yn").prop("checked", true);
         editData.setData("");
         /* $("#auth_cd").removeAttr("disabled"); */
 	}
@@ -193,7 +201,7 @@
       $("#gridNoticeObj").jqGrid({
          datatype: "local",
          data: noticeData,
-         colNames:['board_seq','내용', '제목', '작성자','날짜','정렬', 'html'],
+         colNames:['board_seq','내용', '제목', '작성자','날짜','정렬', 'html', 'view_yn'],
          colModel:[
             {name:'board_seq', index:0, width:0, align: "center", hidden: true},
             {name:'title', index:1, width:200, align: "center"},
@@ -202,6 +210,7 @@
             {name:'reg_dt', index:4, width:100, align: "center"},
             {name:'sort', index:5, width:50, align: "center"},
             {name:'content_html', index:6, width:0, align: "center", hidden: true},
+            {name:'view_yn', index:7, width:0, align: "center", hidden: true},
          ],
          //autowidth: true,
          rownumbers : true,
@@ -229,6 +238,11 @@
 	             $("#sort").val(rowData.sort);
 	             editData.setData(rowData.content_html);
 	             $("#board_seq").attr("disabled", "disabled");
+	             if(rowData.view_yn = "0"){
+	            	 $("#view_yn").prop("checked", false);
+	             } else {
+	            	 $("#view_yn").prop("checked", true);
+	             }
 	    		
 	             selectNotice = rowData.board_seq;
 	         }

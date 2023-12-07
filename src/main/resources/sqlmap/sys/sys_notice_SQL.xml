@@ -28,6 +28,7 @@
 			, SORT
 			, CONTENT_TXT
 			, CONTENT_HTML
+			, VIEW_YN
 		)
 		SELECT 
 			NEXT VALUE FOR SYS_BOARD_SEQ
@@ -37,6 +38,7 @@
 			, #{sort}
 			, #{content_txt}
 			, #{content_html}
+			, #{view_yn}
 	</insert>
    
    <update id="update_SYS_BOARD" parameterType="hashmap">
@@ -48,6 +50,7 @@
 				,MODI_DT = GETDATE()
 				,CONTENT_TXT = #{content_txt}
 				,CONTENT_HTML = #{content_html}
+				,VIEW_YN = #{view_yn}
 		WHERE BOARD_SEQ = #{board_seq}
 	</update>
 	

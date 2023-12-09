@@ -51,7 +51,7 @@
 									<input type="text" id="sort" name="sort" class="form-control" autocomplete="off">
 								</td>
 								<td class="w_15p center">
-									<input type="checkbox" value="1" id="view_yn" name="view_yn" checked>
+									<input type="checkbox" id="view_yn" name="view_yn" value='Y' checked>
 									<label>USE</label>
 								</td>
 							</tr>
@@ -103,8 +103,6 @@
 		$("#saveBtn").click(function(){
 			editHtmlData = editData.getData();
 			editTxtData = editHtmlData.replace(/(<([^>]+)>)/ig,"");
-			console.log("editHtmlData : " + editHtmlData);
-			console.log("editTxtData : " +  editTxtData);
 			saveData();
 	    });
 		
@@ -122,20 +120,22 @@
 		let disabled = target.find(":disabled").removeAttr('disabled');
 		let params = target.serialize() + "&login_user_seq=${login_user_seq}";
 		disabled.attr('disabled', 'disabled');
+
+		$('input:checkbox[name="view_yn"]').each(function() {
+	    	// 값이 2인것을 체크 한다
+			if(this.checked){
+				params += '&view_yn=Y';
+		      }else{
+		        params += '&view_yn=N';
+		      }
+	    });
 		
-		let checkValue = "0";
-		if($("#view_yn").is(":checked")){
-		    // 체크되었을때 실행
-		    checkValue = "1";
-		}
-		
-		console.log(checkValue);
 		if (type == 'D') {
 			params += '&delYn=Y';
 		} else {
 			params += '&delYn=';
-
 		}
+		
 		
 		$.ajax({
             type: 'POST'
@@ -146,7 +146,6 @@
             	/* board_seq: $("#board_seq").val() */
             	content_txt : editTxtData
             	,content_html : editHtmlData
-            	,view_yn : checkValue
             }
 	        ,error:function (data, textStatus) {
 				alert("시스템 에러입니다.");
@@ -231,20 +230,22 @@
 		 onSelectRow : function (rowid, status, e){
 	    	 if(status){
 	    		 let rowData = $(this).jqGrid('getRowData', rowid);
-	             $("#board_seq").val(rowData.board_seq);
+	    		 
+	             $("#board_seq").val(rowData.board_seq); 
 	    		 $("#notice_title").val(rowData.title);
 		         $("#reg_user_nm").val(rowData.reg_user_nm);
 	             $("#reg_dt").val(rowData.reg_dt);
 	             $("#sort").val(rowData.sort);
-	             editData.setData(rowData.content_html);
 	             $("#board_seq").attr("disabled", "disabled");
-	             if(rowData.view_yn = "0"){
+	             
+	             editData.setData(rowData.content_html);
+	             selectNotice = rowData.board_seq;
+	             
+	             if(rowData.view_yn == "N"){
 	            	 $("#view_yn").prop("checked", false);
 	             } else {
 	            	 $("#view_yn").prop("checked", true);
-	             }
-	    		
-	             selectNotice = rowData.board_seq;
+	             } 
 	         }
          },
          

@@ -28,7 +28,9 @@
 			, SORT
 			, CONTENT_TXT
 			, CONTENT_HTML
+			<if test='view_yn != "" and view_yn != null'>
 			, VIEW_YN
+			</if>
 		)
 		SELECT 
 			NEXT VALUE FOR SYS_BOARD_SEQ
@@ -38,7 +40,10 @@
 			, #{sort}
 			, #{content_txt}
 			, #{content_html}
+			<if test='view_yn != "" and view_yn != null'>
 			, #{view_yn}
+			</if>
+			
 	</insert>
    
    <update id="update_SYS_BOARD" parameterType="hashmap">
@@ -50,7 +55,9 @@
 				,MODI_DT = GETDATE()
 				,CONTENT_TXT = #{content_txt}
 				,CONTENT_HTML = #{content_html}
+				<if test='view_yn != "" and view_yn != null'>
 				,VIEW_YN = #{view_yn}
+				</if>
 		WHERE BOARD_SEQ = #{board_seq}
 	</update>
 	

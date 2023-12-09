@@ -12,103 +12,120 @@
 		  			<img src="/resources/image/free-icon-save-file-376218.png"/>
 		  		</button>
 			</div>
-			<table id="gridObj"></table>
-			<div id="pager"></div>
+			<div style="display: flex; justify-content: space-around;">
+			<div>
+				<table id="gridNoticeObj"></table>
+				<div id="pager"></div>
+			</div>
+            <div style="display: inline-block; width: 41%; height: 80%;">
+               <form role="form" id="dataForm" method="POST">
+                  <input type="hidden" id="board_seq" name="board_seq" class="form-control">
+                  <section id="slider1" class="slider">
+					  <textarea name="context_txt1" id="context_txt1"></textarea>
+					  <textarea name="context_txt2" id="context_txt2"></textarea>
+					  <textarea name="context_txt3" id="context_txt3"></textarea>
+					  <textarea name="context_txt4" id="context_txt4"></textarea>
+					  <textarea name="context_txt5" id="context_txt5"></textarea>
+				  </section>
+                  <table style="width: 800px;">
+					<tr>
+						<td colspan='5' align = "center">
+						<textarea name="context_txt" id="context_txt"></textarea>
+		    			</td>
+					</tr>	
+				</table>	
+               </form>
+            </div>
+         </div>
 		</div>
 	</div>
 	
+	<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/translations/ko.js"></script>
+	
 	<script>
-		//로그인 상세정보 버튼 이벤트
-		function OpenUserPage(){
-			window.location.href = "/sys/user/user.view";
-		}
-		
-		$("#codeBtn").click(function(){
-			window.location.href = "/sys/code/code.view";
-	    });
-		
 		$(document).ready(function() {
 			if (selectMenu != 'dash') {
 				$("#"+selectMenu).removeClass('menu-hover');
 				$("#dash").addClass('menu menu-hover');
 				selectMenu = 'dash';
 			}
-			settingGrid();
-			
-			$("#saveBtn").click(function(){
-				saveData();
-		    });
 		});
 		
-		function settingGrid() {
-			$("#gridObj").jqGrid({
-				datatype: "local",
-				data: [],
-				colNames:['날짜', '아이디', '이름','상품','가격','합계'],
-				colModel:[
-					{name:'date', index:'date', width:90, align: "center"},
-					{name:'name', index:'name', width:100 , align: "center" },
-					{name:'id', index:'id', width:150, align: "center" ,sortable:false },
-					{name:'product', index:'product', width:80, align: "center"},
-					{name:'amount', index:'amount', width:80, align: "center"},
-					{name:'total', index:'total', width:80, align: "center"}
-				],
-				autowidth: true,
-				rownumbers : true,
-				multiselect:true,
-				pager:'#pager',
-				rowNum: 10,
-				rowList: [10, 20, 50],
-				sortname: 'id',
-				sortorder: 'asc',
-				height: 250,
-				
-				cellEdit:true, //그리드 수정 가능 기능
-				
-				/* 더블클릭시 수정 가능*/
-		        ondblClickRow : function (rowid, iRow, iCol){
-		          
-		          const colModels = $(this).getGridParam('colModel'); 
-		          const colName = colModels[iCol].name;
-		         
-		          /* prog_id(PK), chkbox 수정불가 */
-		          if(!(colName=='prog_id'||colName=='chkbox')){
-		            $(this).setColProp(colName, {editable : true}); //gridColModel의 name값을 수정가능하게 해줌 
-		            $(this).editCell(iRow, iCol, true); 
-		          }
-		        },
-			});
-
-			$(window).on('resize.jqGrid', function() {
-				$("#gridObj").jqGrid('setGridWidth', $("#gridObj").parent().parent().parent().parent().parent().width());
-			})
-			$(".jarviswidget-fullscreen-btn").click(function(){
-				setTimeout(function() {
-					$("#gridObj").jqGrid('setGridWidth', $("#gridObj").parent().parent().parent().parent().parent().width());
-				}, 100);
-			});
-		}
+		/* ck에디터를 id가 context_txt랑 연결  */
+		ClassicEditor
+		.create( document.querySelector( '#context_txt' ), {
+			toolbar: [],
+			language: "ko",
+		})
+		.then( contents => {
+			editData = contents; // #contents에 있는 값을 theEditor에 넣어놓는다.
+		})
+		.catch( error => {
+			consloe.error( error );
+		}); 
 		
-		function saveData() {
-			var param = [];
-			var sel_rows = $("#gridObj").jqGrid("getGridParam", "selarrrow");
-			if(sel_rows.length > 0){
-				$(sel_rows).each(function(idx, val){	
-					var json = {
-						user_name: $("#gridObj").getCell(val, "user_name")
-						, user_id: $("#gridObj").getCell(val, "user_id")
-						, idx: $("#gridObj").getCell(val, "idx")
-					};
-					param.push(json);
-					
-				});
-				var data = JSON.stringify(param);
-				console.log(data);
-
-			}else{
-				console.log("리스트를 선택해주세요.");
-			}
-		}
+		ClassicEditor
+		.create( document.querySelector( '#context_txt1' ), {
+			toolbar: [],
+			language: "ko",
+		})
+		.then( contents => {
+			editData = contents; // #contents에 있는 값을 theEditor에 넣어놓는다.
+		})
+		.catch( error => {
+				consloe.error( error );
+		}); 
+		
+		
+		ClassicEditor
+		.create( document.querySelector( '#context_txt2' ), {
+			toolbar: [],
+			language: "ko",
+		})
+		.then( contents => {
+			editData = contents; // #contents에 있는 값을 theEditor에 넣어놓는다.
+		})
+		.catch( error => {
+				consloe.error( error );
+		});
+		
+		ClassicEditor
+		.create( document.querySelector( '#context_txt3' ), {
+			toolbar: [],
+			language: "ko",
+		})
+		.then( contents => {
+			editData = contents; // #contents에 있는 값을 theEditor에 넣어놓는다.
+		})
+		.catch( error => {
+				consloe.error( error );
+		});
+		
+		ClassicEditor
+		.create( document.querySelector( '#context_txt4' ), {
+			toolbar: [],
+			language: "ko",
+		})
+		.then( contents => {
+			editData = contents; // #contents에 있는 값을 theEditor에 넣어놓는다.
+		})
+		.catch( error => {
+				consloe.error( error );
+		});
+		
+		ClassicEditor
+		.create( document.querySelector( '#context_txt5' ), {
+			toolbar: [],
+			language: "ko",
+		})
+		.then( contents => {
+			editData = contents; // #contents에 있는 값을 theEditor에 넣어놓는다.
+		})
+		.catch( error => {
+				consloe.error( error );
+		});
+		
 	</script>
 </body>
-</html>
+</html>	

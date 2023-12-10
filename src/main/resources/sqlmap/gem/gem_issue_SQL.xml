@@ -2,6 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="gem_issue">
+	<select id="list_GEM_ITEM" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			ITEM.ITEM_CD
+			,ITEM.ITEM_TITLE
+			,ITEM.ITEM_CONTENT
+			,(SELECT USER_NM FROM SYS_USER WHERE USER_SEQ = ITEM.REG_USER_SEQ) REG_USER_NM
+			,CONVERT(VARCHAR(16), ITEM.REG_DT, 120) REG_DT
+			,ITEM.ITEM_STATUS_CD
+			,CASE ITEM.ITEM_STATUS_CD WHEN 'DF' THEN '임시저장'
+									  WHEN 'RC' THEN '요청 확인중'
+									  WHEN 'DI' THEN '개발 진행중'
+									  WHEN 'RV' THEN '테스트 요청'
+									  WHEN 'CP' THEN '완료' END				AS ITEM_STATUS_NM
+			,CASE ITEM.ITEM_MENU WHEN 'DASH' THEN 'DashBoard'
+									  WHEN 'NOTICE' THEN '공지사항'
+									  WHEN 'ISSUE' THEN '조치사항'
+									  WHEN 'USER' THEN '사용자관리'
+									  WHEN 'AUTH' THEN '권한관리' END			AS ITEM_MENU_NM
+			,CASE ITEM.ITEM_MENU WHEN 'ER' THEN '오류'
+									  WHEN 'FU' THEN '기능수정'
+									  WHEN 'FI' THEN '기능추가'
+									  WHEN 'QA' THEN '질문' END				AS ITEM_TYPE_NM
+
+			,(SELECT USER_NM FROM SYS_USER WHERE USER_SEQ = REQ.OWNER_USER_SEQ) OWNER_USER_NM
+			,REQ_CONTENT
+			
+			,ITEM.ITEM_SEQ
+		FROM GEM_ITEM ITEM
+			LEFT JOIN GEM_ITEM_REQUEST REQ
+				ON ITEM.ITEM_SEQ = REQ.ITEM_SEQ
+		
+		WHERE 1=1
+			AND ((STEP = 1 AND ITEM.REG_USER_SEQ = #{login_user_seq}) OR STEP != 1)
+	</select>
+	
 	<select id="select_GEM_ITEM" parameterType="hashmap" resultType="hashmap">
 		SELECT 
 			ITEM.ITEM_CD
@@ -30,21 +65,21 @@
 
 			,REQ.OWNER_USER_SEQ
 			,(SELECT USER_NM FROM SYS_USER WHERE USER_SEQ = REQ.OWNER_USER_SEQ) OWNER_USER_NM
-			,REQ_CONTENT
+			,CASE WHEN OWNER_USER_SEQ = #{login_user_seq} AND STEP = '3' THEN REQ_CONTENT
+				  WHEN STEP = '3' THEN ''
+				  ELSE REQ_CONTENT END										AS REQ_CONTENT
 			,CONVERT(VARCHAR(16), ITEM.ITEM_LIML_DT, 120) ITEM_LIML_DT
-
+			,REVIEW_CONTENT
 			,ITEM.ITEM_SEQ
 			,ITEM.STEP
 			,REQ.REQ_SEQ
+			,CASE WHEN ITEM.ITEM_STATUS_CD = 'CP' THEN REQ.MODI_DT END END_DT
 		FROM GEM_ITEM ITEM
 			LEFT JOIN GEM_ITEM_REQUEST REQ
 				ON ITEM.ITEM_SEQ = REQ.ITEM_SEQ
 		
 		WHERE 1=1
-			AND ((STEP = 1 AND ITEM.REG_USER_SEQ = #{login_user_seq}) OR STEP != 1)
-		<if test='item_seq != 0 and item_seq != "" and item_seq != null'>
 			AND ITEM.ITEM_SEQ = #{item_seq}
-		</if>
 	</select>
 	
 	<insert id="insert_GEM_ITEM" parameterType="hashmap">
@@ -106,16 +141,14 @@
 	<update id="merge_GEM_ITEM_REQUEST" parameterType="hashmap">
 		IF (SELECT COUNT(1) FROM GEM_ITEM_REQUEST REQ WHERE REQ.ITEM_SEQ = #{item_seq} AND REQ.REQ_SEQ = #{req_seq}) = 0 BEGIN 
 			INSERT INTO GEM_ITEM_REQUEST
-				(REQ_SEQ, ITEM_SEQ, OWNER_USER_SEQ, REQ_TITLE, REQ_CONTENT
-				, REVIEW_USER_SEQ, REVIEW_CONTENT, REQ_STATUS_CD, REG_USER_SEQ, REG_DT)
+				(REQ_SEQ, ITEM_SEQ, OWNER_USER_SEQ, REQ_CONTENT
+				, REVIEW_USER_SEQ, REVIEW_CONTENT, REG_USER_SEQ, REG_DT)
 			SELECT NEXT VALUE FOR GEM_ITEM_REQUEST_SEQ
 				,#{item_seq}
 				,#{owner_user_seq}
-				,#{req_title}
 				,#{req_content}
 				,#{login_user_seq}
 				,#{review_content}
-				,#{req_status_cd}
 				,#{login_user_seq}
 				,GETDATE();
 		END
@@ -123,10 +156,8 @@
 			UPDATE GEM_ITEM_REQUEST
 				SET 
 					OWNER_USER_SEQ = #{owner_user_seq}
-					,REQ_TITLE = #{req_title}
 					,REQ_CONTENT = #{req_content}
 					,REVIEW_CONTENT = #{review_content}
-					,REQ_STATUS_CD = #{req_status_cd}
 					,MODI_USER_SEQ = #{login_user_seq}
 					,MODI_DT = GETDATE()
 			WHERE REQ_SEQ = #{req_seq}

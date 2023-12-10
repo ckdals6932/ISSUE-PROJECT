@@ -1,5 +1,6 @@
 package gem.issue.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,7 +30,13 @@ public class IssueService {
 	private CommonService commonService;
 	
 	public List<HashMap<String, Object>> issueSearch(HashMap<String, Object> reqMap) throws Exception {
-		List<HashMap<String, Object>> issueInfo = comDao.list("gem_issue.select_GEM_ITEM", reqMap);
+		List<HashMap<String, Object>> issueInfo = new ArrayList<HashMap<String, Object>>();
+		String item_seq = (String) reqMap.get("item_seq");
+		if (item_seq == null) {
+			issueInfo = comDao.list("gem_issue.list_GEM_ITEM", reqMap);
+		} else {
+			issueInfo = comDao.list("gem_issue.select_GEM_ITEM", reqMap);
+		}
 		
 		return issueInfo;
 	}
@@ -54,14 +61,8 @@ public class IssueService {
 		}
 		
 		if (reqMap.get("owner_user_seq").equals("") == false) {
-			this.reqSave(reqMap);
+			comDao.insert("gem_issue.merge_GEM_ITEM_REQUEST", reqMap);
 		}
-		
-		return reqMap;
-	}
-	
-	public HashMap<String, Object> reqSave(HashMap<String, Object> reqMap) throws Exception {
-		comDao.insert("gem_issue.merge_GEM_ITEM_REQUEST", reqMap);
 		
 		return reqMap;
 	}

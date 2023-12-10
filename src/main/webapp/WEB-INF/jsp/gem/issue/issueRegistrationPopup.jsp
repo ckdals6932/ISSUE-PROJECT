@@ -27,6 +27,10 @@
 						<button id="sendBtn" name="sendBtn">
 				  			전송
 				  		</button>
+				  		
+						<button id="rejectBtn" name="sendBtn">
+				  			반려
+				  		</button>
 					</div>
 					
 					<form role="form" id="dataForm" method="POST">
@@ -178,7 +182,7 @@
 		
 		$("#sendBtn").click(function(){
 			// Validation 
-			// (1/1) 필수 값 체크
+			// (1/2) 필수 값 체크
 			if ($("#item_title").val() == "") {
 				alert("제목을 입력해주세요.");
 				$("#item_title").focus();
@@ -192,6 +196,18 @@
 			}
 			
 			saveData('send');
+	    });
+		
+		$("#rejectBtn").click(function(){	
+			// Validation 
+			// (1/1) 필수 값 체크
+			if ($("#review_content").val() == "") {
+				alert("리뷰를 입력해주세요.");
+				$("#review_content").focus();
+				return;
+			}
+			
+			saveData('reject');
 	    });
 		
 		$('#item_liml_dt').datepicker({
@@ -230,6 +246,9 @@
 		        	$("#item_liml_dt").val(issueData.item_liml_dt);
 		        	$("#reg_user_nm").val(issueData.reg_user_nm);
 		        	$("#reg_dt").val(issueData.reg_dt);
+		        	$("#req_content").val(issueData.req_content);
+		        	$("#review_content").val(issueData.review_content);
+		        	$("#end_dt").val(issueData.end_dt);
 		        	
 		        	$("#item_seq").val(issueData.item_seq);
 		        	$("#req_seq").val(issueData.req_seq);
@@ -237,25 +256,11 @@
 		        	$("#reg_user_seq").val(issueData.reg_user_seq);
 		        	getComboList('owner_user_seq', issueData.owner_user_seq);
 	        	}
-	        	
     		}
 	    });
 	}
 	
-	function saveData(btnType) {
-		let url;
-		if ($("#reg_user_seq").val() == "${login_user_seq}") {
-			auth = 'creator';
-		} else if ($("#owner_user_seq").val() == "${login_user_seq}") {
-			auth = 'owner';
-		}
-		
-		if ($("#step").val() == '1' || $("#step").val() == '2' || $("#step").val() == '3') {
-			url = '/gem/issue/issueSave.json';
-		} else {
-			url = '/gem/issue/reqSave.json';
-		}
-		
+	function saveData(btnType) {		
 		stepCheck(btnType);
 		let target = $("#dataForm");
 		let disabled = target.find(":disabled").removeAttr('disabled');
@@ -264,32 +269,7 @@
 		$.ajax({
             type: 'POST'
             ,async: true
-            ,url: url
-            ,dataType: 'json'
-            ,data: params
-	        ,error:function (data, textStatus) {
-				alert("시스템 에러입니다.");
-	        }
-            ,success: function(data, textStatus) {
-            	alert("저장되었습니다.");
-            	item_seq = data.data.item_seq;
-            	issueSearch();
-            	window.opener.issueSearch();
-            }
-        });
-	}
-	
-	function saveReqData(btnType) {
-		stepCheck(btnType);
-		let target = $("#dataForm");
-		let disabled = target.find(":disabled").removeAttr('disabled');
-		let params = target.serialize() + "&login_user_seq=${login_user_seq}&item_seq="+item_seq;
-		disabled.attr('disabled', 'disabled');
-		
-		$.ajax({
-            type: 'POST'
-            ,async: true
-            ,url: '/gem/issue/reqSave.json'
+            ,url: '/gem/issue/issueSave.json'
             ,dataType: 'json'
             ,data: params
 	        ,error:function (data, textStatus) {
@@ -309,19 +289,32 @@
 		Step = '1' : Creator 임시 저장
 		Step = '2' : 요청 확인
 		Step = '3' : 개발 진행
-		Step = '4' : Owner 임시 저장
-		*/		
+		Step = '4' : 테스트 진행
+		Step = '5' : 개발 완료
+		*/
 		if (item_seq == '' || item_seq == -1) {
 			$("#item_status_cd").val("DF");
 			$("#step").val("1");
 		}
 		
 		if (auth == 'creator') {
-			if (btnType == 'save') {
-				
-			} else if (btnType == 'send') {
+			if (btnType == 'send') {
+				if ($("#step").val() == '1') {
+					$("#item_status_cd").val("DI");
+					$("#step").val("3");
+				} else if ($("#step").val() == '4') {
+					$("#item_status_cd").val("CP");
+					$("#step").val("5");
+				}
+			} else if (btnType == 'reject') {
 				$("#item_status_cd").val("DI");
 				$("#step").val("3");
+			}
+			
+		} else if (auth == 'owner') {
+			if (btnType == 'send') {
+				$("#item_status_cd").val("RV");
+				$("#step").val("4");
 			}
 		}
 	}
@@ -331,57 +324,62 @@
 		Step = '2' : 요청 확인
 		Step = '3' : 개발 진행
 		Step = '4' : 테스트 진행
+		Step = '5' : 개발 완료
 		*/
+		if (item_seq == '' || item_seq == -1 || $("#reg_user_seq").val() == "${login_user_seq}") {
+			auth = 'creator';
+		} else if ($("#owner_user_seq").val() == "${login_user_seq}") {
+			auth = 'owner';
+		}
+		
 		let step = $("#step").val();
 		let setFlag = false;
+
+		$("#rejectBtn").attr('hidden', true);
+		$("#sendBtn").attr('hidden', true);
+		$("#saveBtn").attr('hidden', true);
+
+		$("#item_liml_dt").attr('disabled', true);
+		$("#item_type").attr('disabled', true);
+		$("#item_menu").attr('disabled', true);
+		$("#item_title").attr('disabled', true);
+		$("#item_content").attr('disabled', true);
+		$("#owner_user_seq").attr('disabled', true);
+		$("#req_content").attr('disabled', true);
+		$("#review_content").attr('disabled', true);
 		
 		if (auth == 'creator') {
-			if (step == '1' || step == '2') {
-				setFlag = true;
-			} else if (step == '3') {
-				$("#sendBtn").attr('hidden', true);
-				$("#saveBtn").attr('hidden', true);
+			if (step == '' || step == '1' || step == '2') {	
+				$("#sendBtn").attr('hidden', false);
+				$("#saveBtn").attr('hidden', false);
 				
-				$("#item_liml_dt").attr('disabled', true);
-				$("#item_type").attr('disabled', true);
-				$("#item_menu").attr('disabled', true);
-				$("#item_title").attr('disabled', true);
-				$("#item_content").attr('disabled', true);
-				$("#owner_user_seq").attr('disabled', true);
-				$("#req_content").attr('disabled', true);
-				$("#review_content").attr('disabled', true);
-				setFlag = true;
+				$("#item_liml_dt").attr('disabled', false);
+				$("#item_type").attr('disabled', false);
+				$("#item_menu").attr('disabled', false);
+				$("#item_title").attr('disabled', false);
+				$("#item_content").attr('disabled', false);
+				$("#owner_user_seq").attr('disabled', false);
+				$("#req_content").attr('disabled', false);
+				$("#review_content").attr('disabled', false);
+			} else if (step == '4') {
+				$("#rejectBtn").attr('hidden', false);
+				$("#sendBtn").attr('hidden', false);
+				$("#saveBtn").attr('hidden', false);
+				
+				$("#review_content").attr('disabled', false);
+				
+				$("#sendBtn").text('완료');
 			}
 		} else if (auth == 'owner') {
 			if (step == '3') {
 				$("#sendBtn").attr('hidden', false);
 				$("#saveBtn").attr('hidden', false);
 				
-				$("#item_liml_dt").attr('disabled', true);
-				$("#item_type").attr('disabled', true);
-				$("#item_menu").attr('disabled', true);
-				$("#item_title").attr('disabled', true);
-				$("#item_content").attr('disabled', true);
-				$("#owner_user_seq").attr('disabled', true);
 				$("#req_content").attr('disabled', false);
-				$("#review_content").attr('disabled', true);
-
-				setFlag = true;
 			}
 		}
 		
 		if (!setFlag) {
-			$("#sendBtn").attr('hidden', true);
-			$("#saveBtn").attr('hidden', true);
-
-			$("#item_liml_dt").attr('disabled', true);
-			$("#item_type").attr('disabled', true);
-			$("#item_menu").attr('disabled', true);
-			$("#item_title").attr('disabled', true);
-			$("#item_content").attr('disabled', true);
-			$("#owner_user_seq").attr('disabled', true);
-			$("#req_content").attr('disabled', true);
-			$("#review_content").attr('disabled', true);
 		}
 	}
 	

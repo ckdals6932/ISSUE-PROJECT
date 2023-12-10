@@ -50,4 +50,25 @@ public class IssueController {
 		model.addAttribute("data", result);
 		return "jsonTemplate";
 	}
+	
+	@RequestMapping(value = "/gem/issue/issueSave.json", method = {RequestMethod.POST, RequestMethod.GET})
+	public String 조치사항저장(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+		HashMap<String, Object> result = issueService.issueSave(reqMap);
+		model.addAttribute("data", result);
+		return "jsonTemplate";
+	}
+	
+	@RequestMapping(value = "/gem/issue/reqSave.json", method = {RequestMethod.POST, RequestMethod.GET})
+	public String Req저장(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+		HashMap<String, Object> result = issueService.reqSave(reqMap);
+		model.addAttribute("data", result);
+		return "jsonTemplate";
+	}
+	
+	@RequestMapping(value = "/gem/issue/getUserList.json", method = {RequestMethod.POST, RequestMethod.GET})
+	public String 사용자찾기(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+		List<HashMap<String, Object>> result = issueService.getUserList(reqMap);
+		model.addAttribute("data", result);
+		return "jsonTemplate";
+	}
 }

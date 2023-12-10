@@ -43,10 +43,8 @@ public class IssueService {
 		}
 		
 		if (saveType == "I") {
-			// SEQ 부여
-			reqMap.put("item_seq", this.getItemSeq(reqMap));
-			// Code 부여
-			reqMap.put("item_cd", this.getItemCd(reqMap));
+			reqMap.put("item_seq", this.getItemSeq(reqMap)); // SEQ 부여
+			reqMap.put("item_cd", this.getItemCd(reqMap)); // Code 부여
 		}
 		
 		if (saveType == "I") {
@@ -54,6 +52,16 @@ public class IssueService {
 		} else if (saveType == "U") {
 			comDao.insert("gem_issue.update_GEM_ITEM", reqMap);
 		}
+		
+		if (reqMap.get("owner_user_seq").equals("") == false) {
+			this.reqSave(reqMap);
+		}
+		
+		return reqMap;
+	}
+	
+	public HashMap<String, Object> reqSave(HashMap<String, Object> reqMap) throws Exception {
+		comDao.insert("gem_issue.merge_GEM_ITEM_REQUEST", reqMap);
 		
 		return reqMap;
 	}
@@ -68,6 +76,16 @@ public class IssueService {
 	public String getItemCd(HashMap<String, Object> reqMap) throws Exception {
 		HashMap<String, Object> returnMap = comDao.select("gem_issue.getItemCd", reqMap);
 		return (String) returnMap.get("item_cd");
+	}
+
+	// 사용자 리스트
+	public List<HashMap<String, Object>> getUserList(HashMap<String, Object> reqMap) throws Exception {
+		List<HashMap<String, Object>> returnList = comDao.list("gem_issue.getUserList", reqMap);
+		for(HashMap<String, Object> data: returnList) {
+			data.put("text", data.get("user_nm"));
+			data.put("value", data.get("user_seq"));
+		}
+		return returnList;
 	}
 }
  

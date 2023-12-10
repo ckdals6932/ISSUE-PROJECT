@@ -59,7 +59,7 @@
 		$.ajax({
 	        type: 'POST'
 	        ,async: false
-	        ,url: '/gem/issue/issueSearch.json'
+	        ,url: '/gem/issue/issueSearch.json?login_user_seq=${login_user_seq}'
 	        ,dataType: 'json'
 	        ,error:function (data, textStatus) {
 				alert("시스템 에러입니다.");
@@ -77,18 +77,18 @@
 		$("#gridObj").jqGrid({
 			datatype: "local",
 			data: issueData,
-			colNames:['Issue Code', '메뉴', '제목', '내용', '요청자', '처리자', '상태', '처리 내용', 'seq'],
+			colNames:['Issue Code', '메뉴', '제목', '상태', '요청자', ' 요청 내용', '처리자', '처리 내용', 'seq'],
 			colModel:[
-				{name:'issue_cd', index:0, width:100, align: "center"},
-				{name:'menu_nm', index:1, width:200, align: "center"},
-				{name:'issue_title', index:2, width:200 , align: "center"},
-				{name:'issue_content', index:3, width:200, align: "center"},
+				{name:'item_cd', index:0, width:100, align: "center"},
+				{name:'item_menu_nm', index:1, width:200, align: "center"},
+				{name:'item_title', index:2, width:200 , align: "center"},
+				{name:'item_status_nm', index:2, width:200 , align: "center"},
 				{name:'reg_user_nm', index:2, width:200 , align: "center"},
+				{name:'item_content', index:3, width:200, align: "center"},
 				{name:'owner_user_nm', index:2, width:200 , align: "center"},
-				{name:'status_nm', index:2, width:200 , align: "center"},
 				{name:'req_content', index:2, width:200 , align: "center"},
 				
-				{name:'issue_seq', index:4, width:0, align: "center", hidden: true}
+				{name:'item_seq', index:4, width:0, align: "center", hidden: true}
 			],
 			rownumbers : true,
 			multiselect:false,
@@ -116,6 +116,9 @@
 		    		
 		            selectAuth = rowData.auth_seq;
 		        }
+	        },
+	        ondblClickRow: function (rowid, iRow, iCol) {
+	    		openIssueRegistrationPopup(rowid);
 	        },
 		});
 
@@ -157,15 +160,15 @@
 		let params = '';
 		
 		if (rowId == '') {
-			params = 'item_seq=';
+			params = 'item_seq=-1';
 		} else {
-			rowData = $("#gridCodeObj").getRowData(rowId);
+    		rowData = $("#gridObj").jqGrid('getRowData', rowId);
 			params = 'item_seq='+rowData.item_seq;
 		}
 		
 		var url = "/gem/issue/issueRegistrationPopup.view?"+params;
 		var windowTargetName = (rowId == '' ? 'Issue' : rowData.issue_cd);
-		var features = "scrollbars=yes,width=800,height=560,location=no, resizable=yes";
+		var features = "scrollbars=yes,width=800,height=650,location=no, resizable=yes";
 		window.open(url, windowTargetName, features);
 	}
 	

@@ -43,20 +43,24 @@ public class LoginService {
 		// 사용자 ID가 존재하는지 확인
 		if (userInfo == null) {
 			returnMap.put("id_error", "Y");
+			returnMap.put("login", "N");
 			return returnMap;
 		}
 		
 		// 로그인 실패 횟수가 5번 이상인지 체크
 		if (Integer.valueOf(userInfo.get("login_fail_cnt").toString()) > 5) {
 			returnMap.put("fail_cnt_error", "Y");
+			returnMap.put("login", "N");
 		}
 		// 비밀번호가 같은지 확인
 		if (!reqMap.get("user_pw").equals(userInfo.get("password"))) {
 			returnMap.put("pw_error", "Y");
+			returnMap.put("login", "N");
 		}
 		// 투입된 상태인지 확인
 		if (!userInfo.get("status_cd").equals("IN")) {
 			returnMap.put("status_error", "Y");
+			returnMap.put("login", "N");
 		}
 		
 		

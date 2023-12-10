@@ -18,6 +18,5 @@
 	<script type="text/javascript" src="//cdn.jsdelivr.net/jqgrid/4.6.0/jquery.jqGrid.src.js" /></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/jqgrid/4.6.0/jquery.jqGrid.src.js" /></script>
 
-
 <script src="/components/dhtmlx/suite_trial/codebase/suite.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/components/dhtmlx/suite_trial/codebase/suite.css?v=8.3.0">

@@ -31,6 +31,15 @@ public class UserService {
 		return userInfo;
 	}
 	
+	public List<HashMap<String, Object>> authListSearch(HashMap<String, Object> reqMap) throws Exception {
+		List<HashMap<String, Object>> returnList = comDao.list("sys_user.select_SYS_AUTH", reqMap);
+		for(HashMap<String, Object> data: returnList) {
+			data.put("text", data.get("auth_nm"));
+			data.put("value", data.get("auth_seq"));
+		}
+		return returnList;
+	}
+	
 	public HashMap<String, Object> userSave(HashMap<String, Object> reqMap) throws Exception {
 		HashMap<String, Object> returnMap = new HashMap<String, Object>();
 		HashMap<String, Object> sqlMap = new HashMap<String, Object>();

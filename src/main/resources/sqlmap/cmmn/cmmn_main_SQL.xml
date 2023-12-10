@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cmmn_main">
+	<select id="select_SYS_BOARD" parameterType="hashmap" resultType="hashmap">
+      SELECT CONTENT_HTML
+	  FROM SYS_BOARD
+      ORDER BY SORT ASC, ISNULL(MODI_DT, REG_DT) ASC
+   </select>
+   
+   <select id="select_SYS_USER" parameterType="hashmap" resultType="hashmap">
+      SELECT 
+      USER_ID, 
+      USER_NM, 
+      SUBSTRING(PHONE,0,4) + '-' + SUBSTRING(PHONE,4,4) + '-' + SUBSTRING(PHONE,8,4) AS PHONE, 
+      CONVERT(DATE, BIRTH_DT, 105) AS BIRTH_DT, 
+      STATUS_CD, 
+      (SELECT AUTH_NM FROM SYS_AUTH WHERE AUTH_SEQ = SYS_USER.AUTH_SEQ) AUTH_NM 
+      FROM SYS_USER
+      WHERE USER_SEQ = #{login_user_seq}
+   </select>
+</mapper>

@@ -5,6 +5,10 @@
    	<jsp:include page="/WEB-INF/jsp/cmmn/main/topheader.jsp"/>
    	<style>
 		input {-webkit-appearance: auto;}
+		
+		#dataForm > table > tbody > tr:nth-child(3) > td > div > div.ck.ck-editor__main > div {
+		height: 400px !important;
+		}
    	</style>
 </head>
 <body>

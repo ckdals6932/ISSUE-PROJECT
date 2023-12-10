@@ -45,4 +45,11 @@ public class UserController {
 		model.addAttribute("userInfo", result);
 		return "jsonTemplate";
 	}
+	
+	@RequestMapping(value = "/sys/user/getAuthList.json", method = {RequestMethod.POST, RequestMethod.GET})
+	public String authListSearch(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+		List<HashMap<String, Object>> result = userService.authListSearch(reqMap);
+		model.addAttribute("authInfo", result);
+		return "jsonTemplate";
+	}
 }

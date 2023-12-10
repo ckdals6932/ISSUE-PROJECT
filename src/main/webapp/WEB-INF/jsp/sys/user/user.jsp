@@ -15,8 +15,8 @@
 		  			<img src="/resources/image/free-icon-add-user-456249.png"/>
 		  		</button>
 			</div>
-			<div>
-				<div style="display: inline-block; width: 53%;">
+			<divdiv style="display: flex; justify-content: space-around;">
+				<div>
 					<table id="gridObj"></table>
 					<div id="pager"></div>
 				</div>
@@ -61,7 +61,7 @@
 							<tr class="h_33">
 								<td class="w_20p table_t">권한 명</td>
 								<td class="w_30p center">
-									<input type="text" id="phone" name="phone" class="form-control" disabled>
+									<select id="owner_auth_nm" name="owner_auth_nm" class="form-control"></select>
 								</td>
 								<td style="display: none;">
 									<input type="button" value="Clear" id="clear" name="clear">
@@ -111,6 +111,7 @@
         $("#phone").val("");
         $("#birth_dt").val("");
 	}
+	
 	function userSearch() {
 		$.ajax({
 	        type: 'POST'
@@ -131,11 +132,13 @@
 	        }
 	    });
 	}
+	
+	
 	function settingGrid() {
 		$("#gridObj").jqGrid({
 			datatype: "local",
 			data: userData,
-			colNames:['seq', '이름', '아이디', '생년원일','핸드폰','상태','password'],
+			colNames:['seq', '이름', '아이디', '생년원일','핸드폰','상태','password', 'auth'],
 			colModel:[
 				{name:'user_seq', index:0, width:0, align: "center", hidden: true,},
 				{name:'user_nm', index:1, width:100, align: "center"},
@@ -143,7 +146,8 @@
 				{name:'birth_dt', index:3, width:200, align: "center", sortable:false},
 				{name:'phone', index:4, width:150, align: "center"},
 				{name:'status_cd', index:5, width:80, align: "center"}, 
-				{name:'password', index:6, width:80, align: "center", hidden:true}
+				{name:'password', index:6, width:80, align: "center", hidden:true},
+				{name:'auth_seq', index:7, width:80, align: "center", hidden:true}
 			],
 			//autowidth: true,
 			rownumbers : true,
@@ -170,7 +174,8 @@
 		            $("#birth_dt").val(rowData.birth_dt);
 		            $("#phone").val(rowData.phone);
 		            $('#status_cd').val(rowData.status_cd).prop("selected",true);
-		    		
+		            
+		            getComboList('owner_auth_nm', rowData.auth_seq);
 		            selectUser = rowData.user_seq;
 		        }
 	        },
@@ -208,6 +213,26 @@
             		alert("저장되었습니다.");
             		userSearch();
             	}
+            }
+        });
+	}
+	
+	function getComboList(obj, value) {
+		$.ajax({
+            type: 'POST'
+            ,async: true
+            ,url: '/sys/user/getAuthList.json'
+            ,dataType: 'json'
+	        ,error:function (data, textStatus) {
+				alert("시스템 에러입니다.");
+	        }
+            ,success: function(data, textStatus) {
+            	data = data.authInfo;
+            	$("#"+obj).empty();
+            	$("#"+obj).append('<option value="">' + '' + '</option>');
+            	$(data).each(function(k, v) {
+            		$("#"+obj).append('<option value="' + v.value + '" '+((v.value == value) ? 'selected' : '')+'>' + v.text + '</option>');
+            	});
             }
         });
 	}

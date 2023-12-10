@@ -10,6 +10,10 @@
 		FROM SYS_USER
 	</select>
 	
+	<select id="select_SYS_AUTH" parameterType="hashmap" resultType="hashmap">
+		SELECT AUTH_SEQ, AUTH_NM + ' (' + auth_cd + ')' as AUTH_NM FROM SYS_AUTH
+	</select>
+	
 	<insert id="insert_SYS_USER" parameterType="hashmap">
 		INSERT INTO SYS_USER (
 			USER_SEQ, AUTH_SEQ, USER_ID, USER_NM, PASSWORD
@@ -30,7 +34,7 @@
 	<update id="update_SYS_USER" parameterType="hashmap">
 		UPDATE SYS_USER
 		SET
-			AUTH_SEQ = #{auth_seq}
+			AUTH_SEQ = #{owner_auth_nm}
 			,USER_ID = #{user_id}
 			,USER_NM = #{user_nm}
 			,PASSWORD = #{user_pw}

@@ -343,7 +343,7 @@ textarea.form-control {
 	background-color: #F9F9F9;
 	width: 100%;
 	height: 40px;
-	min-width: 1920px;
+	min-width: 1000px;
 	overflow-x: auto;
 	font-weight: bold;
 	border: 1px solid red;
@@ -466,4 +466,34 @@ textarea.form-control {
 	margin: 0px;
 	font-family: "맑은 고딕", sans-serif, Roboto, Arial, Helvetica !important;
 	line-height: 43px;
+}
+
+
+
+
+/* Grid 관련 */
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    border: 1px solid #ffffff !important;
+    background: #dfeffc !important;
+    font-weight: bold !important;
+    color: #333 !important;
+    height: 33px !important;
+    font-size: 15px !important;
+}
+.ui-jqgrid .ui-jqgrid-htable th div {
+    overflow: hidden !important;
+    position: relative !important;
+    height: 20px !important;
+}
+.ui-jqgrid tr.jqgrow td {
+    font-weight: normal !important;
+    overflow: hidden !important;
+    white-space: pre !important;
+    height: 22px !important;
+    padding: 0 2px 0 2px !important;
+    border-bottom-width: 1px !important;
+    border-bottom-color: inherit !important;
+    border-bottom-style: solid !important;
+    text-overflow: ellipsis !important;
+    font-size: 12px !important;
 }

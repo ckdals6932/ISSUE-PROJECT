@@ -14,7 +14,7 @@
 		<div id="layoutObj">
 			<div id="toolbar">	
 			</div>
-			<div style="display: flex; justify-content: space-around;">
+			<div style="display: flex; justify-content: space-around; height: 500px;">
 			<div>
 				<table id="gridNoticeObj"></table>
 				<div id="pager"></div>
@@ -22,7 +22,7 @@
             <div style="display: inline-block; width: 41%; height: 80%;">
                <form role="form" id="dataForm" method="POST">
                   <input type="hidden" id="board_seq" name="board_seq" class="form-control">
-                  <table style="width: 800px; height:800px;">
+                  <table>
 					<tr>
 						<textarea name="context_txt" id="context_txt"></textarea>
 					</tr>	
@@ -64,7 +64,7 @@
 					<tr class="h_33">
 						<td class="w_20p table_t">상태</td>
 						<td class="w_30p center">
-							<input type="text" id="status_cd" name="status_cd" class="form-control" disabled>
+							<input type="text" id="status_nm" name="status_nm" class="form-control" disabled>
 						</td>
 					</tr>
 					<tr class="h_33">
@@ -149,7 +149,7 @@
 	              noticeData = data.noticeInfo;
 	              console.log(noticeData);
 	              
-	              for(let i = 0; i<4; i++){
+	              for(let i = 0; i < noticeData.length; i++){
 	            	  ckeditor_data.push(noticeData[i].content_html)
 	            	  console.log(noticeData[i]);
 	              }
@@ -161,30 +161,26 @@
 			let params = "&login_user_seq=${login_user_seq}";
 			
 			$.ajax({
-		           type: 'POST'
-		           ,async: false
-		           ,url: '/cmmn/main/userSearch.json'
-		           ,data : params
-		           ,dataType: 'json'
-		           ,error:function (data, textStatus) {
-		            alert("시스템 에러입니다."); 
-		           }
-		           ,success: function(data, textStatus) {
-		              console.log(data);
-		              userData = data.userInfo;
-			    		 
-		              $("#user_nm").val(userData[0].user_nm); 
-		    		  $("#user_id").val(userData[0].user_id);
-			          $("#birth_dt").val(userData[0].birth_dt);
-		              $("#phone").val(userData[0].phone);
-		              
-		              if(userData[0].status_cd == "in"){
-		            	  $("#status_cd").val("투입"); 
-		              } else {
-		            	  $("#status_cd").val("미투입");
-		              }
-		              $("#auth_nm").val(userData[0].auth_nm);		                          
-		           }
+		    	type: 'POST'
+           		,async: false
+	           	,url: '/cmmn/main/userSearch.json'
+	           	,data : params
+	           	,dataType: 'json'
+	           	,error:function (data, textStatus) {
+            		alert("시스템 에러입니다."); 
+           		}
+           		,success: function(data, textStatus) {
+              		console.log(data);
+	    			if (data.userInfo.length > 0) {
+	              		userData = data.userInfo[0];
+	              		$("#user_nm").val(userData.user_nm); 
+	    		  		$("#user_id").val(userData.user_id);
+		         		$("#birth_dt").val(userData.birth_dt);
+	              		$("#phone").val(userData.phone);
+	            	  	$("#status_nm").val(userData.status_nm);
+	              		$("#auth_nm").val(userData.auth_nm);		
+	    			}                          
+           		}
 			});
 		}
 	</script>

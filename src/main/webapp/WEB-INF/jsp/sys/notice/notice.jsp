@@ -7,7 +7,7 @@
 		input {-webkit-appearance: auto;}
 		
 		#dataForm > table > tbody > tr:nth-child(3) > td > div > div.ck.ck-editor__main > div {
-		height: 400px !important;
+		height: 354px !important;
 		}
    	</style>
 </head>
@@ -26,44 +26,44 @@
 		  		</button>
 		</div>
 		<div style="display: flex; justify-content: space-around;">
-			<div>
+			<div style="margin-right: 20px;">
 				<table id="gridNoticeObj"></table>
 				<div id="pager"></div>
 			</div>
-            <div style="display: inline-block; width: 41%; height: 80%;">
+            <div>
                <form role="form" id="dataForm" method="POST">
                   <input type="hidden" id="board_seq" name="board_seq" class="form-control">
-                  <table style="width: 800px;">
-							<tr class="h_33">
-								<td class="w_50p table_t center">제목</td>
-								<td class="w_15p table_t center">작성자</td>
-								<td class="w_20p table_t center">날짜</td>
-								<td class="w_5p table_t center">정렬</td>
-								<td class="w_10p table_t center">사용여부</td> 
-							</tr>
-							<tr class="h_33">
-								<td class="w_45p center">
-									<input type="text" id="notice_title" name="notice_title" class="form-control" autocomplete="off">
-								</td>
-								<td class="w_10p center">
-									<input type="text" id="reg_user_nm" name="reg_user_nm" class="form-control" autocomplete="off" disabled>
-								</td>
-								<td class="w_20p center">
-									<input type="text" id="reg_dt" name="reg_dt" class="form-control" autocomplete="off" disabled>
-								</td>
-								<td class="w_10p center">
-									<input type="text" id="sort" name="sort" class="form-control" autocomplete="off">
-								</td>
-								<td class="w_15p center">
-									<input type="checkbox" id="view_yn" name="view_yn" value='Y' checked>
-									<label>USE</label>
-								</td>
-							</tr>
-							<tr>
-								<td colspan='5' align = "center">
-								<textarea name="context_txt" id="context_txt"></textarea>
-		    					</td>
-							</tr>	
+                  <table>
+						<tr class="h_33">
+							<td class="w_50p table_t center">제목</td>
+							<td class="w_15p table_t center">작성자</td>
+							<td class="w_20p table_t center">날짜</td>
+							<td class="w_5p table_t center">정렬</td>
+							<td class="w_10p table_t center">사용여부</td> 
+						</tr>
+						<tr class="h_33">
+							<td class="w_45p center">
+								<input type="text" id="notice_title" name="notice_title" class="form-control" autocomplete="off">
+							</td>
+							<td class="w_10p center">
+								<input type="text" id="reg_user_nm" name="reg_user_nm" class="form-control" autocomplete="off" disabled>
+							</td>
+							<td class="w_20p center">
+								<input type="text" id="reg_dt" name="reg_dt" class="form-control" autocomplete="off" disabled>
+							</td>
+							<td class="w_10p center">
+								<input type="text" id="sort" name="sort" class="form-control" autocomplete="off">
+							</td>
+							<td class="w_15p center">
+								<input type="checkbox" id="view_yn" name="view_yn" value='Y' checked>
+								<label>USE</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan='5' align = "center">
+							<textarea name="context_txt" id="context_txt"></textarea>
+	    					</td>
+						</tr>
 					</table>	
                </form>
             </div>
@@ -208,10 +208,10 @@
          colModel:[
             {name:'board_seq', index:0, width:0, align: "center", hidden: true},
             {name:'title', index:1, width:200, align: "center"},
-            {name:'content_txt', index:2, width:0, align: "center"},
-            {name:'reg_user_nm', index:3, width:70 , align: "center"}, 
+            {name:'content_txt', index:2, width: 250, align: "center"},
+            {name:'reg_user_nm', index:3, width:100 , align: "center"}, 
             {name:'reg_dt', index:4, width:100, align: "center"},
-            {name:'sort', index:5, width:50, align: "center"},
+            {name:'sort', index:5, width:80, align: "center"},
             {name:'content_html', index:6, width:0, align: "center", hidden: true},
             {name:'view_yn', index:7, width:0, align: "center", hidden: true},
          ],
@@ -224,8 +224,7 @@
          rowList: [10, 20, 50],
          sortname: 'id',
          sortorder: 'asc',
-         height: 500,
-         width: 900, 
+         height: 400,
          
          cellEdit:false, //그리드 수정 가능 기능  
          cellsubmit : 'clientArray',

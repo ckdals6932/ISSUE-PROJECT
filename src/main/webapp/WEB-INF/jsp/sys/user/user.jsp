@@ -20,11 +20,12 @@
 					<table id="gridObj"></table>
 					<div id="pager"></div>
 				</div>
-				<div style="display: inline-block; width: 41%; height: 80%;">
+				
+				<div>
 					<form role="form" id="dataForm" method="POST">
 						<input type="hidden" id="user_seq" name="user_seq" class="form-control">
 						
-						<table width="100%" board="0" cellpadding="0" cellspacing="0">
+						<table>
 							<tr class="h_33">
 								<td class="w_20p table_t">이름</td>
 								<td class="w_30p center">
@@ -158,7 +159,7 @@
 			rowList: [10, 20, 50],
 			sortname: 'id',
 			sortorder: 'asc',
-			height: 500,
+			height: 400,
 			
 			cellEdit:false, //그리드 수정 가능 기능
 			

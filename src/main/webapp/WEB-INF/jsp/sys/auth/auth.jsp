@@ -28,7 +28,7 @@
 					<form role="form" id="dataForm" method="POST">
 						<input type="hidden" id="auth_seq" name="auth_seq" class="form-control">
 						
-						<table style="width: 500px;">
+						<table>
 							<tr class="h_33">
 								<td class="w_30p table_t">권한 코드</td>
 								<td class="w_50p center">

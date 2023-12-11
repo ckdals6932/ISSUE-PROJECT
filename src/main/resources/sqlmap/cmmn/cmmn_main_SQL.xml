@@ -10,12 +10,14 @@
    
    <select id="select_SYS_USER" parameterType="hashmap" resultType="hashmap">
       SELECT 
-      USER_ID, 
-      USER_NM, 
-      SUBSTRING(PHONE,0,4) + '-' + SUBSTRING(PHONE,4,4) + '-' + SUBSTRING(PHONE,8,4) AS PHONE, 
-      CONVERT(DATE, BIRTH_DT, 105) AS BIRTH_DT, 
-      STATUS_CD, 
-      (SELECT AUTH_NM FROM SYS_AUTH WHERE AUTH_SEQ = SYS_USER.AUTH_SEQ) AUTH_NM 
+	      USER_ID
+	      ,USER_NM
+	      ,SUBSTRING(PHONE,0,4) + '-' + SUBSTRING(PHONE,4,4) + '-' + SUBSTRING(PHONE,8,4) AS PHONE
+	      ,CONVERT(DATE, BIRTH_DT, 105) 											AS BIRTH_DT
+	      ,STATUS_CD
+	      ,CASE STATUS_CD WHEN 'DF' THEN '요청' WHEN 'IN' THEN '투입' END				AS STATUS_NM
+	      
+	      ,(SELECT AUTH_NM FROM SYS_AUTH WHERE AUTH_SEQ = SYS_USER.AUTH_SEQ) 		AS AUTH_NM 
       FROM SYS_USER
       WHERE USER_SEQ = #{login_user_seq}
    </select>

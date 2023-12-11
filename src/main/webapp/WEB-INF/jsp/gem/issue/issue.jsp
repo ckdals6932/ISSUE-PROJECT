@@ -80,13 +80,13 @@
 			colNames:['Issue Code', '메뉴', '제목', '상태', '요청자', ' 요청 내용', '처리자', '처리 내용', 'seq'],
 			colModel:[
 				{name:'item_cd', index:0, width:100, align: "center"},
-				{name:'item_menu_nm', index:1, width:200, align: "center"},
-				{name:'item_title', index:2, width:200 , align: "center"},
-				{name:'item_status_nm', index:2, width:200 , align: "center"},
-				{name:'reg_user_nm', index:2, width:200 , align: "center"},
-				{name:'item_content', index:3, width:200, align: "center"},
-				{name:'owner_user_nm', index:2, width:200 , align: "center"},
-				{name:'req_content', index:2, width:200 , align: "center"},
+				{name:'item_menu_nm', index:1, width:150, align: "center"},
+				{name:'item_title', index:2, width:300 , align: "center"},
+				{name:'item_status_nm', index:2, width:150 , align: "center"},
+				{name:'reg_user_nm', index:2, width:100 , align: "center"},
+				{name:'item_content', index:3, width:300, align: "center"},
+				{name:'owner_user_nm', index:2, width:100 , align: "center"},
+				{name:'req_content', index:2, width:300 , align: "center"},
 				
 				{name:'item_seq', index:4, width:0, align: "center", hidden: true}
 			],
@@ -95,7 +95,6 @@
 			pager:'#pager',
 			rowNum: 10,
 			colNum: 5,
-			rowList: [10, 20, 50],
 			sortname: 'issue_cd',
 			sortorder: 'asc',
 			height: 400,

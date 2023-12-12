@@ -44,4 +44,11 @@ public class MainController {
       return "jsonTemplate";
 	}
 	
+	@RequestMapping(value = "/cmmn/main/cntSearch.json", method = {RequestMethod.POST, RequestMethod.GET})
+	public String 개수검색(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+		List<HashMap<String, Object>> result = mainService.cntSearch(reqMap);
+      model.addAttribute("cntInfo", result);
+      return "jsonTemplate";
+	}
+	
 }

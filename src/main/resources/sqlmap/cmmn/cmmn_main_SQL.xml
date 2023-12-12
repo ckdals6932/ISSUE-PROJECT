@@ -22,4 +22,30 @@
       FROM SYS_USER
       WHERE USER_SEQ = #{login_user_seq}
    </select>
+   
+   <select id="select_GEM_ITEM" parameterType="hashmap" resultType="hashmap">
+      SELECT 'IN' ITEM_TYPE
+			,ISNULL((
+					SELECT
+						COUNT(1) CNT
+					FROM GEM_ITEM ITEM
+						LEFT JOIN GEM_ITEM_REQUEST REQ
+							ON ITEM.ITEM_SEQ = REQ.ITEM_SEQ
+					WHERE (REVIEW_USER_SEQ = '1' OR OWNER_USER_SEQ = '1')				
+						AND ITEM_STATUS_CD IN ('RC', 'RV', 'DI')
+					GROUP BY ITEM_STATUS_CD ), 0) CNT
+		
+		UNION ALL 
+		
+		SELECT 'CP' ITEM_TYPE
+			,ISNULL((
+					SELECT
+						COUNT(1) CNT
+					FROM GEM_ITEM ITEM
+						LEFT JOIN GEM_ITEM_REQUEST REQ
+							ON ITEM.ITEM_SEQ = REQ.ITEM_SEQ
+					WHERE (REVIEW_USER_SEQ = '1' OR OWNER_USER_SEQ = '1')
+						AND ITEM_STATUS_CD IN ('CP')
+					GROUP BY ITEM_STATUS_CD ), 0) CNT
+   </select>
 </mapper>

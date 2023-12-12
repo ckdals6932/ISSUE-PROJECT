@@ -4,9 +4,17 @@
 <head>
 	<jsp:include page="/WEB-INF/jsp/cmmn/main/topheader.jsp"/>
 	<style>
-	#dataForm > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div {
-		height: 400px !important;
-	}
+		#dataForm > div.ck.ck-reset.ck-editor.ck-rounded-corners > div.ck.ck-editor__main > div {height: 400px !important;}
+		
+		.cntObj {
+		    width: 495px;
+		    height: 28%;
+		    vertical-align: middle;
+		    text-align: center;
+		    border: 1px solid #b2b2b2;
+		    margin-bottom: 10px;
+		    border-radius: 5%;
+	    }
 	</style>
 </head>
 <body>
@@ -35,47 +43,63 @@
 				</table>			
                </form>
             </div>
-            <div>
-            	<table style="width: 500px;">
-					<tr class="h_33">
-						<td class="w_30p table_t">사용자 명</td>
-						<td class="w_50p center">
-							<input type="text" id="user_nm" name="user_nm" class="form-control" disabled>
-						</td>
-					</tr>
-					<tr class="h_33">
-						<td class="w_20p table_t">사용자 ID</td>
-						<td class="w_30p center">
-							<input type="text" id="user_id" name="user_id" class="form-control" disabled>
-						</td>
-					</tr>
-					<tr class="h_33">
-						<td class="w_20p table_t">생년월일</td>
-						<td class="w_30p center">
-							<input type="text" id="birth_dt" name="birth_dt" class="form-control" disabled>
-						</td>
-					</tr>
-					<tr class="h_33">
-						<td class="w_20p table_t">핸드폰 번호</td>
-						<td class="w_30p center">
-							<input type="text" id="phone" name="phone" class="form-control" disabled>
-						</td>
-					</tr>
-					<tr class="h_33">
-						<td class="w_20p table_t">상태</td>
-						<td class="w_30p center">
-							<input type="text" id="status_nm" name="status_nm" class="form-control" disabled>
-						</td>
-					</tr>
-					<tr class="h_33">
-						<td class="w_20p table_t">권한명</td>
-						<td class="w_30p center">
-							<input type="text" id="auth_nm" name="auth_nm" class="form-control" disabled>
-						</td>
-					</tr>
-				</table>
-			</div>
-         </div>
+            	<div>
+	            	<div class="cntObj">
+	            		<div style="display: flex; margin-top: 10px; ">
+	            			<div style="width: 50%;">
+								<i class="fa-solid fa-circle-check fa-4x" style="cursor : pointer;" onclick="goMenu('cp')"></i>
+	            			</div>
+	            			<div style="width: 50%;">
+								<i class="fa-solid fa-circle-exclamation fa-4x" style="cursor : pointer;" onclick="goMenu('in')"></i>
+	            			</div>
+	            		</div>
+	            		<div style="display: flex; margin-top: 10px;">
+							<span id="cpCnt" style="width: 50%">0 건</span>
+							<span id="inCnt" style="width: 50%">0 건</span>
+	            		</div>
+					</div>
+	            	<div>
+		            	<table style="width: 500px; height: 50%">
+							<tr class="h_33">
+								<td class="w_30p table_t">사용자 명</td>
+								<td class="w_50p center">
+									<input type="text" id="user_nm" name="user_nm" class="form-control" disabled>
+								</td>
+							</tr>
+							<tr class="h_33">
+								<td class="w_20p table_t">사용자 ID</td>
+								<td class="w_30p center">
+									<input type="text" id="user_id" name="user_id" class="form-control" disabled>
+								</td>
+							</tr>
+							<tr class="h_33">
+								<td class="w_20p table_t">생년월일</td>
+								<td class="w_30p center">
+									<input type="text" id="birth_dt" name="birth_dt" class="form-control" disabled>
+								</td>
+							</tr>
+							<tr class="h_33">
+								<td class="w_20p table_t">핸드폰 번호</td>
+								<td class="w_30p center">
+									<input type="text" id="phone" name="phone" class="form-control" disabled>
+								</td>
+							</tr>
+							<tr class="h_33">
+								<td class="w_20p table_t">상태</td>
+								<td class="w_30p center">
+									<input type="text" id="status_nm" name="status_nm" class="form-control" disabled>
+								</td>
+							</tr>
+							<tr class="h_33">
+								<td class="w_20p table_t">권한명</td>
+								<td class="w_30p center">
+									<input type="text" id="auth_nm" name="auth_nm" class="form-control" disabled>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+         	</div>
 		</div>
 	</div>
 	
@@ -108,6 +132,7 @@
 			
 			settingNotice()
 			settingUser();
+			settingCnt();
 			
 			editData.setData(ckeditor_data[0]);
 			
@@ -182,6 +207,36 @@
 	    			}                          
            		}
 			});
+		}
+		
+		function settingCnt() {
+			$.ajax({
+		    	type: 'POST'
+           		,async: false
+	           	,url: '/cmmn/main/cntSearch.json?login_user_seq=${login_user_seq}'
+	           	,dataType: 'json'
+	           	,error:function (data, textStatus) {
+            		alert("시스템 에러입니다."); 
+           		}
+           		,success: function(data, textStatus) {
+              		console.log(data);
+	    			if (data.cntInfo.length > 0) {
+	    				for (var i = 0; i < data.cntInfo.length; i++) {
+		              		cntData = data.cntInfo[i];
+		              		if (cntData.item_type == 'IN') {
+		              			$("#inCnt").text(cntData.cnt + ' 건');
+		              		}
+		              		if (cntData.item_type == 'CP') {
+		              			$("#cpCnt").text(cntData.cnt + ' 건');
+		              		}
+	    				}		
+	    			}                          
+           		}
+			});
+		}
+		
+		function goMenu(type) {
+			window.location.href = "/gem/issue/issue.view";
 		}
 	</script>
 </body>

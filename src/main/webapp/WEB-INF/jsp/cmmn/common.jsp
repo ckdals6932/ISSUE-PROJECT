@@ -17,3 +17,5 @@
 <!-- The atual jqGrid code -->
 	<script type="text/javascript" src="//cdn.jsdelivr.net/jqgrid/4.6.0/jquery.jqGrid.src.js" /></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/jqgrid/4.6.0/jquery.jqGrid.src.js" /></script>
+
+<script src="https://kit.fontawesome.com/b0d1ecd35c.js" crossorigin="anonymous"></script>

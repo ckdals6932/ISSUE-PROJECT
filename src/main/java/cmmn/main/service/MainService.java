@@ -31,6 +31,12 @@ public class MainService {
 	      
 	      return userInfo; 
 	}
+	
+	public List<HashMap<String, Object>> cntSearch(HashMap<String, Object> reqMap) throws Exception {
+		List<HashMap<String, Object>> cntInfo = comDao.list("cmmn_main.select_GEM_ITEM", reqMap);
+	      
+	      return cntInfo; 
+	}
 
 }
  

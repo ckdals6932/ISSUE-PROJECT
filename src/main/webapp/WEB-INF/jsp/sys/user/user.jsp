@@ -88,6 +88,7 @@
 		
 		userSearch();
 		settingGrid();
+		getComboList('owner_auth_nm');
 		
 		$("#saveBtn").click(function(){
 			saveData();

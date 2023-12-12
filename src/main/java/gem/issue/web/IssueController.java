@@ -58,6 +58,13 @@ public class IssueController {
 		return "jsonTemplate";
 	}
 	
+	@RequestMapping(value = "/gem/issue/delData.json", method = {RequestMethod.POST, RequestMethod.GET})
+	public String 조치사항삭제(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
+		HashMap<String, Object> result = issueService.delData(reqMap);
+		model.addAttribute("data", result);
+		return "jsonTemplate";
+	}
+	
 	@RequestMapping(value = "/gem/issue/getUserList.json", method = {RequestMethod.POST, RequestMethod.GET})
 	public String 사용자찾기(@RequestParam HashMap<String, Object> reqMap, ModelMap model) throws Exception {
 		List<HashMap<String, Object>> result = issueService.getUserList(reqMap);

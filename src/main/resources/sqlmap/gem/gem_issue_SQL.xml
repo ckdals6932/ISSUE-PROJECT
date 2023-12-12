@@ -131,7 +131,10 @@
 		WHERE ITEM_SEQ = #{item_seq}
 	</update>
 	
-	<delete id="delete_GEM_ISSUE" parameterType="hashmap">
+	<delete id="delete_GEM_ITEM" parameterType="hashmap">
+		DELETE GEM_ITEM_REQUEST
+		WHERE ITEM_SEQ = #{item_seq}
+		
 		DELETE GEM_ITEM
 		WHERE ITEM_SEQ = #{item_seq}
 	</delete>

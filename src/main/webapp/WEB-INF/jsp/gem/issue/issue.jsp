@@ -50,12 +50,17 @@
 		issueSearch();
 		settingGrid();
 		
-		$("#saveBtn").click(function(){
-			saveData();
-	    });
-		
 		$("#delBtn").click(function() {
-			saveData('D');
+			let rowId = $("#gridObj").getGridParam("selrow");
+			let rowData = $("#gridObj").jqGrid("getRowData", rowId);
+			
+			if (rowData.item_status_cd != 'DF') {
+				alert("진행중인 조치건은 삭제할 수 없습니다.");
+			} else {
+				if (confirm("삭제하겠습니까?")) {
+					delData(rowData);	
+				}
+			}
 		});
 		
 		$("#addBtn").click(function() {
@@ -85,7 +90,7 @@
 		$("#gridObj").jqGrid({
 			datatype: "local",
 			data: issueData,
-			colNames:['Issue Code', '메뉴', '제목', '상태', '요청자', ' 요청 내용', '처리자', '처리 내용', 'seq'],
+			colNames:['Issue Code', '메뉴', '제목', '상태', '요청자', ' 요청 내용', '처리자', '처리 내용', 'seq', 'item_status_cd'],
 			colModel:[
 				{name:'item_cd', index:0, width:100, align: "center"},
 				{name:'item_menu_nm', index:1, width:150, align: "center"},
@@ -96,7 +101,8 @@
 				{name:'owner_user_nm', index:2, width:100 , align: "center"},
 				{name:'req_content', index:2, width:300 , align: "center"},
 				
-				{name:'item_seq', index:4, width:0, align: "center", hidden: true}
+				{name:'item_seq', index:4, width:0, align: "center", hidden: true}, 
+				{name:'item_status_cd', index:4, width:0, align: "center", hidden: true}
 			],
 			rownumbers : true,
 			multiselect:false,
@@ -140,24 +146,18 @@
 		});
 	}
 	
-	function saveData(type) {
+	function delData(rowData) {
 		$.ajax({
             type: 'POST'
             ,async: true
-            ,url: '/sys/auth/authSave.json'
+            ,url: '/gem/issue/delData.json?item_seq='+rowData.item_seq
             ,dataType: 'json'
-            ,data: params
 	        ,error:function (data, textStatus) {
 				alert("시스템 에러입니다.");
 	        }
             ,success: function(data, textStatus) {
-            	let res = data.authInfo;
-            	if (res.auth_cd_error == 'Y') {
-            		alert("코드가 중복되었습니다.");
-            	} else if (res.save == "Y") {
-            		alert("저장되었습니다.");
-            		issueSearch();
-            	}
+				alert("삭제되었습니다.");
+        		issueSearch();
             }
         });
 	}

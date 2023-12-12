@@ -394,6 +394,7 @@
 	        }
             ,success: function(data, textStatus) {
             	data = data.data;
+            	$("#"+obj).empty();
             	$(data).each(function(k, v) {
             		$("#"+obj).append('<option value="' + v.value + '" '+((v.value == value) ? 'selected' : '')+'>' + v.text + '</option>');
             	});

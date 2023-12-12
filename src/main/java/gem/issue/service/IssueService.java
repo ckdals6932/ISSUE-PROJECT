@@ -67,6 +67,12 @@ public class IssueService {
 		return reqMap;
 	}
 	
+	public HashMap<String, Object> delData(HashMap<String, Object> reqMap) throws Exception {
+		comDao.delete("gem_issue.delete_GEM_ITEM", reqMap);
+		
+		return reqMap;
+	}
+	
 
 	// 시퀀스 부여
 	public String getItemSeq(HashMap<String, Object> reqMap) throws Exception {

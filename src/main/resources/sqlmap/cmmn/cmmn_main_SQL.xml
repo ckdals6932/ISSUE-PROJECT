@@ -31,7 +31,7 @@
 					FROM GEM_ITEM ITEM
 						LEFT JOIN GEM_ITEM_REQUEST REQ
 							ON ITEM.ITEM_SEQ = REQ.ITEM_SEQ
-					WHERE (REVIEW_USER_SEQ = '1' OR OWNER_USER_SEQ = '1')				
+					WHERE (REVIEW_USER_SEQ = #{login_user_seq} OR OWNER_USER_SEQ = #{login_user_seq})				
 						AND ITEM_STATUS_CD IN ('RC', 'RV', 'DI')
 					GROUP BY ITEM_STATUS_CD ), 0) CNT
 		
@@ -44,7 +44,7 @@
 					FROM GEM_ITEM ITEM
 						LEFT JOIN GEM_ITEM_REQUEST REQ
 							ON ITEM.ITEM_SEQ = REQ.ITEM_SEQ
-					WHERE (REVIEW_USER_SEQ = '1' OR OWNER_USER_SEQ = '1')
+					WHERE (REVIEW_USER_SEQ = #{login_user_seq} OR OWNER_USER_SEQ = #{login_user_seq})
 						AND ITEM_STATUS_CD IN ('CP')
 					GROUP BY ITEM_STATUS_CD ), 0) CNT
    </select>

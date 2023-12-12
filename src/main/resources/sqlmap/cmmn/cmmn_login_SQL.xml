@@ -3,7 +3,9 @@
 
 <mapper namespace="cmmn_login">
 	<select id="select_SYS_USER_userVo" parameterType="hashmap" resultType="cmmn.common.vo.LoginUserVO">
-		SELECT * FROM SYS_USER
+		SELECT * 
+			,(SELECT AUTH_CD FROM SYS_AUTH WHERE AUTH_SEQ = S_USER.AUTH_SEQ) AUTH_CD
+		FROM SYS_USER S_USER
 		WHERE 1=1
 		<if test='user_seq != "" and user_seq != null'>
 		AND USER_SEQ = #{user_seq}

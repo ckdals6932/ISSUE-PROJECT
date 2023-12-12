@@ -65,7 +65,7 @@ public class LoginController {
 					session.setAttribute("user_id", loginUser.getUserId());
 					session.setAttribute("login_user_seq", loginUser.getUserSeq());
 					session.setAttribute("login_user_nm", loginUser.getUserNm());
-					session.setAttribute("login_user_auth", loginUser.getUserAuth());
+					session.setAttribute("login_user_auth", loginUser.getAuthCd());
 				}
 				
 				forwardURL = "redirect:/cmmn/main/main.view";

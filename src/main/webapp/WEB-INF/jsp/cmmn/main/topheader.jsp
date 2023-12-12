@@ -58,12 +58,25 @@
 	
 	<script>
 		let selectMenu = 'dash';
-		
-		$("#backBtn").click(function() {
-			if (confirm("로그아웃 하겠습니까?")) {
-	    	    window.location.href = "/cmmn/login/login.view";
+
+		$(document).ready(function() {			
+			if("${login_user_auth}" == "VIEW"){
+				$("#code").attr('hidden', true);
+				$("#user").attr('hidden', true);
+				$("#auth").attr('hidden', true);
+			}		
+			if("${login_user_auth}" == "USER"){
+				$("#code").attr('hidden', true);
+				$("#user").attr('hidden', true);
+				$("#auth").attr('hidden', true);
 			}
-		});
+			
+			$("#backBtn").click(function() {
+				if (confirm("로그아웃 하겠습니까?")) {
+		    	    window.location.href = "/cmmn/login/login.view";
+				}
+			});
+		});  
 		
 		function changeView(type) {
 			if (selectMenu != type) {

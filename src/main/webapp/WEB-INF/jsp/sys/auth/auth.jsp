@@ -32,11 +32,7 @@
 							<tr class="h_33">
 								<td class="w_30p table_t">권한 코드</td>
 								<td class="w_50p center">
-									<select id="auth_cd" name="auth_cd" class="form-control">
-										<option value="ADMIN">Admin</option>
-										<option value="USER" selected>User</option>
-										<option value="VIEW" selected>View</option>
-									</select>
+									<input type="text"  id="auth_cd" name="auth_cd" class="form-control" autocomplete="off">
 								</td>
 							</tr>
 							<tr class="h_33">
@@ -142,7 +138,7 @@
 		    	if(status){
 		    		let rowData = $(this).jqGrid('getRowData', rowid);
 		            $("#auth_seq").val(rowData.auth_seq); 
-		            $('#auth_cd').val(rowData.auth_cd).prop("selected",true);
+		            $('#auth_cd').val(rowData.auth_cd);
 			        $("#auth_nm").val(rowData.auth_nm);
 		            $("#reg_user_nm").val(rowData.reg_user_nm);
 		            $("#reg_dt").val(rowData.reg_dt);
@@ -199,6 +195,7 @@
 
 	function clear(){
 		$("#auth_seq").val("");
+		$("#auth_cd").val("");
         $("#auth_nm").val("");
         $("#reg_user_nm").val("");
         $("#reg_dt").val("");

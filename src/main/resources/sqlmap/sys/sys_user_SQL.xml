@@ -7,6 +7,7 @@
 			CONVERT(DATE, BIRTH_DT, 105) AS BIRTH_DT
 			,SUBSTRING(PHONE,0,4) + '-' + SUBSTRING(PHONE,4,4) + '-' + SUBSTRING(PHONE,8,4) AS PHONE
 			,USER_SEQ, USER_ID, USER_NM, PASSWORD, STATUS_CD, AUTH_SEQ
+			,(SELECT AUTH_NM FROM SYS_AUTH WHERE AUTH_SEQ = SYS_USER.AUTH_SEQ) AUTH_NM
 		FROM SYS_USER
 	</select>
 	
@@ -48,5 +49,10 @@
 			,MODI_DT = GETDATE()
 		WHERE 1=1
 			AND USER_SEQ = #{user_seq}
+	</update>
+	
+	<update id="delete_SYS_USER" parameterType="hashmap">
+		DELETE SYS_USER
+		WHERE USER_SEQ = #{user_seq}
 	</update>
 </mapper>

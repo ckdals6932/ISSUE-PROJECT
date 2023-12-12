@@ -49,6 +49,9 @@ public class UserService {
 		if (reqMap.get("user_seq").equals("")) {
 			saveType = "I";
 		}
+		if (reqMap.get("delYn").equals("Y")) {
+			saveType = "D";
+		}
 		
 		// Validation
 		sqlMap.put("user_id", reqMap.get("user_id"));
@@ -71,6 +74,9 @@ public class UserService {
 			returnMap.put("save", "Y");
 		} else if (saveType == "U") {
 			comDao.insert("sys_user.update_SYS_USER", reqMap);
+			returnMap.put("save", "Y");
+		} else if (saveType == "D") {
+			comDao.insert("sys_user.delete_SYS_USER", reqMap);
 			returnMap.put("save", "Y");
 		}
 		

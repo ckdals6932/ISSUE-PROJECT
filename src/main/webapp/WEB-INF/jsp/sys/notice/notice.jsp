@@ -56,7 +56,6 @@
 							</td>
 							<td class="w_15p center">
 								<input type="checkbox" id="view_yn" name="view_yn" value='Y' checked>
-								<label>USE</label>
 							</td>
 						</tr>
 						<tr>
@@ -101,7 +100,7 @@
 			selectMenu = 'notice';
 		}
 		
-		if("$(login_user_auth)" == "VIEW"){
+		if("${login_user_auth}" == "VIEW"){
 			$("#saveBtn").attr('hidden', true);
 			$("#delBtn").attr('hidden', true);
 			$("#addBtn").attr('hidden', true);

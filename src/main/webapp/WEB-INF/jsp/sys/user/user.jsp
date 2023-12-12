@@ -11,6 +11,9 @@
 				<button id="saveBtn" name="saveBtn">
 		  			<img src="/resources/image/free-icon-save-file-376218.png"/>
 		  		</button>
+				<button id="delBtn" name="delBtn">
+		  			<img src="/resources/image/free-icon-delete-button-5680126.png"/>
+		  		</button>
 				<button id="addBtn" name="addBtn">
 		  			<img src="/resources/image/free-icon-add-user-456249.png"/>
 		  		</button>
@@ -64,9 +67,6 @@
 								<td class="w_30p center">
 									<select id="owner_auth_nm" name="owner_auth_nm" class="form-control"></select>
 								</td>
-								<td style="display: none;">
-									<input type="button" value="Clear" id="clear" name="clear">
-								</td>
 							</tr>
 						</table>
 					</form>
@@ -94,13 +94,15 @@
 			saveData();
 	    });
 		
-		$("#clear").click(function(){
-			clear();
+		$("#delBtn").click(function(){
+			if (confirm("삭제하겠습니까?")) {
+				saveData('D');
+			}
 	    });
-		
+
 		$("#addBtn").click(function() {
 			clear();
-		})
+		});
 	});
 	
 
@@ -140,13 +142,14 @@
 		$("#gridObj").jqGrid({
 			datatype: "local",
 			data: userData,
-			colNames:['seq', '이름', '아이디', '생년원일','핸드폰','상태','password', 'auth'],
+			colNames:['seq', '이름', '아이디', '생년원일','핸드폰', '권한명', '상태','password', 'auth'],
 			colModel:[
 				{name:'user_seq', index:0, width:0, align: "center", hidden: true,},
 				{name:'user_nm', index:1, width:100, align: "center"},
-				{name:'user_id', index:2, width:200 , align: "center"},
-				{name:'birth_dt', index:3, width:200, align: "center", sortable:false},
+				{name:'user_id', index:2, width:160 , align: "center"},
+				{name:'birth_dt', index:3, width:160, align: "center", sortable:false},
 				{name:'phone', index:4, width:150, align: "center"},
+				{name:'auth_nm', index:7, width:80, align: "center"},
 				{name:'status_cd', index:5, width:80, align: "center"}, 
 				{name:'password', index:6, width:80, align: "center", hidden:true},
 				{name:'auth_seq', index:7, width:80, align: "center", hidden:true}
@@ -194,11 +197,17 @@
 		});
 	}
 
-	function saveData() {
+	function saveData(type) {
 		let target = $("#dataForm");
 		let disabled = target.find(":disabled").removeAttr('disabled');
 		let params = target.serialize();
 		disabled.attr('disabled', 'disabled');
+
+		if (type == 'D') {
+			params += '&delYn=Y';
+		} else {
+			params += '&delYn=';
+		}
 		
 		$.ajax({
             type: 'POST'

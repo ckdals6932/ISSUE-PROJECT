@@ -41,7 +41,7 @@
 		
 		console.log("${login_user_auth}");
 		
-		if("$(login_user_auth)" == "VIEW"){
+		if("${login_user_auth}" == "VIEW"){
 			$("#saveBtn").attr('hidden', true);
 			$("#delBtn").attr('hidden', true);
 			$("#addBtn").attr('hidden', true);

@@ -244,10 +244,10 @@
 	             editData.setData(rowData.content_html);
 	             selectNotice = rowData.board_seq;
 	             
-	             if(rowData.view_yn == "N"){
-	            	 $("#view_yn").prop("checked", false);
-	             } else {
+	             if(rowData.view_yn == "Y"){
 	            	 $("#view_yn").prop("checked", true);
+	             } else {
+	            	 $("#view_yn").prop("checked", false);
 	             } 
 	         }
          },

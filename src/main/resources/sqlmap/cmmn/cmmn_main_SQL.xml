@@ -5,6 +5,7 @@
 	<select id="select_SYS_BOARD" parameterType="hashmap" resultType="hashmap">
       SELECT CONTENT_HTML
 	  FROM SYS_BOARD
+	  WHERE VIEW_YN = 'Y'
       ORDER BY SORT ASC, ISNULL(MODI_DT, REG_DT) ASC
    </select>
    

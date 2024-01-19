@@ -29,3 +29,7 @@
 > JaveScript, Spring, MsSQL
 
 ## 📃 ERD
+<img src="https://github.com/ckdals6932/ISSUE-PROJECT/assets/79955006/85fa9691-7739-4af5-997d-7ea3f44df976" width="200" height="400"/>  
+
+## 📃 ERD 2
+![ISSUE_ERD](https://github.com/ckdals6932/ISSUE-PROJECT/assets/79955006/85fa9691-7739-4af5-997d-7ea3f44df976)

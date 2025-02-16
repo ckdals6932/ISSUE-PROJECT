@@ -28,8 +28,9 @@
 > - 강창민 : 공지사항, DashBozad, 사용자 관리 페이지 제작  
 
 ## ✏️ 사용 기술
+> Java
 > JaveScript  
-> Spring  
+> Spring Boot  
 > MsSQL  
 
 ## 📃 ERD

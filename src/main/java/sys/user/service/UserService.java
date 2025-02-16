@@ -42,10 +42,10 @@ public class UserService {
 	
 	public HashMap<String, Object> userSave(HashMap<String, Object> reqMap) throws Exception {
 		HashMap<String, Object> returnMap = new HashMap<String, Object>();
-		HashMap<String, Object> sqlMap = new HashMap<String, Object>();
+		//HashMap<String, Object> sqlMap = new HashMap<String, Object>();
 		String saveType = "U";
 		
-		// InsertÀÎÁö UpdateÀÎÁö È®ÀÎ
+		// Insertì¸ì§€ Updateì¸ì§€ í™•ì¸
 		if (reqMap.get("user_seq").equals("")) {
 			saveType = "I";
 		}
@@ -54,14 +54,14 @@ public class UserService {
 		}
 		
 		// Validation
-		sqlMap.put("user_id", reqMap.get("user_id"));
-		HashMap<String, Object> userInfo = comDao.select("cmmn_login.select_SYS_USER", sqlMap);
+		//sqlMap.put("user_id", reqMap.get("user_id"));
+		HashMap<String, Object> userInfo = comDao.select("cmmn_login.select_SYS_USER", reqMap);
 		if (saveType == "I" && userInfo != null) {
 			returnMap.put("user_id_error", "Y");
 			return returnMap;
 		}
 		
-		// µ¥ÀÌÅÍ º¯È¯
+		// ë°ì´í„° ë³€í™˜
 		if (reqMap.get("phone").equals("") == false) {
 			reqMap.put("phone", reqMap.get("phone").toString().replaceAll("-", ""));			
 		}

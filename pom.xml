@@ -117,7 +117,7 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- Mybatis -->
+		<!-- 	tis -->
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
@@ -156,7 +156,7 @@
         <dependency>
 		    <groupId>com.microsoft.sqlserver</groupId>
 		    <artifactId>mssql-jdbc</artifactId>
-		    <version>8.2.2.jre8</version>
+		    <version>12.4.2.jre11</version>
 		</dependency>
 		
 		<dependency>

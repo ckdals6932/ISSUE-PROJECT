@@ -4,15 +4,15 @@
 <mapper namespace="sys_user">
 	<select id="select_SYS_USER" parameterType="hashmap" resultType="hashmap">
 		SELECT 
-			CONVERT(DATE, BIRTH_DT, 105) AS BIRTH_DT
-			,SUBSTRING(PHONE,0,4) + '-' + SUBSTRING(PHONE,4,4) + '-' + SUBSTRING(PHONE,8,4) AS PHONE
-			,USER_SEQ, USER_ID, USER_NM, PASSWORD, STATUS_CD, AUTH_SEQ
-			,(SELECT AUTH_NM FROM SYS_AUTH WHERE AUTH_SEQ = SYS_USER.AUTH_SEQ) AUTH_NM
-		FROM SYS_USER
-	</select>
-	
-	<select id="select_SYS_AUTH" parameterType="hashmap" resultType="hashmap">
-		SELECT AUTH_SEQ, AUTH_NM + ' (' + auth_cd + ')' as AUTH_NM FROM SYS_AUTH
+    		CASE 
+		        WHEN ISDATE(BIRTH_DT) = 1 THEN CONVERT(DATE, BIRTH_DT, 120)  -- 'YYYY-MM-DD' 형식 변환
+		        WHEN LEN(BIRTH_DT) = 8 AND ISNUMERIC(BIRTH_DT) = 1 THEN CONVERT(DATE, BIRTH_DT, 112) -- 'YYYYMMDD' 변환
+		        ELSE NULL  -- 변환할 수 없는 값은 NULL 처리
+		    END AS BIRTH_DT,
+		    SUBSTRING(PHONE, 1, 3) + '-' + SUBSTRING(PHONE, 4, 4) + '-' + SUBSTRING(PHONE, 8, 4) AS PHONE,
+		    USER_SEQ, USER_ID, USER_NM, PASSWORD, STATUS_CD, AUTH_SEQ,
+		    (SELECT AUTH_NM FROM SYS_AUTH WHERE AUTH_SEQ = SYS_USER.AUTH_SEQ) AS AUTH_NM
+		FROM SYS_USER;
 	</select>
 	
 	<insert id="insert_SYS_USER" parameterType="hashmap">

@@ -8,9 +8,6 @@
 	<div id="app">
 		<div id="layout">
 			<div id="toolbar">
-				<button id="saveBtn" name="saveBtn">
-		  			<img src="/resources/image/free-icon-save-file-376218.png"/>
-		  		</button>
 				<button id="delBtn" name="delBtn">
 		  			<img src="/resources/image/free-icon-delete-button-5680126.png"/>
 		  		</button>
@@ -42,7 +39,6 @@
 		console.log("${login_user_auth}");
 		
 		if("${login_user_auth}" == "VIEW"){
-			$("#saveBtn").attr('hidden', true);
 			$("#delBtn").attr('hidden', true);
 			$("#addBtn").attr('hidden', true);
 		}

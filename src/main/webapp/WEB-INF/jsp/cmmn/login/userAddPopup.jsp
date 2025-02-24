@@ -10,31 +10,33 @@
 		  	<div> 
 		  		<h1 class="font_s_50 title m_t_50">회원가입</h1> 
 		  	</div>
-		  	<div>
-		  		<div class="center">
-		  			<img src="../../../resources/image/free-icon-user-2657939.png"/>
-		  			<input id="user_id" name="user_id" type="text" class="underline h_33 w_30p" placeholder="아이디를 입력해주세요" autocomplete="off">
+		  	<form role="form" id="dataForm" method="POST"> 
+			  	<div>
+			  		<div class="center">
+			  			<img src="../../../resources/image/free-icon-user-2657939.png"/>
+			  			<input id="user_id" name="user_id" type="text" class="underline h_33 w_30p" placeholder="아이디를 입력해주세요" autocomplete="off">
+			  		</div>
+			  		<div class="center">
+			  			<img src="../../../resources/image/free-icon-password-7817000.png" style="margin-left: 30px;"/>
+			  			<input id="user_pw" name="user_pw" type="password" class="underline h_33 w_30p" placeholder="비밀번호를 입력해주세요" autocomplete="off">
+			  			<div class="help-tip">
+							<p>비밀번호 양식할 부분 입니다.<br>비밀번호를 4자리 이상 입력해주세요.</p>
+						</div>
+			  		</div> 
+			  		<div class="center">
+			  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
+			  			<input id="user_nm" name="user_nm" type="text" class="underline h_33 w_30p" placeholder="사용자 이름" autocomplete="off">
+			  		</div>
+			  		<div class="center" style="margin-top: 40px;">
+			  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
+			  			<input id="birth_dt" name="birth_dt" type="text" class="underline h_33 w_30p" maxlength='10' placeholder="생년월일 (ex. 19990101)" autocomplete="off">
+			  		</div>
+			  		<div class="center">
+			  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
+			  			<input id="phone" name="phone" type="text" class="underline h_33 w_30p" maxlength='13' placeholder="핸드폰 번호 (ex. 010-1111-1111)" autocomplete="off">
+			  		</div>
 		  		</div>
-		  		<div class="center">
-		  			<img src="../../../resources/image/free-icon-password-7817000.png" style="margin-left: 30px;"/>
-		  			<input id="user_pw" name="user_pw" type="password" class="underline h_33 w_30p" placeholder="비밀번호를 입력해주세요" autocomplete="off">
-		  			<div class="help-tip">
-						<p>비밀번호 양식할 부분 입니다.<br>아직 설정 하지 않았습니다.</p>
-					</div>
-		  		</div> 
-		  		<div class="center">
-		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
-		  			<input id="user_nm" name="user_nm" type="text" class="underline h_33 w_30p" placeholder="사용자 이름" autocomplete="off">
-		  		</div>
-		  		<div class="center" style="margin-top: 40px;">
-		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
-		  			<input id="birth_dt" name="birth_dt" type="text" class="underline h_33 w_30p" maxlength='10' placeholder="생년월일 (ex. 19990101)" autocomplete="off">
-		  		</div>
-		  		<div class="center">
-		  			<img src="../../../resources/image/free-icon-add-user-456249.png"/>
-		  			<input id="phone" name="phone" type="text" class="underline h_33 w_30p" maxlength='13' placeholder="핸드폰 번호 (ex. 010-1111-1111)" autocomplete="off">
-		  		</div>
-	  		</div>
+	  		</form>
 	  		<div class="center m_t_20">
 		 		<input id="saveBtn" name="saveBtn" class="loginbtn w_30p h_45 m_10 p_10" type="button" value="요청">
 	 		</div>
@@ -46,6 +48,7 @@
 	$(document).ready(function() {
 		$("#saveBtn").click(function(){
 			if (validationUser()) {
+				console.log("오류검증");
 				saveUser();
 			}
 	    });
@@ -55,13 +58,16 @@
 		// 필수 값 체크
 		if ($("#user_id").val() == "") {
 			alert("사용자 아이디를 입력해주세요.");
-			$("#user_id").focus();
+			$("#user_id").focus(); 
 			return false;
 		}
 		if ($("#user_pw").val() == "") {
 			alert("사용자 비밀번호를 입력해주세요.");
 			$("#user_pw").focus();
 			return false;
+		} else if ($("#user_pw").val() != "" && $("#user_pw").val().length <= 3) {
+			alert("비밀번호를 다시 입력해주세요.");
+			$("#user_pw").focus();
 		}
 		if ($("#user_nm").val() == "") {
 			alert("이름을 입력해주세요.");
@@ -70,7 +76,7 @@
 		}
 		if ($("#birth_dt").val() != "" && $("#birth_dt").val().length != 8) {
 			alert("생년월일 양식을 확인해주세요.");
-			$("#brith_dt").focus();
+			$("#birth_dt").focus();
 			return false;
 		}
 		if ($("#phone").val() != "") { 
@@ -91,6 +97,11 @@
 	
 	function saveUser() {
 		let params = $("#dataForm").serialize();
+		console.log(params);
+		console.log("user_id value: " + $("#user_id").val());
+		console.log("user_pw value: " + $("#user_pw").val());
+		console.log("user_nm value: " + $("#user_nm").val());
+		console.log("birth_dt value: " + $("#birth_dt").val());
 		$.ajax({
             type: 'POST'
             ,async: true

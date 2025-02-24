@@ -29,9 +29,15 @@
 
 ## ✏️ 사용 기술
 > Java
-> JaveScript  
+> JaveScript
+> JSP  
 > Spring Boot  
 > MsSQL  
+
+## ISSUE 기능 설명
+> [ISSUE - pdf](https://github.com/ckdals6932/ISSUE-PROJECT/blob/master/ISSUE.pdf)
+> 
+> [ISSUE - ppt](https://github.com/ckdals6932/ISSUE-PROJECT/blob/master/ISSUE.pptx)
 
 ## 📃 ERD
 <img src="https://github.com/ckdals6932/ISSUE-PROJECT/assets/79955006/85fa9691-7739-4af5-997d-7ea3f44df976" width="500" height="600"/>

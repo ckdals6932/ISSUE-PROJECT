@@ -40,7 +40,7 @@ public class AuthService {
 		
 		String saveType = "U";
 		
-		// Insert���� Update���� Ȯ��
+		// Insert���� Update���� Ȯ��
 		if (reqMap.get("auth_seq").equals("")) {
 			saveType = "I";
 		}
@@ -50,11 +50,11 @@ public class AuthService {
 		
 		// Validation
 		sqlMap.put("auth_cd", reqMap.get("auth_cd"));
-		HashMap<String, Object> authInfo = comDao.select("sys_auth.select_SYS_AUTH", sqlMap);
-		if (saveType == "I" && authInfo != null) {
-			returnMap.put("auth_cd_error", "Y");
-			return returnMap;
-		}
+		/*
+		 * HashMap<String, Object> authInfo = comDao.select("sys_auth.select_SYS_AUTH",
+		 * sqlMap); if (saveType == "I" && authInfo != null) {
+		 * returnMap.put("auth_cd_error", "Y"); return returnMap; }
+		 */ // 권한 생성 시도 시 해당 권한이 있을 경우 생성 제한 코드
 		
 		if (saveType == "I") {
 			comDao.insert("sys_auth.insert_SYS_AUTH", reqMap);

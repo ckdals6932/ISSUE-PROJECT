@@ -359,8 +359,6 @@
 				$("#item_title").attr('disabled', false);
 				$("#item_content").attr('disabled', false);
 				$("#owner_user_seq").attr('disabled', false);
-				$("#req_content").attr('disabled', false);
-				$("#review_content").attr('disabled', false);
 			} else if (step == '4') {
 				$("#rejectBtn").attr('hidden', false);
 				$("#sendBtn").attr('hidden', false);
